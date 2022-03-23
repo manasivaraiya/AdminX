@@ -62,8 +62,10 @@ export default function Client({ props }) {
           .doc("qsULpeYoxOqYSearnO23") // Later
           .collection("Logs")
           .add({
-            time: date.toLocaleDateString() + " " + date.toTimeString(),
+            datetime: date.toString(),
+            timestamp: +date,
             command,
+            output: op,
           });
       } else {
         console.log("Failed");
