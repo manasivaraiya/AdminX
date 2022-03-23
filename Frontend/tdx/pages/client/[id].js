@@ -2,7 +2,7 @@ import styles from "../../styles/client/client.module.css";
 import { Tabs } from "@mantine/core";
 import { Apps, Terminal, PlayerPlay, Trash } from "tabler-icons-react";
 import { Input, Code, Button, Table } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
 
@@ -10,33 +10,10 @@ export default function Client({ props }) {
   const [command, setCommand] = useState("");
   const [commandOutput, setCommandOutput] = useState("");
   // const [apps, setApps] = useState([]);
-  const apps = [
-    { name: "Carbon", version: "1.0.0" },
-    { name: "Python", version: "1.0.0" },
-    { name: "Vs Code", version: "1.0.0" },
-    { name: "Python 2", version: "1.0.0" },
-    { name: "Python 3", version: "1.0.0" },
-    { name: "Python 4", version: "1.0.0" },
-  ];
+  const [apps, setApps] = useState([]);
   const handleUninstall = (name) => {
     console.log(name);
   };
-
-  const rows = apps.map((element, index) => (
-    <tr key={element.name}>
-      <td>{index + 1}</td>
-      <td>{element.name}</td>
-      <td>{element.version}</td>
-      <td>
-        <Trash
-          size={20}
-          strokeWidth={2}
-          color={"#ff0000"}
-          onClick={() => handleUninstall(element.name)}
-        />
-      </td>
-    </tr>
-  ));
 
   const name = "Raj Tiwari";
   const description = "Raj's Home PC";
@@ -82,6 +59,47 @@ export default function Client({ props }) {
       setCommandOutput("Error");
     }
   };
+
+  async function onMounted() {
+    const data = {
+      command:
+        "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
+    };
+    try {
+      const res = await axios.post(
+        "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
+        data
+      );
+      if (res && res.status == 200) {
+        const output = JSON.parse(res.data.out);
+        setApps(output);
+      }
+    } catch (e) {
+      console.error("Axios request failed", e);
+    }
+  }
+
+  useEffect(onMounted, []);
+
+  const rows =
+    apps.length > 0
+      ? apps.map((element, index) => (
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{element.Name}</td>
+            <td>{element.Version}</td>
+            <td>
+              <Trash
+                size={20}
+                strokeWidth={2}
+                color={"#ff0000"}
+                onClick={() => handleUninstall(element.name)}
+              />
+            </td>
+          </tr>
+        ))
+      : [];
+
   return (
     <div className={styles.main_wrapper}>
       <ResponsiveAppBar />
