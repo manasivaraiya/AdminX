@@ -46,5 +46,5 @@ Commands for Uninstalling apps:
 Get-Package -Provider Programs -IncludeWindowsInstaller -Name * 
 
 
-Get-Package -Provider Programs -IncludeWindowsInstaller -Name "Discord" |% { & $_.Meta.Attributes["UninstallString"] /S}   
+Get-Package -Provider Programs -IncludeWindowsInstaller -Name "VLC media player" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S} 
 Uninstall-Package -Name "Figma"
