@@ -6,7 +6,8 @@ Installation Steps:
 - `Get-InstalledApps -ComputerName $env:ComputerName
 
 Alternative:
-Command: `Get-WmiObject -Class Win32_Product | select Name, version`
+Command: `Get-WmiObject -Class Win32_Product | 
+select Name, version`
 
 Other better commands:
 
@@ -36,3 +37,14 @@ $obj | Add-Member -MemberType NoteProperty -Name “DisplayVersion” -Value $($
 $list += $obj
 }
 $list | where { $_.DisplayName -like “mozilla*”} | select ComputerName, DisplayName, DisplayVersion | FT
+
+
+Get-Package -Provider Programs -IncludeWindowsInstaller -Name * 
+
+Commands for Uninstalling apps:
+
+Get-Package -Provider Programs -IncludeWindowsInstaller -Name * 
+
+
+Get-Package -Provider Programs -IncludeWindowsInstaller -Name "Discord" |% { & $_.Meta.Attributes["UninstallString"] /S}   
+Uninstall-Package -Name "Figma"
