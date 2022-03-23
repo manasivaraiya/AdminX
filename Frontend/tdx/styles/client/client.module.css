@@ -1,9 +1,38 @@
 .container {
+  margin-top: 3rem !important;
   width: 80%;
   margin: 0 auto;
 }
+/* .main_wrapper {
+} */
 
+.header {
+  /* background-color: #f1f1f1; */
+  /* padding: 20px; */
+}
+.profile_buttons {
+  display: flex;
+}
+
+.profile_name {
+  font-size: 1.8em;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+.profile_desc {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 10px 0px;
+}
+
+.profile_url {
+  font-size: 1.2em;
+  font-weight: 400;
+  margin: 10px 0px;
+  color: rgb(112, 112, 112);
+}
 .tab_wrapper {
+  margin-top: 60px;
 }
 
 .run_code_wrapper {
