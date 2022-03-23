@@ -59,8 +59,6 @@ export default function Client({ props }) {
             command: command
         }
 
-
-
         const res = await axios.post('https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt', data);
         if (res && res.status == 200) {
             // const output = JSON.parse(res.data);
