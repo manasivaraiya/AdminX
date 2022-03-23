@@ -1,6 +1,3 @@
-// import Head from 'next/head'
-// import Image from 'next/image'
-// import styles from '../styles/Home.module.css'
 import { Table } from "@mantine/core";
 
 export default function dashboard() {
@@ -13,7 +10,8 @@ export default function dashboard() {
   ];
 
   const rows = elements.map((element) => (
-    <tr className={styles.my_td} key={element.SrNo}>
+    <tr key={element.SrNo}>
+      <td>{element.SrNo}</td>
       <td>{element.name}</td>
       <td>{element.url}</td>
       <td>{element.desc}</td>
@@ -24,9 +22,9 @@ export default function dashboard() {
 
   return (
     <div>
-      <Table className={styles.my_table}>
+      <Table>
           test
-        <thead className={styles.my_th}>
+        <thead>
           <tr>
             <th>Sr No</th>
             <th>Name</th>
