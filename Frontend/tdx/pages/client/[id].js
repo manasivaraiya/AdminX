@@ -5,6 +5,7 @@ import { Input, Code, Button, Table } from "@mantine/core";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
+import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
   const [command, setCommand] = useState("");
@@ -55,8 +56,18 @@ export default function Client({ props }) {
         const op = res.data.out;
         console.log(op);
         setCommandOutput(op);
+
+        // Log event
+        firestore
+          .collection("Users")
+          .doc("qsULpeYoxOqYSearnO23") // Later
+          .collection("Logs")
+          .add({
+            time: new Date().toLocaleDateString(),
+            command,
+          });
       } else {
-        console.log("failed");
+        console.log("Failed");
         setCommandOutput("Error");
       }
     } catch (e) {
@@ -85,6 +96,12 @@ export default function Client({ props }) {
   }
 
   useEffect(onMounted, []);
+
+  function onKeyCapture(e) {
+    if (e.key === "Enter") {
+      runCommand();
+    }
+  }
 
   const rows =
     apps.length > 0
@@ -143,6 +160,7 @@ export default function Client({ props }) {
                   icon={<PlayerPlay size={20} />}
                   placeholder="ls -a"
                   onChange={(e) => setCommand(e.target.value)}
+                  onKeyDownCapture={onKeyCapture}
                 />
                 <Button
                   // color={"violet"}
