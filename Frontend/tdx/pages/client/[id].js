@@ -1,6 +1,12 @@
 import styles from "../../styles/client/client.module.css";
 import { Tabs } from "@mantine/core";
-import { Apps, Terminal, PlayerPlay, Trash } from "tabler-icons-react";
+import {
+  Apps,
+  Terminal,
+  PlayerPlay,
+  Trash,
+  Wallpaper,
+} from "tabler-icons-react";
 import { Input, Code, Button, Table } from "@mantine/core";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
@@ -8,8 +14,14 @@ import axios from "axios";
 import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
+  const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
+  const userDocId = "TdflnohiShOZeB8ODWsX";
+
+  const logOutputLetterLimit = 600;
+
   const [command, setCommand] = useState("");
   const [commandOutput, setCommandOutput] = useState("");
+  const [logs, setLogs] = useState([]);
   // const [apps, setApps] = useState([]);
   const [apps, setApps] = useState([]);
   const handleUninstall = (name) => {
@@ -45,10 +57,7 @@ export default function Client({ props }) {
     };
 
     try {
-      const res = await axios.post(
-        "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
-        data
-      );
+      const res = await axios.post(clientURL, data);
       console.log({ res, status: res.status });
       if (res && res.status == 200) {
         // const output = JSON.parse(res.data);
@@ -57,14 +66,17 @@ export default function Client({ props }) {
         console.log(op);
         setCommandOutput(op);
 
-        // Log event
+        // Event log
+        const date = new Date();
         firestore
           .collection("Users")
-          .doc("qsULpeYoxOqYSearnO23") // Later
+          .doc(userDocId) // Later
           .collection("Logs")
           .add({
-            time: new Date().toLocaleDateString(),
+            datetime: date.toString(),
+            timestamp: +date,
             command,
+            output: op,
           });
       } else {
         console.log("Failed");
@@ -77,15 +89,14 @@ export default function Client({ props }) {
   };
 
   async function onMounted() {
+    getLogs();
+
     const data = {
       command:
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     };
     try {
-      const res = await axios.post(
-        "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
-        data
-      );
+      const res = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         setApps(output);
@@ -121,6 +132,20 @@ export default function Client({ props }) {
           </tr>
         ))
       : [];
+
+  async function getLogs() {
+    try {
+      const docSnapshots = await firestore
+        .collection("Users")
+        .doc(userDocId)
+        .collection("Logs")
+        .get();
+      const docs = docSnapshots.docs.map((doc) => doc.data());
+      setLogs(docs);
+    } catch (e) {
+      console.error("Error while fetching logs", e);
+    }
+  }
 
   return (
     <div className={styles.main_wrapper}>
@@ -197,6 +222,37 @@ export default function Client({ props }) {
                   </tr>
                 </thead>
                 <tbody>{rows}</tbody>
+              </Table>
+            </Tabs.Tab>
+            <Tabs.Tab label="Logs" icon={<Wallpaper size={20} />}>
+              <Table striped verticalSpacing="md" style={{ width: "80%" }}>
+                <thead>
+                  <tr>
+                    <th>Date and Time</th>
+                    <th>Command</th>
+                    <th>Output</th>
+                    <th>Timestamp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {logs.length > 0
+                    ? logs.map((log) => (
+                        <tr key={log.timestamp}>
+                          <td style={{ fontSize: "12px" }}>{log.datetime}</td>
+                          <td style={{ fontSize: "12px" }}>{log.command}</td>
+                          <td>
+                            <p style={{ fontSize: "12px" }}>
+                              {log.output.length > logOutputLetterLimit
+                                ? log.output.slice(0, logOutputLetterLimit) +
+                                  "..."
+                                : log.output}
+                            </p>
+                          </td>
+                          <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
+                        </tr>
+                      ))
+                    : null}
+                </tbody>
               </Table>
             </Tabs.Tab>
           </Tabs>

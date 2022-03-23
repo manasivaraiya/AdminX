@@ -1,18 +1,43 @@
 import { Table } from "@mantine/core";
 import { Component } from "react/cjs/react.production.min";
 import ResponsiveAppBar from "../components/Navbar";
-import {firestore} from "../utils/firebase";
+import { firestore } from "../utils/firebase";
 import firebase from "../utils/firebase";
+import { getUsers } from "../utils/users";
+import { useEffect, useState } from "react";
 
 export default function dashboard() {
-  const elements = [];
-  firebase.database().ref("Users").on("value", snapshot =>{
-    let userlist = [];
-    snapshot.forEach(snap =>{
-      userlist.push(snap.val());
-    })
-    this.setState({elements: userlist});
-  })
+
+  const [elements, setElements] = useState([]);
+
+  const getallUsers = async () => {
+
+    const data = await getUsers();
+    console.log(typeof (data));
+    setElements(data);
+    console.log(typeof (elements));
+    data.forEach((user) => console.log(user));
+
+
+
+  }
+
+  useEffect(() => {
+    getallUsers();
+
+
+  }, [])
+
+  // getallUsers();
+
+
+  // firebase.database().ref("Users").on("value", snapshot =>{
+  //   let userlist = [];
+  //   snapshot.forEach(snap =>{
+  //     userlist.push(snap.val());
+  //   })
+  //   this.setState({elements: userlist});
+  // })
 
   // ComponentDidMount(){
   //   firebase.database().ref("Users").on("value", snapshot =>{
@@ -50,18 +75,23 @@ export default function dashboard() {
               <th>Last Response</th>
             </tr>
           </thead>
-          <tbody>{this.state.elements.map(data =>{
-            return(
+          {/* {elements} */}
+          <tbody>
+            {elements.length > 0 ? elements.map((data, index) =>
+
               <tr>
-                <td>{data.SrNo}</td>
+                <td>{index + 1}</td>
                 <td>{data.name}</td>
                 <td>{data.url}</td>
                 <td>{data.desc}</td>
                 <td>{data.status}</td>
                 <td>{data.lastres}</td>
               </tr>
-            )
-          })}</tbody>
+
+            ) : null
+            }
+
+          </tbody>
         </Table>
       </div>
     </div>

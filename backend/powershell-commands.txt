@@ -53,3 +53,5 @@ Get-Package -Provider Programs -IncludeWindowsInstaller -Name *
 
 Get-Package -Provider Programs -IncludeWindowsInstaller -Name "VLC media player" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S} 
 Uninstall-Package -Name "Figma"
+
+ Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json
