@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-// import Head from 'next/head'
-// import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-=======
->>>>>>> 38d989c0c14ed7f63d7b5e6144499fab7506fd72
 import { Table } from "@mantine/core";
 import ResponsiveAppBar from "../components/Navbar";
 
@@ -29,26 +23,22 @@ export default function dashboard() {
 
   return (
     <div>
-<<<<<<< HEAD
-      <Table className={styles.my_table}>
-        test
-        <thead className={styles.my_th}>
-=======
-        <ResponsiveAppBar/>
-      <Table>
-        <thead>
->>>>>>> 38d989c0c14ed7f63d7b5e6144499fab7506fd72
-          <tr>
-            <th>Sr No</th>
-            <th>Name</th>
-            <th>Url</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Last Response</th>
-          </tr>
-        </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+      <ResponsiveAppBar />
+      <div className="container" style={{ marginTop: "30px" }}>
+        <Table>
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Name</th>
+              <th>Url</th>
+              <th>Description</th>
+              <th>Status</th>
+              <th>Last Response</th>
+            </tr>
+          </thead>
+          <tbody>{rows}</tbody>
+        </Table>
+      </div>
     </div>
   );
 }
