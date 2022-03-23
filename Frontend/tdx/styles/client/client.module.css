@@ -1,0 +1,12 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.tab_wrapper {
+}
+
+.run_code_wrapper {
+  display: flex;
+  width: 100%;
+}
