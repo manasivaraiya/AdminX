@@ -1,10 +1,14 @@
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
+import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
 export default function Demo() {
   const form = useForm({
     initialValues: {
-      email: '',
+      name: '',
+      url: '',
+      description: '',
+      status: '',
+      lastResponse: '',
       termsOfService: false,
     },
 
@@ -19,10 +23,28 @@ export default function Demo() {
           {...form.getInputProps('name')}
         />
 
-        <Checkbox
-          mt="md"
-          label="I agree to sell my privacy"
-          {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+        <TextInput
+          label="URL"
+          placeholder="iu6urdhcg"
+          {...form.getInputProps('url')}
+        />
+
+        <TextInput
+          label="Description"
+        //   placeholder="iu6urdhcg"
+          {...form.getInputProps('description')}
+        />
+
+        <TextInput
+          label="Status"
+          placeholder="Active"
+          {...form.getInputProps('status')}
+        />
+
+        <TextInput
+          label="Last Response"
+          placeholder="24/12/21 - 09:30"
+          {...form.getInputProps('lastResponse')}
         />
 
         <Group position="right" mt="md">
