@@ -30,10 +30,23 @@ export default function Demo() {
 
   const createUser = () =>{
     const userRef = firebase.database().ref("User")
-
+    const user = {
+      name,
+      url,
+      description,
+      status,
+      lastresponse
+    }
+    userRef.push()
   }
 
   return (
+    // <div>
+    //   <form>
+    //     <input label = 'name' placeholder="xyz" onChange={handleOnChange} value = {name}></input>
+    //     <button type="submit" onClick={createUser}>Submit</button>
+    //   </form>
+    // </div>
     <Box sx={{ maxWidth: 300 }} mx="auto">
       <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <TextInput
