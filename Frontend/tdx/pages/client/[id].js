@@ -59,7 +59,7 @@ export default function Client({ props }) {
         const date = new Date();
         firestore
           .collection("Users")
-          .doc("qsULpeYoxOqYSearnO23") // Later
+          .doc("TdflnohiShOZeB8ODWsX") // Later
           .collection("Logs")
           .add({
             datetime: date.toString(),
