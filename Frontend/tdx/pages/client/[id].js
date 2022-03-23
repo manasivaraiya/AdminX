@@ -2,43 +2,19 @@ import styles from "../../styles/client/client.module.css";
 import { Tabs } from "@mantine/core";
 import { Apps, Terminal, PlayerPlay, Trash } from "tabler-icons-react";
 import { Input, Code, Button, Table } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
-import axios from 'axios';
+import axios from "axios";
+import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
-
     const [command, setCommand] = useState("");
     const [commandOutput, setCommandOutput] = useState("");
     // const [apps, setApps] = useState([]);
-    const apps = [
-        { name: "Carbon", version: "1.0.0" },
-        { name: "Python", version: "1.0.0" },
-        { name: "Vs Code", version: "1.0.0" },
-        { name: "Python 2", version: "1.0.0" },
-        { name: "Python 3", version: "1.0.0" },
-        { name: "Python 4", version: "1.0.0" },
-    ];
+    const [apps, setApps] = useState([]);
     const handleUninstall = (name) => {
         console.log(name);
-
-    }
-
-    const rows = apps.map((element, index) => (
-        <tr key={element.name}>
-            <td>{index + 1}</td>
-            <td>{element.name}</td>
-            <td>{element.version}</td>
-            <td>
-                <Trash
-                    size={20}
-                    strokeWidth={2}
-                    color={'#ff0000'}
-                    onClick={() => handleUninstall(element.name)}
-                /></td>
-
-        </tr>
-    ));
+    };
 
     const name = "Raj Tiwari";
     const description = "Raj's Home PC";
@@ -48,46 +24,126 @@ export default function Client({ props }) {
 
     function NewlineText(props) {
         const text = props.text;
-        return text.split('\n').map(str => <p>{str}</p>);
+        if (text) {
+            return text.split("\n").map((str) => (
+                <>
+                    <span>{str}</span>
+                    <br />
+                </>
+            ));
+        } else {
+            return "";
+        }
     }
 
     const runCommand = async () => {
         console.log(command);
-        setCommandOutput(" ..  backend  Frontend  .git  README.md");
+        setCommandOutput("Loading...");
         setCommand("");
         const data = {
-            command: command
-        }
+            command: command,
+        };
 
-        const res = await axios.post('https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt', data);
-        if (res && res.status == 200) {
-            // const output = JSON.parse(res.data);
-            console.log(res.data);
-            const op = res.data.out;
-            console.log(op);
-            setCommandOutput(op);
-        }
-        else {
-            console.log("failed")
+        try {
+            const res = await axios.post(
+                "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
+                data
+            );
+            console.log({ res, status: res.status });
+            if (res && res.status == 200) {
+                // const output = JSON.parse(res.data);
+                console.log(res.data);
+                const op = res.data.out;
+                console.log(op);
+                setCommandOutput(op);
+
+                // Log event
+                firestore
+                    .collection("Users")
+                    .doc("qsULpeYoxOqYSearnO23") // Later
+                    .collection("Logs")
+                    .add({
+                        time: new Date().toLocaleDateString(),
+                        command,
+                    });
+            } else {
+                console.log("Failed");
+                setCommandOutput("Error");
+            }
+        } catch (e) {
+            console.error("failed", e);
             setCommandOutput("Error");
         }
+    };
 
-        console.log(res);
+    async function onMounted() {
+        const data = {
+            command:
+                "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
+        };
+        try {
+            const res = await axios.post(
+                "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
+                data
+            );
+            if (res && res.status == 200) {
+                const output = JSON.parse(res.data.out);
+                setApps(output);
+            }
+        } catch (e) {
+            console.error("Axios request failed", e);
+        }
     }
+
+    useEffect(onMounted, []);
+
+    function onKeyCapture(e) {
+        if (e.key === "Enter") {
+            runCommand();
+        }
+    }
+
+    const rows =
+        apps.length > 0
+            ? apps.map((element, index) => (
+                <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{element.Name}</td>
+                    <td>{element.Version}</td>
+                    <td>
+                        <Trash
+                            size={20}
+                            strokeWidth={2}
+                            color={"#ff0000"}
+                            onClick={() => handleUninstall(element.name)}
+                        />
+                    </td>
+                </tr>
+            ))
+            : [];
+
     return (
         <div className={styles.main_wrapper}>
             <ResponsiveAppBar />
-            <div className={styles.container}>
+            <div className={styles.container} style={{ paddingBottom: "3em" }}>
                 <div className={styles.header}>
-                    <h1 className={styles.profile_name} >{name}</h1>
+                    <h1 className={styles.profile_name}>{name}</h1>
                     <h3 className={styles.profile_desc}>{description}</h3>
                     <h4 className={styles.profile_url}>{url}</h4>
-                    <div className={styles.profile_buttons
-                    }>
-                        <Button variant="filled" mr="md" size="sm" style={{ backgroundColor: "#f44336" }}>
+                    <div className={styles.profile_buttons}>
+                        <Button
+                            variant="filled"
+                            mr="md"
+                            size="sm"
+                            style={{ backgroundColor: "#4caf50" }}
+                        >
                             Connect
                         </Button>
-                        <Button variant="filled" size="sm" style={{ backgroundColor: "#4caf50" }}>
+                        <Button
+                            variant="filled"
+                            size="sm"
+                            style={{ backgroundColor: "#f44336" }}
+                        >
                             Delete Client
                         </Button>
                     </div>
@@ -104,6 +160,7 @@ export default function Client({ props }) {
                                     icon={<PlayerPlay size={20} />}
                                     placeholder="ls -a"
                                     onChange={(e) => setCommand(e.target.value)}
+                                    onKeyDownCapture={onKeyCapture}
                                 />
                                 <Button
                                     // color={"violet"}
@@ -114,12 +171,20 @@ export default function Client({ props }) {
                                     Run
                                 </Button>
                             </div>
-
-                            <Code>
+                            <div
+                                style={{
+                                    marginTop: "1em",
+                                    backgroundColor: "#eee",
+                                    padding: "1em 2em",
+                                    borderRadius: "10px",
+                                    fontSize: "14px",
+                                    fontFamily: "monospace",
+                                }}
+                            >
                                 <NewlineText text={commandOutput} />
+                            </div>
 
-                                {/* <p>{ }</p> */}
-                            </Code>
+                            {/* <p>{ }</p> */}
                         </Tabs.Tab>
                         <Tabs.Tab label="Installed Apps" icon={<Apps size={20} />}>
                             <Table striped verticalSpacing="md" style={{ width: "80%" }}>
@@ -137,7 +202,6 @@ export default function Client({ props }) {
                     </Tabs>
                 </div>
             </div>
-
-        </div >
+        </div>
     );
 }
