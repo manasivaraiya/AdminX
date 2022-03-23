@@ -1,7 +1,11 @@
+<<<<<<< HEAD
 // import Head from 'next/head'
 // import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+=======
+>>>>>>> 38d989c0c14ed7f63d7b5e6144499fab7506fd72
 import { Table } from "@mantine/core";
+import ResponsiveAppBar from "../components/Navbar";
 
 export default function dashboard() {
   const elements = [
@@ -13,7 +17,8 @@ export default function dashboard() {
   ];
 
   const rows = elements.map((element) => (
-    <tr className={styles.my_td} key={element.SrNo}>
+    <tr key={element.SrNo}>
+      <td>{element.SrNo}</td>
       <td>{element.name}</td>
       <td>{element.url}</td>
       <td>{element.desc}</td>
@@ -24,9 +29,15 @@ export default function dashboard() {
 
   return (
     <div>
+<<<<<<< HEAD
       <Table className={styles.my_table}>
         test
         <thead className={styles.my_th}>
+=======
+        <ResponsiveAppBar/>
+      <Table>
+        <thead>
+>>>>>>> 38d989c0c14ed7f63d7b5e6144499fab7506fd72
           <tr>
             <th>Sr No</th>
             <th>Name</th>
