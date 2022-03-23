@@ -14,18 +14,9 @@ export default function Demo() {
 
   });
 
-  const Survey = () =>{
-      const saveAnswer = (event) =>{
-          event.preventDefault();
-          const elementsArray = [...event.target.elements];
-          console.log(elementsArray);
-          
-      }
-  }
-
   return (
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={saveAnswer}>
+      <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <TextInput
           label="Name"
           placeholder="xyz"
