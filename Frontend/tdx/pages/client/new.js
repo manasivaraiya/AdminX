@@ -16,6 +16,7 @@ export default function Demo() {
   // });
   const [name,setName] = useState('');
   const [url,setUrl] = useState('');
+  const [id,setId] = useState('');
   const [description,setDescription] = useState('');
   const [status,setStatus] = useState('');
   const [lastresponse,setLastResponse] = useState('');
@@ -23,6 +24,7 @@ export default function Demo() {
   const handleOnChange = (e) =>{
     setName(e.target.value);
     setUrl(e.target.value);
+    setId(e.target.value);
     setDescription(e.target.value);
     setStatus(e.target.value);
     setLastResponse(e.target.value);
@@ -34,6 +36,7 @@ export default function Demo() {
     const user = {
       name,
       url,
+      id,
       description,
       status,
       lastresponse
@@ -57,7 +60,7 @@ export default function Demo() {
           placeholder="xyz"
           onChange={handleOnChange}
           value = {name}
-          {...form.getInputProps('name')}
+          // {...form.getInputProps('name')}
         />
 
         <TextInput
@@ -65,14 +68,22 @@ export default function Demo() {
           placeholder="iu6urdhcg"
           onChange={handleOnChange}
           value = {url}
-          {...form.getInputProps('url')}
+          // {...form.getInputProps('url')}
+        />
+
+        <TextInput
+          label="id"
+          placeholder="xyz"
+          onChange={handleOnChange}
+          value = {id}
+          // {...form.getInputProps('id')}
         />
 
         <TextInput
           label="Description"
           onChange={handleOnChange}
           value = {description}
-          {...form.getInputProps('description')}
+          // {...form.getInputProps('description')}
         />
 
         <TextInput
@@ -80,7 +91,7 @@ export default function Demo() {
           placeholder="Active"
           onChange={handleOnChange}
           value = {status}
-          {...form.getInputProps('status')}
+          // {...form.getInputProps('status')}
         />
 
         <TextInput
@@ -88,7 +99,7 @@ export default function Demo() {
           placeholder="24/12/21 - 09:30"
           onChange={handleOnChange}
           value = {lastresponse}
-          {...form.getInputProps('lastResponse')}
+          // {...form.getInputProps('lastResponse')}
         />
 
         <Group position="right" mt="md">
