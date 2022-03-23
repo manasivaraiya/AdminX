@@ -1,7 +1,7 @@
 // import Head from 'next/head'
 // import Image from 'next/image'
 // import styles from '../styles/Home.module.css'
-import { Table } from "@mantine/core";
+// import { Table } from "@mantine/core";
 
 export default function dashboard() {
   const elements = [
@@ -23,8 +23,9 @@ export default function dashboard() {
 
   return (
     <div>
-      <Table>
-        <thead>
+      {/* <Table> */}
+          test
+        {/* <thead>
           <tr>
             <th>Element position</th>
             <th>Element name</th>
@@ -32,8 +33,8 @@ export default function dashboard() {
             <th>Atomic mass</th>
           </tr>
         </thead>
-        <tbody>{rows}</tbody>
-      </Table>
+        <tbody>{rows}</tbody> */}
+      {/* </Table> */}
     </div>
   );
 }
