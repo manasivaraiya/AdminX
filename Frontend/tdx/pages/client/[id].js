@@ -1,6 +1,12 @@
 import styles from "../../styles/client/client.module.css";
 import { Tabs } from "@mantine/core";
-import { Apps, Terminal, PlayerPlay, Trash } from "tabler-icons-react";
+import {
+  Apps,
+  Terminal,
+  PlayerPlay,
+  Trash,
+  Wallpaper,
+} from "tabler-icons-react";
 import { Input, Code, Button, Table } from "@mantine/core";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
@@ -8,7 +14,7 @@ import axios from "axios";
 import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
-  const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+  const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
   const [command, setCommand] = useState("");
   const [commandOutput, setCommandOutput] = useState("");
   // const [apps, setApps] = useState([]);
@@ -197,6 +203,7 @@ export default function Client({ props }) {
                 <tbody>{rows}</tbody>
               </Table>
             </Tabs.Tab>
+            <Tabs.Tab label="Logs" icon={<Wallpaper size={20} />}></Tabs.Tab>
           </Tabs>
         </div>
       </div>
