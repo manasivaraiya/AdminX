@@ -8,6 +8,7 @@ import axios from "axios";
 import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
+  const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
   const [command, setCommand] = useState("");
   const [commandOutput, setCommandOutput] = useState("");
   // const [apps, setApps] = useState([]);
@@ -45,10 +46,7 @@ export default function Client({ props }) {
     };
 
     try {
-      const res = await axios.post(
-        "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
-        data
-      );
+      const res = await axios.post(clientURL, data);
       console.log({ res, status: res.status });
       if (res && res.status == 200) {
         // const output = JSON.parse(res.data);
@@ -57,13 +55,14 @@ export default function Client({ props }) {
         console.log(op);
         setCommandOutput(op);
 
-        // Log event
+        // Event log
+        const date = new Date();
         firestore
           .collection("Users")
           .doc("qsULpeYoxOqYSearnO23") // Later
           .collection("Logs")
           .add({
-            time: new Date().toLocaleDateString(),
+            time: date.toLocaleDateString() + " " + date.toTimeString(),
             command,
           });
       } else {
@@ -82,10 +81,7 @@ export default function Client({ props }) {
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     };
     try {
-      const res = await axios.post(
-        "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
-        data
-      );
+      const res = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         setApps(output);
