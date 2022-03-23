@@ -67,8 +67,7 @@ export default function Demo() {
 
         <TextInput
           label="Description"
-        //   placeholder="iu6urdhcg"
-        onChange={handleOnChange}
+          onChange={handleOnChange}
           value = {description}
           {...form.getInputProps('description')}
         />
