@@ -24,7 +24,12 @@ export default function Client({ props }) {
   function NewlineText(props) {
     const text = props.text;
     if (text) {
-      return text.split("\n").map((str) => <p>{str}</p>);
+      return text.split("\n").map((str) => (
+        <>
+          <span>{str}</span>
+          <br />
+        </>
+      ));
     } else {
       return "";
     }
@@ -103,7 +108,7 @@ export default function Client({ props }) {
   return (
     <div className={styles.main_wrapper}>
       <ResponsiveAppBar />
-      <div className={styles.container}>
+      <div className={styles.container} style={{ paddingBottom: "3em" }}>
         <div className={styles.header}>
           <h1 className={styles.profile_name}>{name}</h1>
           <h3 className={styles.profile_desc}>{description}</h3>
@@ -148,12 +153,20 @@ export default function Client({ props }) {
                   Run
                 </Button>
               </div>
-
-              <Code>
+              <div
+                style={{
+                  marginTop: "1em",
+                  backgroundColor: "#eee",
+                  padding: "1em 2em",
+                  borderRadius: "10px",
+                  fontSize: "14px",
+                  fontFamily: "monospace",
+                }}
+              >
                 <NewlineText text={commandOutput} />
+              </div>
 
-                {/* <p>{ }</p> */}
-              </Code>
+              {/* <p>{ }</p> */}
             </Tabs.Tab>
             <Tabs.Tab label="Installed Apps" icon={<Apps size={20} />}>
               <Table striped verticalSpacing="md" style={{ width: "80%" }}>
