@@ -1,4 +1,4 @@
-npm install -g localtunnel
-start "" python C:\Users\nishi\Documents\Stack-Smashers\backend\app.py 
-; $uuid=wmic csproduct get UUID | Select -Index 2
-; start "" lt --port 5000 --subdomain $uuid.ToLower()
+
+start python D:\SIH\Stack-Smashers\backend\app.py
+$uuid=getmac | Foreach {($_ -split '\s+',4)[0]} | Select -Index 3
+lt --port 8080 --subdomain $uuid.ToLower()
