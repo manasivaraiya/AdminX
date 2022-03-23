@@ -68,6 +68,7 @@ export default function dashboard() {
           <thead>
             <tr>
               <th>Sr No</th>
+              <th>Mac Address</th>
               <th>Name</th>
               <th>Url</th>
               <th>Description</th>
@@ -81,11 +82,12 @@ export default function dashboard() {
 
               <tr>
                 <td>{index + 1}</td>
+                <td>{data.id}</td>
                 <td>{data.name}</td>
                 <td>{data.url}</td>
-                <td>{data.desc}</td>
-                <td>{data.status}</td>
-                <td>{data.lastres}</td>
+                <td>{data.description}</td>
+                <td>{data.status ? "Online" : "Offline"}</td>
+                <td>{data.lastResponse.toDate().toDateString()}</td>
               </tr>
 
             ) : null
