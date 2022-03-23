@@ -1,4 +1,5 @@
 import { Table } from "@mantine/core";
+import ResponsiveAppBar from "../components/Navbar";
 
 export default function dashboard() {
   const elements = [
@@ -22,8 +23,8 @@ export default function dashboard() {
 
   return (
     <div>
+        <ResponsiveAppBar/>
       <Table>
-          test
         <thead>
           <tr>
             <th>Sr No</th>
