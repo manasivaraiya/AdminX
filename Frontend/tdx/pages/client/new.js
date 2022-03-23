@@ -1,7 +1,7 @@
 import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
-import firebase from '../../utils/firebase'
+import {firestore} from '../../utils/firebase'
 
 export default function Demo() {
   // const form = useForm({
@@ -28,8 +28,9 @@ export default function Demo() {
     setLastResponse(e.target.value);
   }
 
-  const createUser = () =>{
-    const userRef = firebase.database().ref("User")
+  const createUser = (e) =>{
+    e.preventDefault();
+    // const userRef = firebase.database().ref("User")
     const user = {
       name,
       url,
@@ -37,18 +38,20 @@ export default function Demo() {
       status,
       lastresponse
     }
-    userRef.push()
+    // console.log(user)
+    // userRef.push()
+    firestore.collection("Users").add(user)
   }
 
   return (
     // <div>
-    //   <form>
+    //   <form onSubmit={createUser}>
     //     <input label = 'name' placeholder="xyz" onChange={handleOnChange} value = {name}></input>
-    //     <button type="submit" onClick={createUser}>Submit</button>
+    //     <button type="submit">Submit</button>
     //   </form>
     // </div>
     <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={createUser}>
         <TextInput
           label="Name"
           placeholder="xyz"
@@ -89,7 +92,7 @@ export default function Demo() {
         />
 
         <Group position="right" mt="md">
-          <Button type="submit" onClick={createUser}>Submit</Button>
+          <Button type="submit">Submit</Button>
         </Group>
       </form>
     </Box>
