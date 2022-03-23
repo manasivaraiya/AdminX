@@ -8,7 +8,7 @@ import axios from "axios";
 import { firestore } from "../../utils/firebase";
 
 export default function Client({ props }) {
-    const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+    const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
     const [command, setCommand] = useState("");
     const [commandOutput, setCommandOutput] = useState("");
     // const [apps, setApps] = useState([]);
@@ -75,163 +75,194 @@ export default function Client({ props }) {
             console.error("failed", e);
             setCommandOutput("Error");
         }
+    }
+    // async function getVulnerabilities(){
 
-        const runCommand = async () => {
-            console.log(command);
-            setCommandOutput("Loading...");
-            setCommand("");
-            const data = {
-                command: command,
-            };
+    // }
+    function isLetter(str) {
+        return str.length === 1 && str.match(/[a-z]/i);
+    }
+    const getVulnerabilities = async (data) => {
+
+        // data.forEach(async (app) => { console.log("oasndo") })
+        // console.log(data);
+        let newElements = await Promise.all(data.map(async (element) => {
+            let vulnerabilities = [];
+            let name = element.Name;
+            name = name.toLowerCase();
+            name = name.replace(/ /g, "_");
+            name = name.replace(/\(.+\)/g, "");
+            name = name.replace(/\d+$/, "")
+            // let sz = name.length - 1;
+            // while (true) {
+            //     if (isLetter(name[sz])) {
+            //         break;
+            //     }
+            //     // console.log(name, sz, typeof name);
+            //     // console.log(name[sz]);
+            //     name[sz] = "";
+            //     sz--;
+            //     if (sz < 0) {
+            //         break;
+            //     }
+            // }
+            const version = element.Version;
+            const url = `https://services.nvd.nist.gov/rest/json/cves/1.0/?isExactMatch=true&addOns=cves&cpeMatchString=cpe:2.3:*:*:${name}:${version}`;
+
 
             try {
-                const res = await axios.post(
-                    "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt",
-                    data
-                );
-                console.log({ res, status: res.status });
-                if (res && res.status == 200) {
-                    // const output = JSON.parse(res.data);
-                    console.log(res.data);
-                    const op = res.data.out;
-                    console.log(op);
-                    setCommandOutput(op);
-
-                    // Log event
-                    firestore
-                        .collection("Users")
-                        .doc("qsULpeYoxOqYSearnO23") // Later
-                        .collection("Logs")
-                        .add({
-                            time: new Date().toLocaleDateString(),
-                            command,
-                        });
-                } else {
-                    console.log("Failed");
-                    setCommandOutput("Error");
+                const res = await axios.get(url);
+                if (res.status == 200) {
+                    if (res.data.totalResults > 0) {
+                        for (let i = 0; i < Math.min(res.data.totalResults, 3); i++) {
+                            vulnerabilities.push(res.data.result.CVE_Items[i]);
+                        }
+                    }
                 }
-            } catch (e) {
-                console.error("failed", e);
-                setCommandOutput("Error");
             }
+            catch (e) {
+                console.log("not found");
+            }
+            // console.log({ ...element, vulnerabilities });
+            return { ...element, vulnerabilities };
+
+        })
+        );
+
+        setApps(newElements);
+        console.log(newElements);
+
+    }
+    async function onMounted() {
+        const data = {
+            command:
+                "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
         };
         try {
             const res = await axios.post(clientURL, data);
             if (res && res.status == 200) {
                 const output = JSON.parse(res.data.out);
                 setApps(output);
+                getVulnerabilities(output);
+
             }
         } catch (e) {
             console.error("Axios request failed", e);
         }
+    }
 
-        useEffect(onMounted, []);
+    useEffect(onMounted, []);
 
-        function onKeyCapture(e) {
-            if (e.key === "Enter") {
-                runCommand();
-            }
+    function onKeyCapture(e) {
+        if (e.key === "Enter") {
+            runCommand();
         }
+    }
 
-        const rows =
-            apps.length > 0
-                ? apps.map((element, index) => (
-                    <tr key={index}>
-                        <td>{index + 1}</td>
-                        <td>{element.Name}</td>
-                        <td>{element.Version}</td>
-                        <td>
-                            <Trash
-                                size={20}
-                                strokeWidth={2}
-                                color={"#ff0000"}
-                                onClick={() => handleUninstall(element.name)}
-                            />
-                        </td>
-                    </tr>
-                ))
-                : [];
+    const rows =
+        apps.length > 0
+            ? apps.map((element, index) => (
+                <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{element.Name}</td>
+                    <td>{element.Version}</td>
+                    <td>
+                        <Trash
+                            size={20}
+                            strokeWidth={2}
+                            color={"#ff0000"}
+                            onClick={() => handleUninstall(element.name)}
+                        />
+                    </td>
+                    <td>{"vuln"}</td>
 
-        return (
-            <div className={styles.main_wrapper}>
-                <ResponsiveAppBar />
-                <div className={styles.container} style={{ paddingBottom: "3em" }}>
-                    <div className={styles.header}>
-                        <h1 className={styles.profile_name}>{name}</h1>
-                        <h3 className={styles.profile_desc}>{description}</h3>
-                        <h4 className={styles.profile_url}>{url}</h4>
-                        <div className={styles.profile_buttons}>
-                            <Button
-                                variant="filled"
-                                mr="md"
-                                size="sm"
-                                style={{ backgroundColor: "#4caf50" }}
-                            >
-                                Connect
-                            </Button>
-                            <Button
-                                variant="filled"
-                                size="sm"
-                                style={{ backgroundColor: "#f44336" }}
-                            >
-                                Delete Client
-                            </Button>
-                        </div>
-                        {/* <h3>Last Seen: {last_seen}</h3>
+                </tr>
+            ))
+            : [];
+
+
+    return (
+        <div className={styles.main_wrapper}>
+            <ResponsiveAppBar />
+            <div className={styles.container} style={{ paddingBottom: "3em" }}>
+                <div className={styles.header}>
+                    <h1 className={styles.profile_name}>{name}</h1>
+                    <h3 className={styles.profile_desc}>{description}</h3>
+                    <h4 className={styles.profile_url}>{url}</h4>
+                    <div className={styles.profile_buttons}>
+                        <Button
+                            variant="filled"
+                            mr="md"
+                            size="sm"
+                            style={{ backgroundColor: "#4caf50" }}
+                        >
+                            Connect
+                        </Button>
+                        <Button
+                            variant="filled"
+                            size="sm"
+                            style={{ backgroundColor: "#f44336" }}
+                        >
+                            Delete Client
+                        </Button>
+                    </div>
+                    {/* <h3>Last Seen: {last_seen}</h3>
                 <h3>Status: {status}</h3> */}
-                    </div>
+                </div>
 
-                    <div className={styles.tab_wrapper}>
-                        <Tabs color="violet" tabPadding="md">
-                            <Tabs.Tab label="Run Command" icon={<Terminal size={20} />}>
-                                <div className={styles.run_code_wrapper}>
-                                    <Input
-                                        // style={{ minWidth: "500px" }}
-                                        icon={<PlayerPlay size={20} />}
-                                        placeholder="ls -a"
-                                        onChange={(e) => setCommand(e.target.value)}
-                                        onKeyDownCapture={onKeyCapture}
-                                    />
-                                    <Button
-                                        // color={"violet"}
-                                        // color={"#482880"}
-                                        style={{ backgroundColor: "#673ab7", margin: "0px 20px" }}
-                                        onClick={runCommand}
-                                    >
-                                        Run
-                                    </Button>
-                                </div>
-                                <div
-                                    style={{
-                                        marginTop: "1em",
-                                        backgroundColor: "#eee",
-                                        padding: "1em 2em",
-                                        borderRadius: "10px",
-                                        fontSize: "14px",
-                                        fontFamily: "monospace",
-                                    }}
+                <div className={styles.tab_wrapper}>
+                    <Tabs color="violet" tabPadding="md">
+                        <Tabs.Tab label="Run Command" icon={<Terminal size={20} />}>
+                            <div className={styles.run_code_wrapper}>
+                                <Input
+                                    // style={{ minWidth: "500px" }}
+                                    icon={<PlayerPlay size={20} />}
+                                    placeholder="ls -a"
+                                    onChange={(e) => setCommand(e.target.value)}
+                                    onKeyDownCapture={onKeyCapture}
+                                />
+                                <Button
+                                    // color={"violet"}
+                                    // color={"#482880"}
+                                    style={{ backgroundColor: "#673ab7", margin: "0px 20px" }}
+                                    onClick={runCommand}
                                 >
-                                    <NewlineText text={commandOutput} />
-                                </div>
+                                    Run
+                                </Button>
+                            </div>
+                            <div
+                                style={{
+                                    marginTop: "1em",
+                                    backgroundColor: "#eee",
+                                    padding: "1em 2em",
+                                    borderRadius: "10px",
+                                    fontSize: "14px",
+                                    fontFamily: "monospace",
+                                }}
+                            >
+                                <NewlineText text={commandOutput} />
+                            </div>
 
-                                {/* <p>{ }</p> */}
-                            </Tabs.Tab>
-                            <Tabs.Tab label="Installed Apps" icon={<Apps size={20} />}>
-                                <Table striped verticalSpacing="md" style={{ width: "80%" }}>
-                                    <thead>
-                                        <tr>
-                                            <th>Sr No.</th>
-                                            <th>Name</th>
-                                            <th>Version</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>{rows}</tbody>
-                                </Table>
-                            </Tabs.Tab>
-                        </Tabs>
-                    </div>
+                            {/* <p>{ }</p> */}
+                        </Tabs.Tab>
+                        <Tabs.Tab label="Installed Apps" icon={<Apps size={20} />}>
+                            <Table striped verticalSpacing="md" style={{ width: "80%" }}>
+                                <thead>
+                                    <tr>
+                                        <th>Sr No.</th>
+                                        <th>Name</th>
+                                        <th>Version</th>
+                                        <th>Action</th>
+                                        <th>Known Issues</th>
+                                    </tr>
+                                </thead>
+                                <tbody>{rows}</tbody>
+                            </Table>
+                        </Tabs.Tab>
+                    </Tabs>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+}
+

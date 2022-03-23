@@ -14,13 +14,13 @@ export default function Demo() {
   //     termsOfService: false,
   //   },
   // });
-  const [name,setName] = useState('');
-  const [url,setUrl] = useState('');
-  const [description,setDescription] = useState('');
-  const [status,setStatus] = useState('');
-  const [lastresponse,setLastResponse] = useState('');
+  const [name, setName] = useState('');
+  const [url, setUrl] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [lastresponse, setLastResponse] = useState('');
 
-  const handleOnChange = (e) =>{
+  const handleOnChange = (e) => {
     setName(e.target.value);
     setUrl(e.target.value);
     setDescription(e.target.value);
@@ -28,7 +28,7 @@ export default function Demo() {
     setLastResponse(e.target.value);
   }
 
-  const createUser = () =>{
+  const createUser = () => {
     const userRef = firebase.database().ref("User")
     const user = {
       name,
@@ -53,7 +53,7 @@ export default function Demo() {
           label="Name"
           placeholder="xyz"
           onChange={handleOnChange}
-          value = {name}
+          value={name}
           {...form.getInputProps('name')}
         />
 
@@ -61,14 +61,14 @@ export default function Demo() {
           label="URL"
           placeholder="iu6urdhcg"
           onChange={handleOnChange}
-          value = {url}
+          value={url}
           {...form.getInputProps('url')}
         />
 
         <TextInput
           label="Description"
           onChange={handleOnChange}
-          value = {description}
+          value={description}
           {...form.getInputProps('description')}
         />
 
@@ -76,7 +76,7 @@ export default function Demo() {
           label="Status"
           placeholder="Active"
           onChange={handleOnChange}
-          value = {status}
+          value={status}
           {...form.getInputProps('status')}
         />
 
@@ -84,7 +84,7 @@ export default function Demo() {
           label="Last Response"
           placeholder="24/12/21 - 09:30"
           onChange={handleOnChange}
-          value = {lastresponse}
+          value={lastresponse}
           {...form.getInputProps('lastResponse')}
         />
 
