@@ -114,3 +114,64 @@
     flex-direction: column;
   }
 }
+
+/* Home Page (Dashboard) */
+/* .app_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+} */
+
+.my_table {
+  border-collapse: collapse;
+  width: 100%;
+  color: #ffffff;
+}
+
+.my_th,
+.my_td {
+  border: 1px solid #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 15px;
+}
+
+.my_th {
+  background-color: rgb(0, 0, 0);
+}
+
+.my_td {
+  background-color: rgb(76, 78, 78);
+}
+
+/* Navbar */
+/* 
+.my_ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.my_li {
+  float: right;
+}
+
+ .my_li a {
+  display: block;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.my_li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}   */
