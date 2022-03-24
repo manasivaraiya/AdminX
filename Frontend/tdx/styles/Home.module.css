@@ -1,7 +1,7 @@
 .container {
   padding: 0 2rem;
   height: 100vh;
-  background-image: url("https://media.istockphoto.com/photos/abstract-chaotic-background-picture-id637952284?k=20&m=637952284&s=612x612&w=0&h=SH0UUQG1r42JVazTLg-vcQrK8Ij_eEHl6PBk-4ClW4A=");
+  /* background-image: url("https://media.istockphoto.com/photos/abstract-chaotic-background-picture-id637952284?k=20&m=637952284&s=612x612&w=0&h=SH0UUQG1r42JVazTLg-vcQrK8Ij_eEHl6PBk-4ClW4A="); */
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -40,7 +40,7 @@
   overflow: hidden;
   border-right: 3px solid;
   font-family: monospace;
-  color: white;
+  color: black;
 }
 
 .title,
