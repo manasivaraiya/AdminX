@@ -27,7 +27,8 @@ authorized_apps_url = "https://tdx-nis130.vercel.app/api/authorized_apps"
 class GUIWithTK:
     # Set the directory on watch
     # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
-    watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
+    # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
+    watchDirectory = "/Users/neelansh/Downloads/"
 
     def __init__(self):
         self.observer = Observer()
