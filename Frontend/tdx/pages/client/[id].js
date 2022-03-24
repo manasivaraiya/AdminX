@@ -26,6 +26,8 @@ import axios from "axios";
 import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
 
 
 
@@ -50,7 +52,7 @@ export default function Client({ props }) {
   const handleUninstall = (name) => {
     // console.log(name);
     const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
-    console.log(exec);
+    // console.log(exec);
     setCommand(exec);
     runCommand();
   };
@@ -80,16 +82,16 @@ export default function Client({ props }) {
     const data = {
       command: command,
     };
-    console.log("data is", data);
+    // console.log("data is", data);
 
     try {
       const res = await axios.post(clientURL, data);
-      console.log({ res, status: res.status });
+      // console.log({ res, status: res.status });
       if (res && res.status == 200) {
         // const output = JSON.parse(res.data);
-        console.log(res.data);
+        // console.log(res.data);
         const op = res.data.out;
-        console.log(op);
+        // console.log(op);
         setCommandOutput(op);
 
         // Event log
@@ -157,15 +159,15 @@ export default function Client({ props }) {
 
     setApps(newElements);
     // console.log(newElements);
-    newElements.forEach((element) => {
-      if (element.vulnerabilities.length > 0) {
-        console.log(element);
-      }
-    });
+    // newElements.forEach((element) => {
+    //   if (element.vulnerabilities.length > 0) {
+    //     console.log(element);
+    //   }
+    // });
   };
 
   async function getSystemReport() {
-    console.log("getsystemreport called");
+    // console.log("getsystemreport called");
     try {
       const res = await axios.get(clientURL + "/data");
       const res2 = await axios.get(clientURL + "/hardware");
@@ -174,7 +176,7 @@ export default function Client({ props }) {
         const output2 = JSON.parse(res2.data.out);
         // const output = testJSON.output;
         // const output2 = testJSON.output2;
-        console.log({ output, output2 });
+        // console.log({ output, output2 });
         const data = {
           network_data: output,
           system_data: output2,
@@ -192,7 +194,6 @@ export default function Client({ props }) {
 
   async function onMounted() {
     getLogs();
-    getSystemReport();
     const data = {
       command:
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
@@ -203,6 +204,7 @@ export default function Client({ props }) {
         const output = JSON.parse(res.data.out);
         setApps(output);
         getVulnerabilities(output);
+        getSystemReport();
       }
     } catch (e) {
       console.error("Axios request failed", e);
@@ -248,30 +250,30 @@ export default function Client({ props }) {
               {element &&
               element.vulnerabilities &&
               element.vulnerabilities.length > 0
-                ? element.vulnerabilities.map((vulnerability, index) => (
-                    // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
-                    <Badge
-                      style={{
-                        backgroundColor:
-                          CRITICALITY[
-                            vulnerability.impact.baseMetricV2.severity
-                          ],
-                        cursor: "pointer",
-                      }}
-                      size="md"
-                      mr="md"
-                      mb="sm"
-                      variant="filled"
-                      radius="lg"
-                      onClick={() => handleVulnInfo(vulnerability)}
-                    >
-                      {vulnerability.cve.CVE_data_meta.ID}
-                    </Badge>
-                  ))
-                : "No known Issues"}
-            </td>
-          </tr>
-        ))
+              ? element.vulnerabilities.map((vulnerability, index) => (
+                // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
+                <Badge
+                  style={{
+                    backgroundColor:
+                      CRITICALITY[
+                      vulnerability.impact.baseMetricV2.severity
+                      ],
+                    cursor: "pointer",
+                  }}
+                  size="md"
+                  mr="md"
+                  mb="sm"
+                  variant="filled"
+                  radius="lg"
+                  onClick={() => handleVulnInfo(vulnerability)}
+                >
+                  {vulnerability.cve.CVE_data_meta.ID}
+                </Badge>
+              ))
+              : "No known Issues"}
+          </td>
+        </tr>
+      ))
       : [];
 
   async function getLogs() {
@@ -317,7 +319,7 @@ export default function Client({ props }) {
         transitionTimingFunction="ease"
         opened={opened}
         onClose={() => setOpened(false)}
-        // title="Addition Information"
+      // title="Addition Information"
       >
         {/* Modal content
          */}
@@ -569,20 +571,20 @@ export default function Client({ props }) {
                 <tbody>
                   {logs.length > 0
                     ? logs.map((log) => (
-                        <tr key={log.timestamp}>
-                          <td style={{ fontSize: "12px" }}>{log.datetime}</td>
-                          <td style={{ fontSize: "12px" }}>{log.command}</td>
-                          <td>
-                            <p style={{ fontSize: "12px" }}>
-                              {log.output.length > logOutputLetterLimit
-                                ? log.output.slice(0, logOutputLetterLimit) +
-                                  "..."
-                                : log.output}
-                            </p>
-                          </td>
-                          <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
-                        </tr>
-                      ))
+                      <tr key={log.timestamp}>
+                        <td style={{ fontSize: "12px" }}>{log.datetime}</td>
+                        <td style={{ fontSize: "12px" }}>{log.command}</td>
+                        <td>
+                          <p style={{ fontSize: "12px" }}>
+                            {log.output.length > logOutputLetterLimit
+                              ? log.output.slice(0, logOutputLetterLimit) +
+                              "..."
+                              : log.output}
+                          </p>
+                        </td>
+                        <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
+                      </tr>
+                    ))
                     : null}
                 </tbody>
               </Table>
