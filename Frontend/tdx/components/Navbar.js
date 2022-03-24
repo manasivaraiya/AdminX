@@ -107,7 +107,7 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link href={page.href}>
+              <Link href={page.href} key={page.href}>
                 <Button
                   key={page.name}
                   sx={{ my: 2, color: "white", display: "block" }}
