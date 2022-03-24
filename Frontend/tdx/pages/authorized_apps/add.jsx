@@ -37,13 +37,14 @@ export default function add_authorized_app() {
             <ArrowLeft /> Back
           </Button>
         </Link>
-        <h1>Add an Authorized App</h1>
+        <h1 style={{ margin: "0.5em 0" }}>Add an Authorized App</h1>
 
         <form onSubmit={onFormSubmit}>
           <TextInput
             label="Application Name"
             placeholder="Application Name"
             name="name"
+            style={{ margin: "0.5em 0" }}
             required
           ></TextInput>
           <br />

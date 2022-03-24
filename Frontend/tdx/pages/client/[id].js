@@ -33,7 +33,6 @@ export default function Client({ props }) {
     console.log(exec);
     setCommand(exec);
     runCommand();
-
   };
 
   const name = "Raj Tiwari";
@@ -62,8 +61,6 @@ export default function Client({ props }) {
       command: command,
     };
     console.log("data is", data);
-
-
 
     try {
       const res = await axios.post(clientURL, data);
@@ -99,58 +96,53 @@ export default function Client({ props }) {
     setCommand("");
   };
 
-
-
   const handleVulnInfo = (vuln) => {
     setSelectedVulnInfo(vuln);
     setOpened(true);
-  }
+  };
   function isLetter(str) {
     return str.length === 1 && str.match(/[a-z]/i);
   }
   const getVulnerabilities = async (data) => {
-
     // data.forEach(async (app) => { console.log("oasndo") })
     // console.log(data);
-    let newElements = await Promise.all(data.map(async (element) => {
-      let vulnerabilities = [];
-      let name = element.Name;
-      name = name.toLowerCase();
-      name = name.replace(/ /g, "_");
-      name = name.replace(/\(.+\)/g, "");
-      // name = name.replace(/\d+$/, "")
-      const version = element.Version;
-      const url = `https://services.nvd.nist.gov/rest/json/cves/1.0/?isExactMatch=true&addOns=cves&cpeMatchString=cpe:2.3:*:*:${name}:${version}`;
+    let newElements = await Promise.all(
+      data.map(async (element) => {
+        let vulnerabilities = [];
+        let name = element.Name;
+        name = name.toLowerCase();
+        name = name.replace(/ /g, "_");
+        name = name.replace(/\(.+\)/g, "");
+        // name = name.replace(/\d+$/, "")
+        const version = element.Version;
+        const url = `https://services.nvd.nist.gov/rest/json/cves/1.0/?isExactMatch=true&addOns=cves&cpeMatchString=cpe:2.3:*:*:${name}:${version}`;
 
-
-      try {
-        const res = await axios.get(url);
-        if (res.status == 200) {
-          if (res.data.totalResults > 0) {
-            for (let i = 0; i < Math.min(res.data.totalResults, 3); i++) {
-              vulnerabilities.push(res.data.result.CVE_Items[i]);
+        try {
+          const res = await axios.get(url);
+          if (res.status == 200) {
+            if (res.data.totalResults > 0) {
+              for (let i = 0; i < Math.min(res.data.totalResults, 3); i++) {
+                vulnerabilities.push(res.data.result.CVE_Items[i]);
+              }
             }
           }
+        } catch (e) {
+          console.log("not found");
         }
-      }
-      catch (e) {
-        console.log("not found");
-      }
-      // console.log({ ...element, vulnerabilities });
+        // console.log({ ...element, vulnerabilities });
 
-
-      return { ...element, vulnerabilities };
-
-    })
+        return { ...element, vulnerabilities };
+      })
     );
 
     setApps(newElements);
     // console.log(newElements);
-    newElements.forEach(element => {
-      if (element.vulnerabilities.length > 0) { console.log(element); }
+    newElements.forEach((element) => {
+      if (element.vulnerabilities.length > 0) {
+        console.log(element);
+      }
     });
-
-  }
+  };
   async function onMounted() {
     getLogs();
     const data = {
@@ -163,7 +155,6 @@ export default function Client({ props }) {
         const output = JSON.parse(res.data.out);
         setApps(output);
         getVulnerabilities(output);
-
       }
     } catch (e) {
       console.error("Axios request failed", e);
@@ -173,10 +164,10 @@ export default function Client({ props }) {
   useEffect(onMounted, []);
 
   const CRITICALITY = {
-    "LOW": "#2196f3",
-    "MEDIUM": "#ff9800",
-    "HIGH": "#ff784e",
-  }
+    LOW: "#2196f3",
+    MEDIUM: "#ff9800",
+    HIGH: "#ff784e",
+  };
 
   function onKeyCapture(e) {
     if (e.key === "Enter") {
@@ -186,7 +177,7 @@ export default function Client({ props }) {
 
   function handleVulnClick() {
     // console.log(e);
-    console.log("opening")
+    console.log("opening");
   }
 
   const rows =
@@ -204,18 +195,32 @@ export default function Client({ props }) {
               onClick={() => handleUninstall(element.Name)}
             />
           </td>
-          <td>{(element && element.vulnerabilities && element.vulnerabilities.length > 0) ?
-
-
-            element.vulnerabilities.map((vulnerability, index) => (
-              // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
-              <Badge color="red" size="md" mr="md" mb="sm" variant="filled" radius="lg" onClick={() => handleVulnInfo(vulnerability)}>{vulnerability.cve.CVE_data_meta.ID}</Badge>
-            )
-            )
-
-            : "No known Issues"
-          }</td>
-
+          <td>
+            {element &&
+              element.vulnerabilities &&
+              element.vulnerabilities.length > 0
+              ? element.vulnerabilities.map((vulnerability, index) => (
+                // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
+                <Badge
+                  style={{
+                    backgroundColor:
+                      CRITICALITY[
+                      vulnerability.impact.baseMetricV2.severity
+                      ],
+                    cursor: "pointer",
+                  }}
+                  size="md"
+                  mr="md"
+                  mb="sm"
+                  variant="filled"
+                  radius="lg"
+                  onClick={() => handleVulnInfo(vulnerability)}
+                >
+                  {vulnerability.cve.CVE_data_meta.ID}
+                </Badge>
+              ))
+              : "No known Issues"}
+          </td>
         </tr>
       ))
       : [];
@@ -228,6 +233,7 @@ export default function Client({ props }) {
         .collection("Logs")
         .get();
       const docs = docSnapshots.docs.map((doc) => doc.data());
+      docs.sort((a, b) => a.timestamp > b.timestamp);
       setLogs(docs);
     } catch (e) {
       console.error("Error while fetching logs", e);
@@ -236,7 +242,6 @@ export default function Client({ props }) {
 
   return (
     <div className={styles.main_wrapper}>
-
       <ResponsiveAppBar />
 
       <Modal
@@ -251,44 +256,166 @@ export default function Client({ props }) {
         {/* Modal content
          */}
         {/* {selectedVuln.cve.CVE_data_meta.ID}
-        cons */}{
+        cons */}
+        {
           // console.log((selectedVuln.impact.baseMetricV3.impactScore))
         }
-        {selectedVuln && selectedVuln.cve && selectedVuln.cve.description && selectedVuln.cve.CVE_data_meta &&
-          <>
-            <p><b>ID</b>: {selectedVuln.cve.CVE_data_meta.ID}</p>
-            <p><b>Assigner</b>: {selectedVuln.cve.CVE_data_meta.ASSIGNER}</p>
+        {selectedVuln &&
+          selectedVuln.cve &&
+          selectedVuln.cve.description &&
+          selectedVuln.cve.CVE_data_meta && (
+            <>
+              <p
+                style={{
+                  fontSize: "14px",
+                  color: "#808080",
+                  fontWeight: "bold",
+                }}
+              >
+                {selectedVuln.cve.CVE_data_meta.ASSIGNER}
+              </p>
+              <p
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                }}
+              >
+                {selectedVuln.cve.CVE_data_meta.ID}
+              </p>
 
-            <div className="desc" style={{ margin: "25px 0px" }}>
-              <p>{selectedVuln.cve.description.description_data[0].value}</p>
+              <div className="desc" style={{ margin: "25px 0px" }}>
+                <p>{selectedVuln.cve.description.description_data[0].value}</p>
+              </div>
 
-            </div>
+              <div
+                style={{
+                  display: "flex",
+                  gap: "1.5em",
+                  alignItems: "center",
+                }}
+              >
+                <p
+                  style={{
+                    // backgroundColor: "#ddd",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <b
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "normal",
+                    }}
+                  >
+                    Severity
+                  </b>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                    }}
+                  >
+                    {selectedVuln.impact.baseMetricV2.severity}
+                  </span>
+                </p>
+                <p
+                  style={{
+                    // backgroundColor: "#72a3f2",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <b
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "normal",
+                    }}
+                  >
+                    Exploitability Score
+                  </b>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                    }}
+                  >
+                    {selectedVuln.impact.baseMetricV3.exploitabilityScore}
+                    <span style={{ fontSize: "14px", color: "#2e2e2e" }}>
+                      /10
+                    </span>
+                  </span>
+                </p>
+                <p
+                  style={{
+                    // backgroundColor: "#f29872",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  <b
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: "normal",
+                    }}
+                  >
+                    Impact Score
+                  </b>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "18px",
+                    }}
+                  >
+                    {selectedVuln.impact.baseMetricV3.impactScore}
+                    <span style={{ fontSize: "14px", color: "#2e2e2e" }}>
+                      /10
+                    </span>
+                  </span>
+                </p>
+              </div>
 
-            <p><b>Severity</b>: {selectedVuln.impact.baseMetricV2.severity}</p>
-            <p><b>Exploitability Score</b>: {selectedVuln.impact.baseMetricV3.exploitabilityScore}/10</p>
-            <p><b>Impact Score</b>: {selectedVuln.impact.baseMetricV3.impactScore}/10</p>
-
-            <div className="add-info" style={{ marginTop: "40px" }}>
-              <p style={{ fontWeight: "500" }}>Additional Information</p>
-              {selectedVuln.cve.references.reference_data.map((reference, index) => (
-                <div style={{ marginBottom: "15px" }}>
-                  <a href={reference.url} target="_blank" style={{ fontWeight: "300", textDecoration: "underline" }}>{reference.url}</a>
-                  <br />
-                </div>
-
-
-              ))}
-            </div>
-
-
-
-          </>
-
-
-
-        }
-
-
+              <div
+                className="add-info"
+                style={{
+                  marginTop: "25px",
+                  backgroundColor: "#e8e8e8",
+                  borderRadius: "10px",
+                  padding: "2em",
+                  fontSize: "14px",
+                }}
+              >
+                <p style={{ fontWeight: "500", marginBottom: "0.5em" }}>
+                  Additional Information
+                </p>
+                {selectedVuln.cve.references.reference_data.map(
+                  (reference, index) => (
+                    <div style={{ marginBottom: "5px" }}>
+                      <a
+                        href={reference.url}
+                        target="_blank"
+                        style={{
+                          fontWeight: "300",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        {reference.url}
+                      </a>
+                      <br />
+                    </div>
+                  )
+                )}
+              </div>
+            </>
+          )}
       </Modal>
       <div className={styles.container} style={{ paddingBottom: "3em" }}>
         <div className={styles.header}>
@@ -400,4 +527,3 @@ export default function Client({ props }) {
     </div>
   );
 }
-

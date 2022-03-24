@@ -5,6 +5,7 @@ import { firestore } from "../utils/firebase";
 import firebase from "../utils/firebase";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
+import { Link } from "@mui/material";
 
 export default function dashboard() {
 
@@ -83,7 +84,12 @@ export default function dashboard() {
               <tr>
                 <td>{index + 1}</td>
                 <td>{data.id}</td>
-                <td>{data.name}</td>
+                <td>
+                  <Link href={ `client/${data.id}`
+                    }
+                  >{data.name}
+                  </Link>
+                </td>
                 <td>{data.url}</td>
                 <td>{data.description}</td>
                 <td>{data.status ? "Online" : "Offline"}</td>

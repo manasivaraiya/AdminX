@@ -52,61 +52,12 @@ export default function authorized_apps() {
         >
           {apps.length > 0 ? (
             apps.map((app) => (
-              <div
-                class="card-wrapper"
-                key={app.id}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  margin: "1em",
-                  padding: "1em",
-                  border: "2px solid #eeeeee",
-                  minWidth: "550px",
-                }}
-              >
-                <div className="card-info">
-                  <h1
-                    style={{
-                      fontSize: "1.5rem",
-                      marginBottom: "0px",
-                    }}
-                  >
-                    {app.name}
-                  </h1>
-                  <p
-                    style={{
-                      color: "#555555",
-                      fontSize: "0.8rem",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <b>Version</b>: {app.version}
-                  </p>
-                  <p
-                    style={{
-                      color: "#808080",
-                      fontSize: "0.8rem",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <b>Hash</b>: {app.hash}
-                  </p>
-                </div>
-                <div
-                  className="card-button"
-                  style={{
-                    display: "flex",
-                    justifyContent: "end",
-                    alignItems: "center",
-                  }}
-                >
-                  <Trash
-                    color="red"
-                    variant="outline"
-                    onClick={() => removeApp(app.id)}
-                    size={30}
-                  />
-                </div>
+              <div key={app.id}>
+                <h3 style={{margin: '0.5em 0'}}>{app.name}</h3>
+                <p style={{margin: '0.5em 0'}}>{app.hash}</p>
+                <Button onClick={() => removeApp(app.id)}>
+                  <Trash />
+                </Button>
               </div>
             ))
           ) : (
