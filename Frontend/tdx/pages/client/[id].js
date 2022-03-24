@@ -1,17 +1,29 @@
 import styles from "../../styles/client/client.module.css";
-import { Tabs } from "@mantine/core";
 import {
   Apps,
   Terminal,
   PlayerPlay,
   Trash,
   Wallpaper,
+  BrandGoogleAnalytics,
+  FileDownload,
 } from "tabler-icons-react";
-import { Input, Code, Button, Table, Badge, Modal, Group } from "@mantine/core";
+import {
+  Input,
+  Code,
+  Button,
+  Table,
+  Badge,
+  Modal,
+  Group,
+  Tabs,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
 import { firestore } from "../../utils/firebase";
+// import testJSON from "../../test.json";
+import Head from "next/head";
 
 export default function Client({ props }) {
   const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
@@ -21,11 +33,15 @@ export default function Client({ props }) {
 
   const [command, setCommand] = useState("");
   const [commandOutput, setCommandOutput] = useState("");
+
   const [logs, setLogs] = useState([]);
-  // const [apps, setApps] = useState([]);
+
   const [apps, setApps] = useState([]);
+
   const [opened, setOpened] = useState(false);
   const [selectedVuln, setSelectedVulnInfo] = useState({});
+
+  const [systemReport, setSystemReport] = useState("");
 
   const handleUninstall = (name) => {
     // console.log(name);
@@ -45,10 +61,10 @@ export default function Client({ props }) {
     const text = props.text;
     if (text) {
       return text.split("\n").map((str) => (
-        <>
+        <pre>
           <span>{str}</span>
           <br />
-        </>
+        </pre>
       ));
     } else {
       return "";
@@ -143,8 +159,36 @@ export default function Client({ props }) {
       }
     });
   };
+
+  async function getSystemReport() {
+    console.log("getsystemreport called");
+    try {
+      const res = await axios.get(clientURL + "/data");
+      const res2 = await axios.get(clientURL + "/hardware");
+      if (res.status == 200 && res2.status == 200) {
+        const output = JSON.parse(res.data.out);
+        const output2 = JSON.parse(res2.data.out);
+        // const output = testJSON.output;
+        // const output2 = testJSON.output2;
+        console.log({ output, output2 });
+        const data = {
+          network_data: output,
+          system_data: output2,
+        };
+
+        let finalOutput = "";
+        finalOutput = JSON.stringify(data, null, 2);
+
+        setSystemReport(finalOutput);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async function onMounted() {
     getLogs();
+    getSystemReport();
     const data = {
       command:
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
@@ -240,8 +284,25 @@ export default function Client({ props }) {
     }
   }
 
+  function downloadAsPDF() {
+    try {
+      const container = document.getElementById("systemReportContainer");
+      html2pdf(container);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <div className={styles.main_wrapper}>
+      <Head>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+          integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        ></script>
+      </Head>
       <ResponsiveAppBar />
 
       <Modal
@@ -520,6 +581,37 @@ export default function Client({ props }) {
                     : null}
                 </tbody>
               </Table>
+            </Tabs.Tab>
+            <Tabs.Tab
+              label="System Report"
+              icon={<BrandGoogleAnalytics size={20} />}
+            >
+              <Button
+                style={{
+                  margin: "0 0 1em 0",
+                  display: systemReport.length > 0 ? "block" : "hidden",
+                }}
+                onClick={() => downloadAsPDF()}
+              >
+                {" "}
+                <FileDownload /> &nbsp; Download as PDF
+              </Button>
+              <div
+                id="systemReportContainer"
+                style={{
+                  maxWidth: "100%",
+                  overflow: "scroll",
+                  backgroundColor: "#f5f5f5",
+                  padding: "2em",
+                  borderRadius: "10px",
+                }}
+              >
+                {systemReport.length > 0 ? (
+                  <NewlineText text={systemReport}></NewlineText>
+                ) : (
+                  "No system report generated yet"
+                )}
+              </div>
             </Tabs.Tab>
           </Tabs>
         </div>

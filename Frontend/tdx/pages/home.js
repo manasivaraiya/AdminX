@@ -6,10 +6,13 @@ import firebase from "../utils/firebase";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
 import { Link } from "@mui/material";
+// import withAuth from '../auth/withAuth';
+// import { useUser } from '../auth/useUser';
 
 export default function dashboard() {
 
   const [elements, setElements] = useState([]);
+  // const { user, logout } = useUser();
 
   const getallUsers = async () => {
 
@@ -24,44 +27,14 @@ export default function dashboard() {
   }
 
   useEffect(() => {
+
     getallUsers();
 
 
   }, [])
 
-  // getallUsers();
-
-
-  // firebase.database().ref("Users").on("value", snapshot =>{
-  //   let userlist = [];
-  //   snapshot.forEach(snap =>{
-  //     userlist.push(snap.val());
-  //   })
-  //   this.setState({elements: userlist});
-  // })
-
-  // ComponentDidMount(){
-  //   firebase.database().ref("Users").on("value", snapshot =>{
-  //     let userlist = [];
-  //     snapshot.forEach(snap =>{
-  //       userlist.push(snap.val());
-  //     })
-  //     this.setState({elements = userlist});
-  //   })
-  // };
-
-  // const rows = elements.map((element) => (
-  //   <tr key={element.SrNo}>
-  //     <td>{element.SrNo}</td>
-  //     <td>{element.name}</td>
-  //     <td>{element.url}</td>
-  //     <td>{element.desc}</td>
-  //     <td>{element.status}</td>
-  //     <td>{element.lastres}</td>
-  //   </tr>
-  // ));
-
   return (
+    
     <div>
       <ResponsiveAppBar />
       <div className="container" style={{ marginTop: "30px" }}>

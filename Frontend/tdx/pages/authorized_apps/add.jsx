@@ -17,6 +17,7 @@ export default function add_authorized_app() {
         id: Math.round(Math.random() * 10000),
         name: e.target[0].value,
         hash: e.target[1].value,
+        version: e.target[2].value,
       };
 
       await firestore.collection("authorized_apps").add(data);
@@ -32,7 +33,7 @@ export default function add_authorized_app() {
 
       <div className={styles.container} style={{ paddingBottom: "3em" }}>
         <Link href="/authorized_apps">
-          <Button>
+          <Button variant="white" color="gray">
             <ArrowLeft /> Back
           </Button>
         </Link>
@@ -46,12 +47,22 @@ export default function add_authorized_app() {
             style={{ margin: "0.5em 0" }}
             required
           ></TextInput>
+          <br />
           <TextInput
             label="Application Hash"
             placeholder="Application Name"
             name="hash"
             required
           ></TextInput>
+          <br />
+
+          <TextInput
+            label="Application Version"
+            placeholder="Application Version"
+            name="version"
+            required
+          ></TextInput>
+          <br />
 
           <Button
             type="submit"
