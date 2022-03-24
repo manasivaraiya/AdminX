@@ -1,5 +1,4 @@
 import styles from "../../styles/client/client.module.css";
-import { Tabs } from "@mantine/core";
 import {
   Apps,
   Terminal,
@@ -7,13 +6,24 @@ import {
   Trash,
   Wallpaper,
   BrandGoogleAnalytics,
+  FileDownload,
 } from "tabler-icons-react";
-import { Input, Code, Button, Table, Badge, Modal, Group } from "@mantine/core";
+import {
+  Input,
+  Code,
+  Button,
+  Table,
+  Badge,
+  Modal,
+  Group,
+  Tabs,
+} from "@mantine/core";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
 import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
+import Head from "next/head";
 
 export default function Client({ props }) {
   const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
@@ -217,46 +227,46 @@ export default function Client({ props }) {
   const rows =
     apps.length > 0
       ? apps.map((element, index) => (
-        <tr key={index}>
-          <td>{index + 1}</td>
-          <td>{element.Name}</td>
-          <td>{element.Version}</td>
-          <td>
-            <Trash
-              size={20}
-              strokeWidth={2}
-              color={"#ff0000"}
-              onClick={() => handleUninstall(element.Name)}
-            />
-          </td>
-          <td>
-            {element &&
+          <tr key={index}>
+            <td>{index + 1}</td>
+            <td>{element.Name}</td>
+            <td>{element.Version}</td>
+            <td>
+              <Trash
+                size={20}
+                strokeWidth={2}
+                color={"#ff0000"}
+                onClick={() => handleUninstall(element.Name)}
+              />
+            </td>
+            <td>
+              {element &&
               element.vulnerabilities &&
               element.vulnerabilities.length > 0
-              ? element.vulnerabilities.map((vulnerability, index) => (
-                // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
-                <Badge
-                  style={{
-                    backgroundColor:
-                      CRITICALITY[
-                      vulnerability.impact.baseMetricV2.severity
-                      ],
-                    cursor: "pointer",
-                  }}
-                  size="md"
-                  mr="md"
-                  mb="sm"
-                  variant="filled"
-                  radius="lg"
-                  onClick={() => handleVulnInfo(vulnerability)}
-                >
-                  {vulnerability.cve.CVE_data_meta.ID}
-                </Badge>
-              ))
-              : "No known Issues"}
-          </td>
-        </tr>
-      ))
+                ? element.vulnerabilities.map((vulnerability, index) => (
+                    // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
+                    <Badge
+                      style={{
+                        backgroundColor:
+                          CRITICALITY[
+                            vulnerability.impact.baseMetricV2.severity
+                          ],
+                        cursor: "pointer",
+                      }}
+                      size="md"
+                      mr="md"
+                      mb="sm"
+                      variant="filled"
+                      radius="lg"
+                      onClick={() => handleVulnInfo(vulnerability)}
+                    >
+                      {vulnerability.cve.CVE_data_meta.ID}
+                    </Badge>
+                  ))
+                : "No known Issues"}
+            </td>
+          </tr>
+        ))
       : [];
 
   async function getLogs() {
@@ -274,8 +284,25 @@ export default function Client({ props }) {
     }
   }
 
+  function downloadAsPDF() {
+    try {
+      const container = document.getElementById("systemReportContainer");
+      html2pdf(container);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   return (
     <div className={styles.main_wrapper}>
+      <Head>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+          integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+        ></script>
+      </Head>
       <ResponsiveAppBar />
 
       <Modal
@@ -285,7 +312,7 @@ export default function Client({ props }) {
         transitionTimingFunction="ease"
         opened={opened}
         onClose={() => setOpened(false)}
-      // title="Addition Information"
+        // title="Addition Information"
       >
         {/* Modal content
          */}
@@ -537,20 +564,20 @@ export default function Client({ props }) {
                 <tbody>
                   {logs.length > 0
                     ? logs.map((log) => (
-                      <tr key={log.timestamp}>
-                        <td style={{ fontSize: "12px" }}>{log.datetime}</td>
-                        <td style={{ fontSize: "12px" }}>{log.command}</td>
-                        <td>
-                          <p style={{ fontSize: "12px" }}>
-                            {log.output.length > logOutputLetterLimit
-                              ? log.output.slice(0, logOutputLetterLimit) +
-                              "..."
-                              : log.output}
-                          </p>
-                        </td>
-                        <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
-                      </tr>
-                    ))
+                        <tr key={log.timestamp}>
+                          <td style={{ fontSize: "12px" }}>{log.datetime}</td>
+                          <td style={{ fontSize: "12px" }}>{log.command}</td>
+                          <td>
+                            <p style={{ fontSize: "12px" }}>
+                              {log.output.length > logOutputLetterLimit
+                                ? log.output.slice(0, logOutputLetterLimit) +
+                                  "..."
+                                : log.output}
+                            </p>
+                          </td>
+                          <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
+                        </tr>
+                      ))
                     : null}
                 </tbody>
               </Table>
@@ -559,13 +586,24 @@ export default function Client({ props }) {
               label="System Report"
               icon={<BrandGoogleAnalytics size={20} />}
             >
+              <Button
+                style={{
+                  margin: "0 0 1em 0",
+                  display: systemReport.length > 0 ? "block" : "hidden",
+                }}
+                onClick={() => downloadAsPDF()}
+              >
+                {" "}
+                <FileDownload /> &nbsp; Download as PDF
+              </Button>
               <div
+                id="systemReportContainer"
                 style={{
                   maxWidth: "100%",
                   overflow: "scroll",
                   backgroundColor: "#f5f5f5",
                   padding: "2em",
-                  borderRadius: "10px"
+                  borderRadius: "10px",
                 }}
               >
                 {systemReport.length > 0 ? (
