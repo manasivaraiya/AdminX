@@ -6,6 +6,7 @@ export default async function handler(req, res) {
     console.log((req.body));
     const req_app = req.body.name;
     // const req_app = "VLC Media Player";
+
     const docSnapshots = await firestore.collection("authorized_apps").get();
     const docs = docSnapshots.docs.map((doc) => doc.data());
     // get the value of key from map

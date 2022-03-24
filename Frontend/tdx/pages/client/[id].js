@@ -268,7 +268,6 @@ export default function Client({ props }) {
             <p><b>Exploitability Score</b>: {selectedVuln.impact.baseMetricV3.exploitabilityScore}/10</p>
             <p><b>Impact Score</b>: {selectedVuln.impact.baseMetricV3.impactScore}/10</p>
 
-
             <div className="add-info" style={{ marginTop: "40px" }}>
               <p style={{ fontWeight: "500" }}>Additional Information</p>
               {selectedVuln.cve.references.reference_data.map((reference, index) => (
