@@ -19,7 +19,7 @@ import {
   Tabs,
   Alert,
 } from "@mantine/core";
-import { AlertCircle } from 'tabler-icons-react';
+import { AlertCircle } from "tabler-icons-react";
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
@@ -27,9 +27,6 @@ import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
-
-
 
 export default function Client({ props }) {
   const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
@@ -49,12 +46,18 @@ export default function Client({ props }) {
 
   const [systemReport, setSystemReport] = useState("");
 
-  const handleUninstall = (name) => {
+  const handleUninstall = async (name) => {
     // console.log(name);
     const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
     // console.log(exec);
-    setCommand(exec);
-    runCommand();
+    const res = await axios.post(clientURL, {
+      command: exec,
+    });
+
+    console.log(res)
+
+    // setCommand(exec);
+    // runCommand();
   };
 
   const name = "Raj Tiwari";
@@ -115,7 +118,7 @@ export default function Client({ props }) {
       setCommandOutput("Error");
     }
 
-    setCommand("");
+    // setCommand("");
   };
 
   const handleVulnInfo = (vuln) => {
@@ -239,7 +242,7 @@ export default function Client({ props }) {
             <td>{element.Version}</td>
             <td>
               <Trash
-                style={{cursor: 'pointer'}}
+                style={{ cursor: "pointer" }}
                 size={20}
                 strokeWidth={2}
                 color={"#ff0000"}
@@ -250,30 +253,30 @@ export default function Client({ props }) {
               {element &&
               element.vulnerabilities &&
               element.vulnerabilities.length > 0
-              ? element.vulnerabilities.map((vulnerability, index) => (
-                // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
-                <Badge
-                  style={{
-                    backgroundColor:
-                      CRITICALITY[
-                      vulnerability.impact.baseMetricV2.severity
-                      ],
-                    cursor: "pointer",
-                  }}
-                  size="md"
-                  mr="md"
-                  mb="sm"
-                  variant="filled"
-                  radius="lg"
-                  onClick={() => handleVulnInfo(vulnerability)}
-                >
-                  {vulnerability.cve.CVE_data_meta.ID}
-                </Badge>
-              ))
-              : "No known Issues"}
-          </td>
-        </tr>
-      ))
+                ? element.vulnerabilities.map((vulnerability, index) => (
+                    // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
+                    <Badge
+                      style={{
+                        backgroundColor:
+                          CRITICALITY[
+                            vulnerability.impact.baseMetricV2.severity
+                          ],
+                        cursor: "pointer",
+                      }}
+                      size="md"
+                      mr="md"
+                      mb="sm"
+                      variant="filled"
+                      radius="lg"
+                      onClick={() => handleVulnInfo(vulnerability)}
+                    >
+                      {vulnerability.cve.CVE_data_meta.ID}
+                    </Badge>
+                  ))
+                : "No known Issues"}
+            </td>
+          </tr>
+        ))
       : [];
 
   async function getLogs() {
@@ -319,7 +322,7 @@ export default function Client({ props }) {
         transitionTimingFunction="ease"
         opened={opened}
         onClose={() => setOpened(false)}
-      // title="Addition Information"
+        // title="Addition Information"
       >
         {/* Modal content
          */}
@@ -571,20 +574,20 @@ export default function Client({ props }) {
                 <tbody>
                   {logs.length > 0
                     ? logs.map((log) => (
-                      <tr key={log.timestamp}>
-                        <td style={{ fontSize: "12px" }}>{log.datetime}</td>
-                        <td style={{ fontSize: "12px" }}>{log.command}</td>
-                        <td>
-                          <p style={{ fontSize: "12px" }}>
-                            {log.output.length > logOutputLetterLimit
-                              ? log.output.slice(0, logOutputLetterLimit) +
-                              "..."
-                              : log.output}
-                          </p>
-                        </td>
-                        <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
-                      </tr>
-                    ))
+                        <tr key={log.timestamp}>
+                          <td style={{ fontSize: "12px" }}>{log.datetime}</td>
+                          <td style={{ fontSize: "12px" }}>{log.command}</td>
+                          <td>
+                            <p style={{ fontSize: "12px" }}>
+                              {log.output.length > logOutputLetterLimit
+                                ? log.output.slice(0, logOutputLetterLimit) +
+                                  "..."
+                                : log.output}
+                            </p>
+                          </td>
+                          <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
+                        </tr>
+                      ))
                     : null}
                 </tbody>
               </Table>
