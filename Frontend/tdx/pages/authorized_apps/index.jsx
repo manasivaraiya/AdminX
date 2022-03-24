@@ -44,8 +44,8 @@ export default function authorized_apps() {
           {apps.length > 0 ? (
             apps.map((app) => (
               <div key={app.id}>
-                <h3>{app.name}</h3>
-                <p>{app.hash}</p>
+                <h3 style={{margin: '0.5em 0'}}>{app.name}</h3>
+                <p style={{margin: '0.5em 0'}}>{app.hash}</p>
                 <Button onClick={() => removeApp(app.id)}>
                   <Trash />
                 </Button>
