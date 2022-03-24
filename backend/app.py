@@ -9,6 +9,7 @@ allowedCommands = [
     "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     "dir",
     "ls",
+    "Get-Package -Provider Programs -IncludeWindowsInstaller -Name \"VLC media player\" |  % { & ($_.Meta.Attributes[\"UninstallString\"] -replace '\"') /S}"
 ]
 
 
@@ -17,6 +18,7 @@ def index():
     if request.method == "POST":
         command = request.json
         command = command["command"]
+        print(command)
         if command in allowedCommands:
             process = subprocess.Popen(
                 # ["powershell.exe", "D:\\SIH\\Stack-Smashers\\backend\\test.ps1"],
