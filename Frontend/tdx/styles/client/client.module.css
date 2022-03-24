@@ -16,13 +16,14 @@
 
 .profile_name {
   font-size: 1.8em;
-  font-weight: 500;
-  margin: 10px 0px;
+  font-weight: 700;
+  margin: 5px 0px;
 }
 .profile_desc {
-  font-size: 1.2em;
+  color: #707070;
+  font-size: 1em;
   font-weight: 400;
-  margin: 10px 0px;
+  margin: 0px 0px;
 }
 
 .profile_url {
