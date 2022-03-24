@@ -8,11 +8,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 export default function add_authorized_app() {
-  const [form, setForm] = useState({
-    name: "",
-    hash: "",
-  });
-
   const router = useRouter();
   async function onFormSubmit(e) {
     e.preventDefault();
