@@ -1,7 +1,7 @@
 import { TextInput, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
-import {firestore} from '../../utils/firebase'
+import { firestore } from '../../utils/firebase'
 
 export default function Demo() {
   // const form = useForm({
@@ -14,12 +14,12 @@ export default function Demo() {
   //     termsOfService: false,
   //   },
   // });
-  const [name,setName] = useState('');
-  const [url,setUrl] = useState('');
-  const [id,setId] = useState('');
-  const [description,setDescription] = useState('');
-  const [status,setStatus] = useState('');
-  const [lastresponse,setLastResponse] = useState('');
+  const [name, setName] = useState('');
+  const [url, setUrl] = useState('');
+  const [id, setId] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [lastresponse, setLastResponse] = useState('');
 
   const handleOnChange = (e) => {
     setName(e.target.value);
@@ -30,7 +30,7 @@ export default function Demo() {
     setLastResponse(e.target.value);
   }
 
-  const createUser = (e) =>{
+  const createUser = (e) => {
     e.preventDefault();
     // const userRef = firebase.database().ref("User")
     const user = {
@@ -59,47 +59,47 @@ export default function Demo() {
           label="Name"
           placeholder="xyz"
           onChange={handleOnChange}
-          value = {name}
-          // {...form.getInputProps('name')}
+          value={name}
+        // {...form.getInputProps('name')}
         />
 
         <TextInput
           label="URL"
           placeholder="iu6urdhcg"
           onChange={handleOnChange}
-          value = {url}
-          // {...form.getInputProps('url')}
+          value={url}
+        // {...form.getInputProps('url')}
         />
 
         <TextInput
           label="id"
           placeholder="xyz"
           onChange={handleOnChange}
-          value = {id}
-          // {...form.getInputProps('id')}
+          value={id}
+        // {...form.getInputProps('id')}
         />
 
         <TextInput
           label="Description"
           onChange={handleOnChange}
-          value = {description}
-          // {...form.getInputProps('description')}
+          value={description}
+        // {...form.getInputProps('description')}
         />
 
         <TextInput
           label="Status"
           placeholder="Active"
           onChange={handleOnChange}
-          value = {status}
-          // {...form.getInputProps('status')}
+          value={status}
+        // {...form.getInputProps('status')}
         />
 
         <TextInput
           label="Last Response"
           placeholder="24/12/21 - 09:30"
           onChange={handleOnChange}
-          value = {lastresponse}
-          // {...form.getInputProps('lastResponse')}
+          value={lastresponse}
+        // {...form.getInputProps('lastResponse')}
         />
 
         <Group position="right" mt="md">

@@ -1,0 +1,456 @@
+{
+  "output": [
+    {
+      "Detailed": false,
+      "ComputerName": "OMEN-WIN",
+      "InterfaceAlias": "Wi-Fi",
+      "InterfaceIndex": 12,
+      "InterfaceDescription": "Intel(R) Wi-Fi 6 AX200 160MHz",
+      "CompartmentId": 1,
+      "NetAdapter": {
+        "CimClass": "root/StandardCimv2:MSFT_NetAdapter",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \"{9572C1ED-FC32-4438-88A5-269586FE752A}\" CommunicationStatus DetailedStatus HealthState InstallDate Name = \"Wi-Fi\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState = 5 OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 AdditionalAvailability Availability CreationClassName = \"MSFT_NetAdapter\" DeviceID = \"{9572C1ED-FC32-4438-88A5-269586FE752A}\" ErrorCleared ErrorDescription IdentifyingDescriptions LastErrorCode MaxQuiesceTime OtherIdentifyingInfo PowerManagementCapabilities PowerManagementSupported PowerOnHours StatusInfo SystemCreationClassName = \"CIM_NetworkPort\" SystemName = \"OMEN-win\" TotalPowerOnHours MaxSpeed OtherPortType PortType RequestedSpeed Speed = 702000000 UsageRestriction ActiveMaximumTransmissionUnit = 1500 AutoSense FullDuplex = False LinkTechnology NetworkAddresses = ... OtherLinkTechnology OtherNetworkPortType PermanentAddress = \"E0D4E8334168\" PortNumber = 0 SupportedMaximumTransmissionUnit AdminLocked = False ComponentID = \"PCI\\VEN_8086&DEV_2723&SUBSYS_00848086\" ConnectorPresent = True DeviceName = \"\\Device\\{9572C1ED-FC32-4438-88A5-269586... DeviceWakeUpEnable = False DriverDate = \"2021-05-27\" DriverDateData = 132665472000000000 DriverDescription = \"Intel(R) Wi-Fi 6 AX200 160MHz\" DriverMajorNdisVersion = 6 DriverMinorNdisVersion = 60 DriverName = \"\\SystemRoot\\System32\\drivers\\Netwtw10.s... DriverProvider = \"Intel\" DriverVersionString = \"22.60.0.6\" EndPointInterface = False HardwareInterface = True Hidden = False HigherLayerInterfaceIndices = ... IMFilter = False InterfaceAdminStatus = 1 InterfaceDescription = \"Intel(R) Wi-Fi 6 AX200 160MHz\" InterfaceGuid = \"{9572C1ED-FC32-4438-88A5-269586FE752A}\" InterfaceIndex = 12 InterfaceName = \"wireless_32768\" InterfaceOperationalStatus = 1 InterfaceType = 71 iSCSIInterface = False LowerLayerInterfaceIndices MajorDriverVersion = 0 MediaConnectState = 1 MediaDuplexState = 1 MinorDriverVersion = 6 MtuSize = 1500 NdisMedium = 16 NdisPhysicalMedium = 9 NetLuid = 19985273102270464 NetLuidIndex = 32768 NotUserRemovable = False OperationalStatusDownDefaultPortNotAuthenticated = False OperationalStatusDownInterfacePaused = False OperationalStatusDownLowPowerState = False OperationalStatusDownMediaDisconnected = False PnPDeviceID = \"PCI\\VEN_8086&DEV_2723&SUBSYS_00848086&R... PromiscuousMode = False ReceiveLinkSpeed = 520000000 State = 2 TransmitLinkSpeed = 702000000 Virtual = False VlanID WdmInterface = False",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetCompartment": {
+        "CimClass": "root/StandardCimv2:MSFT_NetCompartment",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \";55;\" CompartmentDescription = \"Default Compartment\" CompartmentGuid = \"{b1062982-2b18-4b4f-b3d5-a78ddb9cdd49}\" CompartmentId = 1 CompartmentType = 1",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv6Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";?55??55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 23 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 1 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 1 Dhcp = 1 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Wi-Fi\" InterfaceIndex = 12 InterfaceMetric = 35 IsolationId = 0 LowestIfNetLuid = 19985273102270464 ManagedAddressConfiguration = 0 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1360 OtherStatefulConfiguration = 0 ReachableTime = 31500 RetransmitTime = 1000 RouterDiscovery = 1 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv4Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";?55?55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 2 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 1 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 3 Dhcp = 1 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Wi-Fi\" InterfaceIndex = 12 InterfaceMetric = 35 IsolationId = 0 LowestIfNetLuid = 19985273102270464 ManagedAddressConfiguration = 1 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1360 OtherStatefulConfiguration = 1 ReachableTime = 36500 RetransmitTime = 1000 RouterDiscovery = 2 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetProfile": {
+        "CimClass": "root/StandardCimv2:MSFT_NetConnectionProfile",
+        "CimInstanceProperties": "Caption Description ElementName = \"\" InstanceID = \"{9572C1ED-FC32-4438-88A5-269586FE752A}\" InterfaceAlias = \"Wi-Fi\" InterfaceIndex = 12 IPv4Connectivity = 4 IPv6Connectivity = 3 Name = \"SVV.local\" NetworkCategory = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "AllIPAddresses": [
+        "MSFT_NetIPAddress (Name = \";:8:8?8;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")",
+        "MSFT_NetIPAddress (Name = \"pn:;D?mk;Dkl;oDB;A?Dp?C?DB?onDlA?kD?oC?..., CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")",
+        "MSFT_NetIPAddress (Name = \"poB:DDB?lpDp?;BDp?A;D;mC@/;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6Address": [
+        "MSFT_NetIPAddress (Name = \"pn:;D?mk;Dkl;oDB;A?Dp?C?DB?onDlA?kD?oC?..., CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6TemporaryAddress": [],
+      "IPv6LinkLocalAddress": [
+        "MSFT_NetIPAddress (Name = \"poB:DDB?lpDp?;BDp?A;D;mC@/;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv4Address": [
+        "MSFT_NetIPAddress (Name = \";:8:8?8;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6DefaultGateway": [
+        "MSFT_NetRoute (InstanceID = \"DD9:55;?55?@:@D?A::D;::DDk?CpDm;:?55;\")"
+      ],
+      "IPv4DefaultGateway": [
+        "MSFT_NetRoute (InstanceID = \":8:8:8:9:55;?55;:8:8:8;55;\")"
+      ],
+      "DNSServer": [
+        "MSFT_DNSClientServerAddress (Name = \"12\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"23\")",
+        "MSFT_DNSClientServerAddress (Name = \"12\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"2\")"
+      ]
+    },
+    {
+      "Detailed": false,
+      "ComputerName": "OMEN-WIN",
+      "InterfaceAlias": "Bluetooth Network Connection",
+      "InterfaceIndex": 15,
+      "InterfaceDescription": "Bluetooth Device (Personal Area Network)",
+      "CompartmentId": 1,
+      "NetAdapter": {
+        "CimClass": "root/StandardCimv2:MSFT_NetAdapter",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \"{CCB8B863-D658-4095-ADDC-7A22864934D3}\" CommunicationStatus DetailedStatus HealthState InstallDate Name = \"Bluetooth Network Connection\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState = 5 OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 AdditionalAvailability Availability CreationClassName = \"MSFT_NetAdapter\" DeviceID = \"{CCB8B863-D658-4095-ADDC-7A22864934D3}\" ErrorCleared ErrorDescription IdentifyingDescriptions LastErrorCode MaxQuiesceTime OtherIdentifyingInfo PowerManagementCapabilities PowerManagementSupported PowerOnHours StatusInfo SystemCreationClassName = \"CIM_NetworkPort\" SystemName = \"OMEN-win\" TotalPowerOnHours MaxSpeed OtherPortType PortType RequestedSpeed Speed = 3000000 UsageRestriction ActiveMaximumTransmissionUnit = 1500 AutoSense FullDuplex = True LinkTechnology NetworkAddresses = ... OtherLinkTechnology OtherNetworkPortType PermanentAddress = \"E0D4E833416C\" PortNumber = 0 SupportedMaximumTransmissionUnit AdminLocked = False ComponentID = \"BTH\\MS_BTHPAN\" ConnectorPresent = False DeviceName = \"\\Device\\{CCB8B863-D658-4095-ADDC-7A2286... DeviceWakeUpEnable = False DriverDate = \"2006-06-21\" DriverDateData = 127953216000000000 DriverDescription = \"Bluetooth Device (Personal Area Network... DriverMajorNdisVersion = 6 DriverMinorNdisVersion = 30 DriverName = \"\\SystemRoot\\System32\\drivers\\bthpan.sys... DriverProvider = \"Microsoft\" DriverVersionString = \"10.0.22000.1\" EndPointInterface = False HardwareInterface = False Hidden = False HigherLayerInterfaceIndices IMFilter = False InterfaceAdminStatus = 1 InterfaceDescription = \"Bluetooth Device (Personal Area Network... InterfaceGuid = \"{CCB8B863-D658-4095-ADDC-7A22864934D3}\" InterfaceIndex = 15 InterfaceName = \"ethernet_32773\" InterfaceOperationalStatus = 2 InterfaceType = 6 iSCSIInterface = False LowerLayerInterfaceIndices MajorDriverVersion = 0 MediaConnectState = 2 MediaDuplexState = 2 MinorDriverVersion = 0 MtuSize = 1500 NdisMedium = 0 NdisPhysicalMedium = 10 NetLuid = 1689399699963904 NetLuidIndex = 32773 NotUserRemovable = False OperationalStatusDownDefaultPortNotAuthenticated = False OperationalStatusDownInterfacePaused = False OperationalStatusDownLowPowerState = False OperationalStatusDownMediaDisconnected = True PnPDeviceID = \"BTH\\MS_BTHPAN\\7&2e9095c&0&2\" PromiscuousMode = False ReceiveLinkSpeed = 3000000 State = 2 TransmitLinkSpeed = 3000000 Virtual = True VlanID WdmInterface = True",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetCompartment": {
+        "CimClass": "root/StandardCimv2:MSFT_NetCompartment",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \";55;\" CompartmentDescription = \"Default Compartment\" CompartmentGuid = \"{b1062982-2b18-4b4f-b3d5-a78ddb9cdd49}\" CompartmentId = 1 CompartmentType = 1",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv6Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";?55??55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 23 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 0 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 1 Dhcp = 0 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Bluetooth Network Connection\" InterfaceIndex = 15 InterfaceMetric = 65 IsolationId = 0 LowestIfNetLuid = 1689399699963904 ManagedAddressConfiguration = 0 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1500 OtherStatefulConfiguration = 0 ReachableTime = 42000 RetransmitTime = 1000 RouterDiscovery = 1 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv4Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";?55?55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 2 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 0 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 3 Dhcp = 1 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Bluetooth Network Connection\" InterfaceIndex = 15 InterfaceMetric = 65 IsolationId = 0 LowestIfNetLuid = 1689399699963904 ManagedAddressConfiguration = 1 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1500 OtherStatefulConfiguration = 1 ReachableTime = 42500 RetransmitTime = 1000 RouterDiscovery = 2 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetProfile": null,
+      "AllIPAddresses": [
+        "MSFT_NetIPAddress (Name = \";@C8???8;??8?:@55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")",
+        "MSFT_NetIPAddress (Name = \"poB:DD?C?@D@A::D?pB?DAkmo/;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6Address": [],
+      "IPv6TemporaryAddress": [],
+      "IPv6LinkLocalAddress": [
+        "MSFT_NetIPAddress (Name = \"poB:DD?C?@D@A::D?pB?DAkmo/;?55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv4Address": [
+        "MSFT_NetIPAddress (Name = \";@C8???8;??8?:@55;?55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6DefaultGateway": null,
+      "IPv4DefaultGateway": null,
+      "DNSServer": [
+        "MSFT_DNSClientServerAddress (Name = \"15\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"23\")",
+        "MSFT_DNSClientServerAddress (Name = \"15\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"2\")"
+      ]
+    },
+    {
+      "Detailed": false,
+      "ComputerName": "OMEN-WIN",
+      "InterfaceAlias": "Ethernet",
+      "InterfaceIndex": 18,
+      "InterfaceDescription": "Realtek Gaming GbE Family Controller",
+      "CompartmentId": 1,
+      "NetAdapter": {
+        "CimClass": "root/StandardCimv2:MSFT_NetAdapter",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \"{FDB5D95D-75A0-48CE-A86C-7F67AF75CBAB}\" CommunicationStatus DetailedStatus HealthState InstallDate Name = \"Ethernet\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState = 5 OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 AdditionalAvailability Availability CreationClassName = \"MSFT_NetAdapter\" DeviceID = \"{FDB5D95D-75A0-48CE-A86C-7F67AF75CBAB}\" ErrorCleared ErrorDescription IdentifyingDescriptions LastErrorCode MaxQuiesceTime OtherIdentifyingInfo PowerManagementCapabilities PowerManagementSupported PowerOnHours StatusInfo SystemCreationClassName = \"CIM_NetworkPort\" SystemName = \"OMEN-win\" TotalPowerOnHours MaxSpeed OtherPortType PortType RequestedSpeed Speed UsageRestriction ActiveMaximumTransmissionUnit = 1500 AutoSense FullDuplex LinkTechnology NetworkAddresses = ... OtherLinkTechnology OtherNetworkPortType PermanentAddress = \"BCE92F8C1DC8\" PortNumber = 0 SupportedMaximumTransmissionUnit AdminLocked = False ComponentID = \"PCI\\VEN_10EC&DEV_8168&SUBSYS_8788103C&R... ConnectorPresent = True DeviceName = \"\\Device\\{FDB5D95D-75A0-48CE-A86C-7F67AF... DeviceWakeUpEnable = False DriverDate = \"2020-09-28\" DriverDateData = 132457248000000000 DriverDescription = \"Realtek Gaming GbE Family Controller\" DriverMajorNdisVersion = 6 DriverMinorNdisVersion = 40 DriverName = \"\\SystemRoot\\System32\\drivers\\rt640x64.s... DriverProvider = \"Realtek\" DriverVersionString = \"10.45.928.2020\" EndPointInterface = False HardwareInterface = True Hidden = False HigherLayerInterfaceIndices = ... IMFilter = False InterfaceAdminStatus = 1 InterfaceDescription = \"Realtek Gaming GbE Family Controller\" InterfaceGuid = \"{FDB5D95D-75A0-48CE-A86C-7F67AF75CBAB}\" InterfaceIndex = 18 InterfaceName = \"ethernet_32769\" InterfaceOperationalStatus = 2 InterfaceType = 6 iSCSIInterface = False LowerLayerInterfaceIndices MajorDriverVersion = 10 MediaConnectState = 2 MediaDuplexState = 0 MinorDriverVersion = 45 MtuSize = 1500 NdisMedium = 0 NdisPhysicalMedium = 14 NetLuid = 1689399632855040 NetLuidIndex = 32769 NotUserRemovable = False OperationalStatusDownDefaultPortNotAuthenticated = False OperationalStatusDownInterfacePaused = False OperationalStatusDownLowPowerState = False OperationalStatusDownMediaDisconnected = True PnPDeviceID = \"PCI\\VEN_10EC&DEV_8168&SUBSYS_8788103C&R... PromiscuousMode = False ReceiveLinkSpeed State = 2 TransmitLinkSpeed Virtual = False VlanID WdmInterface = False",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetCompartment": {
+        "CimClass": "root/StandardCimv2:MSFT_NetCompartment",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID = \";55;\" CompartmentDescription = \"Default Compartment\" CompartmentGuid = \"{b1062982-2b18-4b4f-b3d5-a78ddb9cdd49}\" CompartmentId = 1 CompartmentType = 1",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv6Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";B55??55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 23 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 0 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 1 Dhcp = 1 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Ethernet\" InterfaceIndex = 18 InterfaceMetric = 5 IsolationId = 0 LowestIfNetLuid = 1689399632855040 ManagedAddressConfiguration = 0 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1500 OtherStatefulConfiguration = 0 ReachableTime = 21500 RetransmitTime = 1000 RouterDiscovery = 1 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetIPv4Interface": {
+        "CimClass": "root/StandardCimv2:MSFT_NetIPInterface",
+        "CimInstanceProperties": "Caption Description ElementName InstanceID CommunicationStatus DetailedStatus HealthState InstallDate Name = \";B55?55;\" OperatingStatus OperationalStatus PrimaryStatus Status StatusDescriptions AvailableRequestedStates EnabledDefault = 2 EnabledState OtherEnabledState RequestedState = 12 TimeOfLastStateChange TransitioningToState = 12 CreationClassName = \"\" SystemCreationClassName = \"\" SystemName = \"\" NameFormat OtherTypeDescription ProtocolIFType ProtocolType AliasAddresses GroupAddresses LANID LANType MACAddress MaxDataSize OtherLANType AddressFamily = 2 AdvertiseDefaultRoute = 0 AdvertisedRouterLifetime = 00:30:00 Advertising = 0 AutomaticMetric = 1 BaseReachableTime = 30000 ClampMss = 0 CompartmentId = 1 ConnectionState = 0 CurrentHopLimit = 0 DadRetransmitTime = 1000 DadTransmits = 3 Dhcp = 1 DirectedMacWolPattern = 0 EcnMarking = 3 ForceArpNdWolPattern = 0 Forwarding = 0 IgnoreDefaultRoutes = 0 InterfaceAlias = \"Ethernet\" InterfaceIndex = 18 InterfaceMetric = 5 IsolationId = 0 LowestIfNetLuid = 1689399632855040 ManagedAddressConfiguration = 1 NeighborDiscoverySupported = 1 NeighborUnreachabilityDetection = 1 NlMtu = 1500 OtherStatefulConfiguration = 1 ReachableTime = 30500 RetransmitTime = 1000 RouterDiscovery = 2 Store = 1 WeakHostReceive = 0 WeakHostSend = 0",
+        "CimSystemProperties": "Microsoft.Management.Infrastructure.CimSystemProperties"
+      },
+      "NetProfile": null,
+      "AllIPAddresses": [
+        "MSFT_NetIPAddress (Name = \";@C8???8;:?8B@55;B55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")",
+        "MSFT_NetIPAddress (Name = \"poB:DDp::ADk:p:D???oD@C?@/;B55;B55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6Address": [],
+      "IPv6TemporaryAddress": [],
+      "IPv6LinkLocalAddress": [
+        "MSFT_NetIPAddress (Name = \"poB:DDp::ADk:p:D???oD@C?@/;B55;B55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv4Address": [
+        "MSFT_NetIPAddress (Name = \";@C8???8;:?8B@55;B55;55;\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"\")"
+      ],
+      "IPv6DefaultGateway": null,
+      "IPv4DefaultGateway": null,
+      "DNSServer": [
+        "MSFT_DNSClientServerAddress (Name = \"18\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"23\")",
+        "MSFT_DNSClientServerAddress (Name = \"18\", CreationClassName = \"\", SystemCreationClassName = \"\", SystemName = \"2\")"
+      ]
+    }
+  ],
+  "output2": {
+    "WindowsBuildLabEx": "22000.1.amd64fre.co_release.210604-1628",
+    "WindowsCurrentVersion": "6.3",
+    "WindowsEditionId": "Education",
+    "WindowsInstallationType": "Client",
+    "WindowsInstallDateFromRegistry": "/Date(1635605711000)/",
+    "WindowsProductId": "00328-00000-00000-AA554",
+    "WindowsProductName": "Windows 10 Education",
+    "WindowsRegisteredOrganization": null,
+    "WindowsRegisteredOwner": "Jayesh",
+    "WindowsSystemRoot": "C:\\WINDOWS",
+    "WindowsVersion": "2009",
+    "OSDisplayVersion": "21H2",
+    "BiosCharacteristics": [
+      7, 11, 12, 15, 16, 19, 23, 24, 25, 26, 27, 28, 29, 32, 33, 39, 40, 41, 42,
+      43
+    ],
+    "BiosBIOSVersion": [
+      "HPQOEM - 1072009",
+      "F.13",
+      "American Megatrends - 50010"
+    ],
+    "BiosBuildNumber": null,
+    "BiosCaption": "F.13",
+    "BiosCodeSet": null,
+    "BiosCurrentLanguage": "en|US|iso8859-1",
+    "BiosDescription": "F.13",
+    "BiosEmbeddedControllerMajorVersion": 22,
+    "BiosEmbeddedControllerMinorVersion": 58,
+    "BiosFirmwareType": 2,
+    "BiosIdentificationCode": null,
+    "BiosInstallableLanguages": 5,
+    "BiosInstallDate": null,
+    "BiosLanguageEdition": null,
+    "BiosListOfLanguages": [
+      "en|US|iso8859-1",
+      "fr|FR|iso8859-1",
+      "es|ES|iso8859-1",
+      "zh|TW|unicode",
+      "zh|CN|unicode"
+    ],
+    "BiosManufacturer": "AMI",
+    "BiosName": "F.13",
+    "BiosOtherTargetOS": null,
+    "BiosPrimaryBIOS": true,
+    "BiosReleaseDate": "/Date(1614816000000)/",
+    "BiosSeralNumber": "5CD0271Z12",
+    "BiosSMBIOSBIOSVersion": "F.13",
+    "BiosSMBIOSMajorVersion": 3,
+    "BiosSMBIOSMinorVersion": 2,
+    "BiosSMBIOSPresent": true,
+    "BiosSoftwareElementState": 3,
+    "BiosStatus": "OK",
+    "BiosSystemBiosMajorVersion": 15,
+    "BiosSystemBiosMinorVersion": 13,
+    "BiosTargetOperatingSystem": 0,
+    "BiosVersion": "HPQOEM - 1072009",
+    "CsAdminPasswordStatus": 3,
+    "CsAutomaticManagedPagefile": true,
+    "CsAutomaticResetBootOption": true,
+    "CsAutomaticResetCapability": true,
+    "CsBootOptionOnLimit": null,
+    "CsBootOptionOnWatchDog": null,
+    "CsBootROMSupported": true,
+    "CsBootStatus": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    "CsBootupState": "Normal boot",
+    "CsCaption": "OMEN-WIN",
+    "CsChassisBootupState": 3,
+    "CsChassisSKUNumber": null,
+    "CsCurrentTimeZone": 330,
+    "CsDaylightInEffect": null,
+    "CsDescription": "AT/AT COMPATIBLE",
+    "CsDNSHostName": "OMEN-win",
+    "CsDomain": "WORKGROUP",
+    "CsDomainRole": 0,
+    "CsEnableDaylightSavingsTime": true,
+    "CsFrontPanelResetStatus": 3,
+    "CsHypervisorPresent": false,
+    "CsInfraredSupported": false,
+    "CsInitialLoadInfo": null,
+    "CsInstallDate": null,
+    "CsKeyboardPasswordStatus": 3,
+    "CsLastLoadInfo": null,
+    "CsManufacturer": "HP",
+    "CsModel": "OMEN Laptop 15-en0xxx",
+    "CsName": "OMEN-WIN",
+    "CsNetworkAdapters": [
+      {
+        "Description": "Realtek Gaming GbE Family Controller",
+        "ConnectionID": "Ethernet",
+        "DHCPEnabled": null,
+        "DHCPServer": null,
+        "ConnectionStatus": 7,
+        "IPAddresses": null
+      },
+      {
+        "Description": "Intel(R) Wi-Fi 6 AX200 160MHz",
+        "ConnectionID": "Wi-Fi",
+        "DHCPEnabled": true,
+        "DHCPServer": "172.31.0.25",
+        "ConnectionStatus": 2,
+        "IPAddresses": "10.0.3.14 fe80::85bf:f418:f571:1c96 fd01:5ca1:ab1e:8174:f392:82ed:b72a:3e93"
+      },
+      {
+        "Description": "Bluetooth Device (Personal Area Network)",
+        "ConnectionID": "Bluetooth Network Connection",
+        "DHCPEnabled": null,
+        "DHCPServer": null,
+        "ConnectionStatus": 7,
+        "IPAddresses": null
+      }
+    ],
+    "CsNetworkServerModeEnabled": true,
+    "CsNumberOfLogicalProcessors": 12,
+    "CsNumberOfProcessors": 1,
+    "CsProcessors": [
+      {
+        "Name": "AMD Ryzen 5 4600H with Radeon Graphics         ",
+        "Manufacturer": "AuthenticAMD",
+        "Description": "AMD64 Family 23 Model 96 Stepping 1",
+        "Architecture": 9,
+        "AddressWidth": 64,
+        "DataWidth": 64,
+        "MaxClockSpeed": 3000,
+        "CurrentClockSpeed": 1400,
+        "NumberOfCores": 6,
+        "NumberOfLogicalProcessors": 12,
+        "ProcessorID": "178BFBFF00860F01",
+        "SocketDesignation": "FP6",
+        "ProcessorType": 3,
+        "Role": "CPU",
+        "Status": "OK",
+        "CpuStatus": 1,
+        "Availability": 3
+      }
+    ],
+    "CsOEMStringArray": [
+      "$HP$",
+      "ABS 70/71 79 7A 7B 7C",
+      "BCU_Y",
+      "BATT_CARE",
+      "FBYTE#3K6b7W8AaBaHapaqarawbAbhdUdXdpdqfPfdhZhwm9.BR;BUILDID#20WW",
+      "1VAT601#SACJ#DACJ;",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " ",
+      " "
+    ],
+    "CsPartOfDomain": false,
+    "CsPauseAfterReset": -1,
+    "CsPCSystemType": 2,
+    "CsPCSystemTypeEx": 2,
+    "CsPowerManagementCapabilities": null,
+    "CsPowerManagementSupported": null,
+    "CsPowerOnPasswordStatus": 3,
+    "CsPowerState": 0,
+    "CsPowerSupplyState": 3,
+    "CsPrimaryOwnerContact": null,
+    "CsPrimaryOwnerName": "Jayesh",
+    "CsResetCapability": 1,
+    "CsResetCount": -1,
+    "CsResetLimit": -1,
+    "CsRoles": ["LM_Workstation", "LM_Server", "NT"],
+    "CsStatus": "OK",
+    "CsSupportContactDescription": null,
+    "CsSystemFamily": "103C_5335KV HP OMEN",
+    "CsSystemSKUNumber": "1B0B0PA#ACJ",
+    "CsSystemType": "x64-based PC",
+    "CsThermalState": 3,
+    "CsTotalPhysicalMemory": 16497164288,
+    "CsPhyicallyInstalledMemory": 16777216,
+    "CsUserName": "OMEN-WIN\\Jayesh",
+    "CsWakeUpType": 6,
+    "CsWorkgroup": "WORKGROUP",
+    "OsName": "Microsoft Windows 11 Education",
+    "OsType": 18,
+    "OsOperatingSystemSKU": 121,
+    "OsVersion": "10.0.22000",
+    "OsCSDVersion": null,
+    "OsBuildNumber": "22000",
+    "OsHotFixes": [
+      {
+        "HotFixID": "KB5010474",
+        "Description": "Update",
+        "InstalledOn": "3/12/2022",
+        "FixComments": ""
+      },
+      {
+        "HotFixID": "KB5004567",
+        "Description": "Update",
+        "InstalledOn": "10/30/2021",
+        "FixComments": ""
+      },
+      {
+        "HotFixID": "KB5008295",
+        "Description": "Update",
+        "InstalledOn": "11/8/2021",
+        "FixComments": ""
+      },
+      {
+        "HotFixID": "KB5011493",
+        "Description": "Security Update",
+        "InstalledOn": "3/12/2022",
+        "FixComments": ""
+      },
+      {
+        "HotFixID": "KB5009641",
+        "Description": "Update",
+        "InstalledOn": "1/26/2022",
+        "FixComments": ""
+      }
+    ],
+    "OsBootDevice": "\\Device\\HarddiskVolume3",
+    "OsSystemDevice": "\\Device\\HarddiskVolume5",
+    "OsSystemDirectory": "C:\\WINDOWS\\system32",
+    "OsSystemDrive": "C:",
+    "OsWindowsDirectory": "C:\\WINDOWS",
+    "OsCountryCode": "1",
+    "OsCurrentTimeZone": 330,
+    "OsLocaleID": "0409",
+    "OsLocale": "en-US",
+    "OsLocalDateTime": "/Date(1648105937634)/",
+    "OsLastBootUpTime": "/Date(1648036759500)/",
+    "OsUptime": {
+      "Ticks": 691780554968,
+      "Days": 0,
+      "Hours": 19,
+      "Milliseconds": 55,
+      "Minutes": 12,
+      "Seconds": 58,
+      "TotalDays": 0.8006719386203703,
+      "TotalHours": 19.21612652688889,
+      "TotalMilliseconds": 69178055.4968,
+      "TotalMinutes": 1152.9675916133333,
+      "TotalSeconds": 69178.05549679999
+    },
+    "OsBuildType": "Multiprocessor Free",
+    "OsCodeSet": "1252",
+    "OsDataExecutionPreventionAvailable": true,
+    "OsDataExecutionPrevention32BitApplications": true,
+    "OsDataExecutionPreventionDrivers": true,
+    "OsDataExecutionPreventionSupportPolicy": 2,
+    "OsDebug": false,
+    "OsDistributed": false,
+    "OsEncryptionLevel": 256,
+    "OsForegroundApplicationBoost": 2,
+    "OsTotalVisibleMemorySize": 16110512,
+    "OsFreePhysicalMemory": 7447212,
+    "OsTotalVirtualMemorySize": 24236976,
+    "OsFreeVirtualMemory": 7049076,
+    "OsInUseVirtualMemory": 17187900,
+    "OsTotalSwapSpaceSize": null,
+    "OsSizeStoredInPagingFiles": 8126464,
+    "OsFreeSpaceInPagingFiles": 8000488,
+    "OsPagingFiles": ["C:\\pagefile.sys"],
+    "OsHardwareAbstractionLayer": "10.0.22000.527",
+    "OsInstallDate": "/Date(1635625511000)/",
+    "OsManufacturer": "Microsoft Corporation",
+    "OsMaxNumberOfProcesses": 4294967295,
+    "OsMaxProcessMemorySize": 137438953344,
+    "OsMuiLanguages": ["en-US", "en-GB"],
+    "OsNumberOfLicensedUsers": null,
+    "OsNumberOfProcesses": 231,
+    "OsNumberOfUsers": 2,
+    "OsOrganization": null,
+    "OsArchitecture": "64-bit",
+    "OsLanguage": "en-US",
+    "OsProductSuites": [256],
+    "OsOtherTypeDescription": null,
+    "OsPAEEnabled": null,
+    "OsPortableOperatingSystem": false,
+    "OsPrimary": true,
+    "OsProductType": 1,
+    "OsRegisteredUser": "Jayesh",
+    "OsSerialNumber": "00328-00000-00000-AA554",
+    "OsServicePackMajorVersion": 0,
+    "OsServicePackMinorVersion": 0,
+    "OsStatus": "OK",
+    "OsSuites": [16, 256],
+    "OsServerLevel": null,
+    "KeyboardLayout": "en-US",
+    "TimeZone": "(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi",
+    "LogonServer": "\\\\OMEN-WIN",
+    "PowerPlatformRole": 2,
+    "HyperVisorPresent": false,
+    "HyperVRequirementDataExecutionPreventionAvailable": true,
+    "HyperVRequirementSecondLevelAddressTranslation": true,
+    "HyperVRequirementVirtualizationFirmwareEnabled": true,
+    "HyperVRequirementVMMonitorModeExtensions": true,
+    "DeviceGuardSmartStatus": 0,
+    "DeviceGuardRequiredSecurityProperties": null,
+    "DeviceGuardAvailableSecurityProperties": null,
+    "DeviceGuardSecurityServicesConfigured": null,
+    "DeviceGuardSecurityServicesRunning": null,
+    "DeviceGuardCodeIntegrityPolicyEnforcementStatus": null,
+    "DeviceGuardUserModeCodeIntegrityPolicyEnforcementStatus": null
+  }
+}

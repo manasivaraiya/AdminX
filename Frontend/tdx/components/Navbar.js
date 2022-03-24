@@ -15,12 +15,8 @@ import Link from "next/link";
 
 const pages = [
   {
-    name: "Home",
+    name: "All Clients",
     href: "/home",
-  },
-  {
-    name: "Client",
-    href: "/client",
   },
   {
     name: "Authorized Apps",
@@ -103,7 +99,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
           >
-            LOGO
+            TdX
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
