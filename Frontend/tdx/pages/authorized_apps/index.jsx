@@ -40,7 +40,16 @@ export default function authorized_apps() {
       <div className={styles.container} style={{ paddingBottom: "3em" }}>
         <h1>Authorized Apps</h1>
 
-        <div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            // display: "flex",
+            // gridAutoFlow: "row",
+            // flexWrap: "wrap",
+            // justifyContent: "flex-start",
+          }}
+        >
           {apps.length > 0 ? (
             apps.map((app) => (
               <div key={app.id}>

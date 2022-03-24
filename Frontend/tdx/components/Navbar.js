@@ -19,8 +19,8 @@ const pages = [
     href: "/home",
   },
   {
-    name: "Client",
-    href: "/client",
+    name: "All Clients",
+    href: "/home",
   },
   {
     name: "Authorized Apps",
