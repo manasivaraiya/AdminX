@@ -5,10 +5,23 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from tkinter import *
 import subprocess
-from threading import Thread
+from threading import Thread, local
 import os
+import requests, json
 
-OPTIONS = ["VLC", "Discord", "Onedrive", "Teams", "Slack", "Whatsapp", "Other"]
+
+OPTIONS = [
+    "VLC Media Player",
+    "Discord",
+    "Onedrive",
+    "Teams",
+    "Slack",
+    "Whatsapp",
+    "arch-linux",
+    "audacity",
+    "Other",
+]
+authorized_apps_url = "https://tdx-nis130.vercel.app/api/authorized_apps"
 
 
 class GUIWithTK:
@@ -43,13 +56,12 @@ class GUIWithTK:
             text="Please select what kind of file you just downloaded!",
             font=("Times New Roman bold", 20),
         )
-        label.pack(padx=10, pady=10)
+        label.grid(padx=10, pady=10, sticky="N")
         self.root.attributes("-fullscreen", True, "-topmost", True)
         self.root.configure(bg="black")
         w = OptionMenu(self.root, program, *OPTIONS, command=self.change)
         w.config(width=20)
-        w.pack(padx=20, pady=20)
-        print("----------------------------")
+        w.grid(column=1, row=10)
         self.root.mainloop()
 
     def wait_till_file_is_created(self, file_path):
@@ -69,7 +81,6 @@ class GUIWithTK:
             print("ohnoo")
 
     def change(self, *args):
-        global opened
         if args[0] == "Other":
             self.root.destroy()
             print(self.file)
@@ -82,16 +93,12 @@ class GUIWithTK:
                 stderr=subprocess.PIPE,
             )
             out, err = process.communicate()
-            print(
-                out.decode("utf-8"),
-            )
-            print(
-                err.decode("utf-8"),
-            )
+            print(out.decode("utf-8"))
+            print(err.decode("utf-8"))
 
         elif args[0] in OPTIONS[:-1]:
             print(self.file)
-            command = f"Get-FileHash -Algorithm SHA1 '{self.file}' | Select Hash | Format-Table -HideTableHeaders "
+            command = f"Get-FileHash -Algorithm SHA256 '{self.file}' | Select Hash | Format-Table -HideTableHeaders "
             process = subprocess.Popen(
                 # ["powershell.exe", "D:\\SIH\\Stack-Smashers\\backend\\test.ps1"],
                 ["powershell.exe", command],
@@ -100,12 +107,33 @@ class GUIWithTK:
                 stderr=subprocess.PIPE,
             )
             out, err = process.communicate()
-            print(
-                out.decode("utf-8"),
+            payload = {"name": f"{args[0]}"}
+            headers = {"Content-Type": "application/json"}
+            response = requests.post(
+                authorized_apps_url, headers=headers, data=json.dumps(payload)
             )
-            print(
-                err.decode("utf-8"),
-            )
+            print(json.dumps(payload))
+            print(response.status_code)
+            if response.status_code == 200:
+                hasher = response.json().get("data").get("hash")
+                local_hash = out.decode("utf-8")
+                escapes = "".join([chr(char) for char in range(1, 32)])
+                clean_local_hash = local_hash.translate(str.maketrans("", "", escapes))
+                clean_server_hash = hasher.translate(str.maketrans("", "", escapes))
+                clean_local_hash = local_hash.translate(str.maketrans("", "", escapes))
+                clean_server_hash = hasher.translate(str.maketrans("", "", escapes))
+                if clean_local_hash.lower() != clean_server_hash.lower():
+                    print('deleting because hash did not match')
+                    command = f"Remove-Item -Path '{self.file}' "
+                    process = subprocess.Popen(
+                        # ["powershell.exe", "D:\\SIH\\Stack-Smashers\\backend\\test.ps1"],
+                        ["powershell.exe", command],
+                        shell=True,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE,
+                    )
+            out, err = process.communicate()
+            print(err.decode("utf-8"))
             self.root.destroy()
 
 
@@ -144,4 +172,4 @@ if __name__ == "__main__":
     watch = GUIWithTK()
     watch.run()
 
-    # block_with_tkinter()
+    # watch.block_with_tkinter('uwu')
