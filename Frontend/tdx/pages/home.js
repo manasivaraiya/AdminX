@@ -6,11 +6,12 @@ import firebase from "../utils/firebase";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
 import { Link } from "@mui/material";
-import Router from 'next/router'
+import Router from 'next/router';
 
 export default function dashboard() {
 
   const [elements, setElements] = useState([]);
+  // const { user, logout } = useUser();
 
   const getallUsers = async () => {
 
@@ -25,6 +26,7 @@ export default function dashboard() {
   }
 
   useEffect(() => {
+
     getallUsers();
 
 
@@ -67,6 +69,7 @@ export default function dashboard() {
   }
 
   return (
+
     <div>
       <ResponsiveAppBar />
       <div className="container" style={{ marginTop: "30px", width: "80%", margin: "auto" }}>

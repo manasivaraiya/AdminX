@@ -192,7 +192,6 @@ export default function Client({ props }) {
 
   async function onMounted() {
     getLogs();
-    getSystemReport();
     const data = {
       command:
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
@@ -203,6 +202,7 @@ export default function Client({ props }) {
         const output = JSON.parse(res.data.out);
         setApps(output);
         getVulnerabilities(output);
+        getSystemReport();
       }
     } catch (e) {
       console.error("Axios request failed", e);
