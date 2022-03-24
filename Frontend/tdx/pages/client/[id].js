@@ -233,6 +233,7 @@ export default function Client({ props }) {
         .collection("Logs")
         .get();
       const docs = docSnapshots.docs.map((doc) => doc.data());
+      docs.sort((a, b) => a.timestamp > b.timestamp);
       setLogs(docs);
     } catch (e) {
       console.error("Error while fetching logs", e);
@@ -289,16 +290,16 @@ export default function Client({ props }) {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-around",
+                  gap: "1.5em",
                   alignItems: "center",
                 }}
               >
                 <p
                   style={{
-                    backgroundColor:
-                      CRITICALITY[selectedVuln.impact.baseMetricV2.severity],
-                    padding: "1em 1.25em",
-                    borderRadius: "15px",
+                    // backgroundColor: "#ddd",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
                     display: "flex",
                     flexDirection: "column",
                   }}
@@ -314,6 +315,7 @@ export default function Client({ props }) {
                   <span
                     style={{
                       fontWeight: "bold",
+                      fontSize: "18px",
                     }}
                   >
                     {selectedVuln.impact.baseMetricV2.severity}
@@ -321,9 +323,10 @@ export default function Client({ props }) {
                 </p>
                 <p
                   style={{
-                    backgroundColor: "#72a3f2",
-                    padding: "1em 1.25em",
-                    borderRadius: "15px",
+                    // backgroundColor: "#72a3f2",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
                     display: "flex",
                     flexDirection: "column",
                   }}
@@ -339,16 +342,21 @@ export default function Client({ props }) {
                   <span
                     style={{
                       fontWeight: "bold",
+                      fontSize: "18px",
                     }}
                   >
-                    {selectedVuln.impact.baseMetricV3.exploitabilityScore}/10
+                    {selectedVuln.impact.baseMetricV3.exploitabilityScore}
+                    <span style={{ fontSize: "14px", color: "#2e2e2e" }}>
+                      /10
+                    </span>
                   </span>
                 </p>
                 <p
                   style={{
-                    backgroundColor: "#f29872",
-                    padding: "1em 1.25em",
-                    borderRadius: "15px",
+                    // backgroundColor: "#f29872",
+                    border: "1px solid #eee",
+                    padding: "1em 1.5em",
+                    borderRadius: "10px",
                     display: "flex",
                     flexDirection: "column",
                   }}
@@ -364,9 +372,13 @@ export default function Client({ props }) {
                   <span
                     style={{
                       fontWeight: "bold",
+                      fontSize: "18px",
                     }}
                   >
-                    {selectedVuln.impact.baseMetricV3.impactScore}/10
+                    {selectedVuln.impact.baseMetricV3.impactScore}
+                    <span style={{ fontSize: "14px", color: "#2e2e2e" }}>
+                      /10
+                    </span>
                   </span>
                 </p>
               </div>
@@ -374,7 +386,7 @@ export default function Client({ props }) {
               <div
                 className="add-info"
                 style={{
-                  marginTop: "40px",
+                  marginTop: "25px",
                   backgroundColor: "#e8e8e8",
                   borderRadius: "10px",
                   padding: "2em",

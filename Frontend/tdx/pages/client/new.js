@@ -14,11 +14,12 @@ export default function Demo() {
   //     termsOfService: false,
   //   },
   // });
-  const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [lastresponse, setLastResponse] = useState('');
+  const [name,setName] = useState('');
+  const [url,setUrl] = useState('');
+  const [id,setId] = useState('');
+  const [description,setDescription] = useState('');
+  const [status,setStatus] = useState('');
+  const [lastresponse,setLastResponse] = useState('');
 
   const handleOnChange = (e) => {
     setName(e.target.value);

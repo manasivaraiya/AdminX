@@ -14,7 +14,8 @@ OPTIONS = ["VLC", "Discord", "Onedrive", "Teams", "Slack", "Whatsapp", "Other"]
 class GUIWithTK:
     # Set the directory on watch
     # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
-    watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
+    # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
+    watchDirectory = "/Users/neelansh/Downloads/"
 
     def __init__(self):
         self.observer = Observer()
