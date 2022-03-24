@@ -3,6 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { getUsers } from '../utils/users'
 import React, { useEffect, useState } from 'react';
+import { signInWithGoogle } from "../utils/firebase"
 // import firebase from "../utils/firebase";
 // import { initializeApp } from "firebase/app";
 
@@ -34,7 +35,7 @@ export default function Home() {
         <div id="LoginScreen" className={styles.grid}>
 
           <a className={styles.card}>
-           <button className={styles.card} onClick = {GoogleLogin} id="LoginScreen"> <h2> Login with Google</h2></button>
+           <button className={styles.card} onClick = {signInWithGoogle} id="LoginScreen"> <h2> Login with Google</h2></button>
           </a>
     
         </div>

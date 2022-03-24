@@ -4,6 +4,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/database";
+// import {initializeApp} from "firebase";
+import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 
 const config = {
     apiKey: "AIzaSyCcJCe1acm01EIceSP_xlZv5OUZd-BQfRw",
@@ -15,9 +17,21 @@ const config = {
     measurementId: "G-02JCX0S0ME"
 };
 
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-  }
-const firestore = firebase.firestore();
+// if (!firebase.apps.length) {
+//     firebase.initializeApp(config);
+//   }
+export const firestore = firebase.firestore();
 
-export { firestore };
+const app = firebase.initializeApp(config);
+export const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider()
+export const signInWithGoogle = () => {
+  signInWithPopup(auth,provider)
+  .then((result) =>{
+    console.log(result);
+  })
+  .catch((error)=>{
+    console.log(error);
+  })
+}
