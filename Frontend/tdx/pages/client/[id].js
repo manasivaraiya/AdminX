@@ -289,7 +289,7 @@ export default function Client({ props }) {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-around",
+                  margin: "0 0.5em",
                   alignItems: "center",
                 }}
               >
