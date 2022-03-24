@@ -13,7 +13,7 @@ export default function authorized_apps() {
 
   async function onMounted() {
     const docSnapshots = await firestore.collection("authorized_apps").get();
-    const docs = await docSnapshots.docs.map((doc) => doc.data());
+    const docs = docSnapshots.docs.map((doc) => doc.data());
     if (docs.length > 0) setApps(docs);
   }
 
