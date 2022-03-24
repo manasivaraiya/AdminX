@@ -17,7 +17,9 @@ import {
   Modal,
   Group,
   Tabs,
+  Alert,
 } from "@mantine/core";
+import { AlertCircle } from 'tabler-icons-react';
 import { useEffect, useState } from "react";
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
@@ -25,8 +27,10 @@ import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
 import Head from "next/head";
 
+
+
 export default function Client({ props }) {
-  const clientURL = "https://30444335-3732-5a31-3132-bce92f8c1dc8.loca.lt";
+  const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
   const userDocId = "TdflnohiShOZeB8ODWsX";
 
   const logOutputLetterLimit = 600;
@@ -53,7 +57,7 @@ export default function Client({ props }) {
 
   const name = "Raj Tiwari";
   const description = "Raj's Home PC";
-  const url = "127.0.0.1";
+  const url = "192.168.0.2";
   const last_seen = "3 hrs ago";
   const status = "active";
 
@@ -233,6 +237,7 @@ export default function Client({ props }) {
             <td>{element.Version}</td>
             <td>
               <Trash
+                style={{cursor: 'pointer'}}
                 size={20}
                 strokeWidth={2}
                 color={"#ff0000"}
