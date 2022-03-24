@@ -1,11 +1,18 @@
-import { TextInput, Button, Group, Box } from '@mantine/core';
+import { TextInput, Button } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
-import { firestore } from '../../utils/firebase'
+import { firestore } from '../../utils/firebase';
+import { useRouter } from "next/router";
+// import { styles } from "../../styles/clients/client.module.css";
+import { styles } from "../../styles/client/clientadd.module.css";
+import ResponsiveAppBar from "../../components/Navbar"
+
 
 export default function Demo() {
+  const router = useRouter();
+
   // const form = useForm({
-  //   initialValues: {
+  //   initialValues: {`
   //     name: '',
   //     url: '',
   //     description: '',
@@ -14,98 +21,82 @@ export default function Demo() {
   //     termsOfService: false,
   //   },
   // });
-  const [name, setName] = useState('');
-  const [url, setUrl] = useState('');
-  const [id, setId] = useState('');
-  const [description, setDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [lastresponse, setLastResponse] = useState('');
+  // const [name, setName] = useState('');
+  // const [url, setUrl] = useState('');
+  // const [id, setId] = useState('');
+  // const [description, setDescription] = useState('');
+  // const [status, setStatus] = useState('');
+  // const [lastresponse, setLastResponse] = useState('');
 
-  const handleOnChange = (e) => {
-    setName(e.target.value);
-    setUrl(e.target.value);
-    setId(e.target.value);
-    setDescription(e.target.value);
-    setStatus(e.target.value);
-    setLastResponse(e.target.value);
-  }
-
-  const createUser = (e) => {
+  async function onFormSubmit(e) {
     e.preventDefault();
-    // const userRef = firebase.database().ref("User")
-    const user = {
-      name,
-      url,
-      id,
-      description,
-      status,
-      lastresponse
+    // console.log(e);
+    try {
+      const data = {
+        name: e.target[0].value,
+        mac_add: e.target[1].value,
+        url: e.target[2].value,
+        description: e.target[3].value,
+      };
+
+      await firestore.collection("Users").add(data);
+      router.push("/home");
+    } catch (e) {
+      console.error(e);
     }
-    // console.log(user)
-    // userRef.push()
-    firestore.collection("Users").add(user)
   }
+
 
   return (
-    // <div>
-    //   <form onSubmit={createUser}>
-    //     <input label = 'name' placeholder="xyz" onChange={handleOnChange} value = {name}></input>
-    //     <button type="submit">Submit</button>
-    //   </form>
-    // </div>
-    <Box sx={{ maxWidth: 300 }} mx="auto">
-      <form onSubmit={createUser}>
-        <TextInput
-          label="Name"
-          placeholder="xyz"
-          onChange={handleOnChange}
-          value={name}
-        // {...form.getInputProps('name')}
-        />
+    <div className='main_wrapper'>
+      <ResponsiveAppBar />
+      <div style={{ paddingBottom: "3em", marginTop: "50px !important", width: "60%", margin: "auto" }}>
+        <h1>Add a new User</h1>
+        <form style={{ marginTop: "20px" }} onSubmit={onFormSubmit}>
+          <TextInput
+            label="Name"
+            placeholder="User Name"
+            name="name"
+            required
+          ></TextInput>
+          <br />
+          <TextInput
+            label="MAC Address"
+            placeholder="MAC Address"
+            name="mac address"
+            required
+          ></TextInput>
+          <br />
+          <TextInput
+            label="URL"
+            placeholder="URL "
+            name="url"
+            required
+          ></TextInput>
+          <br />
 
-        <TextInput
-          label="URL"
-          placeholder="iu6urdhcg"
-          onChange={handleOnChange}
-          value={url}
-        // {...form.getInputProps('url')}
-        />
+          <TextInput
+            label="Description"
+            placeholder="User  Description"
+            name="description"
+            required
+          ></TextInput>
+          <br />
 
-        <TextInput
-          label="id"
-          placeholder="xyz"
-          onChange={handleOnChange}
-          value={id}
-        // {...form.getInputProps('id')}
-        />
+          <Button
+            type="submit"
+            style={{
+              marginTop: "1em",
+            }}
+          >
+            Submit
+          </Button>
+        </form>
 
-        <TextInput
-          label="Description"
-          onChange={handleOnChange}
-          value={description}
-        // {...form.getInputProps('description')}
-        />
 
-        <TextInput
-          label="Status"
-          placeholder="Active"
-          onChange={handleOnChange}
-          value={status}
-        // {...form.getInputProps('status')}
-        />
+      </div>
+    </div>
 
-        <TextInput
-          label="Last Response"
-          placeholder="24/12/21 - 09:30"
-          onChange={handleOnChange}
-          value={lastresponse}
-        // {...form.getInputProps('lastResponse')}
-        />
 
-        <Group position="right" mt="md">
-          <Button type="submit">Submit</Button>
-        </Group>
-      </form>
-    </Box>
   );
 }

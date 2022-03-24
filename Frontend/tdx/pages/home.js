@@ -6,6 +6,7 @@ import firebase from "../utils/firebase";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
 import { Link } from "@mui/material";
+import Router from 'next/router'
 
 export default function dashboard() {
 
@@ -16,8 +17,8 @@ export default function dashboard() {
     const data = await getUsers();
     console.log(typeof (data));
     setElements(data);
-    console.log(typeof (elements));
-    data.forEach((user) => console.log(user));
+    // console.log(typeof (elements));
+    // data.forEach((user) => console.log(user));
 
 
 
@@ -61,11 +62,15 @@ export default function dashboard() {
   //   </tr>
   // ));
 
+  const handleRedirect = (id) => {
+    Router.push(`/client/${id}`)
+  }
+
   return (
     <div>
       <ResponsiveAppBar />
-      <div className="container" style={{ marginTop: "30px" }}>
-        <Table>
+      <div className="container" style={{ marginTop: "30px", width: "80%", margin: "auto" }}>
+        <Table style={{ marginTop: "50px" }}>
           <thead>
             <tr>
               <th>Sr No</th>
@@ -77,23 +82,18 @@ export default function dashboard() {
               <th>Last Response</th>
             </tr>
           </thead>
-          {/* {elements} */}
           <tbody>
             {elements.length > 0 ? elements.map((data, index) =>
-
-              <tr>
+              <tr onClick={() => handleRedirect(data.mac_add)}>
                 <td>{index + 1}</td>
-                <td>{data.id}</td>
+                <td>{data.mac_add}</td>
                 <td>
-                  <Link href={ `client/${data.id}`
-                    }
-                  >{data.name}
-                  </Link>
+                  {data.name}
                 </td>
                 <td>{data.url}</td>
                 <td>{data.description}</td>
                 <td>{data.status ? "Online" : "Offline"}</td>
-                <td>{data.lastResponse.toDate().toDateString()}</td>
+                <td>{data.lastResponse ? data.lastResponse.toDate().toDateString() : ""}</td>
               </tr>
 
             ) : null
