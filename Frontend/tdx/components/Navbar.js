@@ -15,10 +15,6 @@ import Link from "next/link";
 
 const pages = [
   {
-    name: "Home",
-    href: "/home",
-  },
-  {
     name: "All Clients",
     href: "/home",
   },
