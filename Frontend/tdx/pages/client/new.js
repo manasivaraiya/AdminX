@@ -50,7 +50,7 @@ export default function Demo() {
   return (
     <div className='main_wrapper'>
       <ResponsiveAppBar />
-      <div style={{ paddingBottom: "3em", marginTop: "50px !important", width: "60%", margin: "auto" }}>
+      <div style={{ paddingBottom: "3em", marginTop: "60px !important", width: "60%", margin: "auto" }}>
         <h1>Add a new User</h1>
         <form style={{ marginTop: "20px" }} onSubmit={onFormSubmit}>
           <TextInput

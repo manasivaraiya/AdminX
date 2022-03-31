@@ -1,39 +1,30 @@
-import { Table } from "@mantine/core";
+import { Table, Button } from "@mantine/core";
 import { Component } from "react/cjs/react.production.min";
 import ResponsiveAppBar from "../components/Navbar";
 import { firestore } from "../utils/firebase";
 import firebase from "../utils/firebase";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
-import { Link } from "@mui/material";
-import Router from 'next/router';
+import Router from "next/router";
+import Link from "next/link";
 
 export default function dashboard() {
-
   const [elements, setElements] = useState([]);
   // const { user, logout } = useUser();
 
   const getallUsers = async () => {
-
     const data = await getUsers();
-    console.log(typeof (data));
+    console.log(typeof data);
     setElements(data);
     // console.log(typeof (elements));
     // data.forEach((user) => console.log(user));
-
-
-
-  }
+  };
 
   useEffect(() => {
-
     getallUsers();
-
-
-  }, [])
+  }, []);
 
   // getallUsers();
-
 
   // firebase.database().ref("Users").on("value", snapshot =>{
   //   let userlist = [];
@@ -65,15 +56,27 @@ export default function dashboard() {
   // ));
 
   const handleRedirect = (id) => {
-    Router.push(`/client/${id}`)
-  }
+    Router.push(`/client/${id}`);
+  };
 
   return (
-
     <div>
       <ResponsiveAppBar />
-      <div className="container" style={{ marginTop: "30px", width: "80%", margin: "auto" }}>
-        <Table style={{ marginTop: "50px" }}>
+      <div
+        className="container"
+        style={{ marginTop: "30px", width: "80%", margin: "auto" }}
+      >
+        <Link href="/client/new">
+          <Button
+            variant="filled"
+            mr="md"
+            size="sm"
+            style={{ backgroundColor: "#4caf50", marginTop: "40px" }}
+          >
+            Add client
+          </Button>
+        </Link>
+        <Table style={{ marginTop: "10px" }}>
           <thead>
             <tr>
               <th>Sr No</th>
@@ -86,22 +89,23 @@ export default function dashboard() {
             </tr>
           </thead>
           <tbody>
-            {elements.length > 0 ? elements.map((data, index) =>
-              <tr onClick={() => handleRedirect(data.mac_add)}>
-                <td>{index + 1}</td>
-                <td>{data.mac_add}</td>
-                <td>
-                  {data.name}
-                </td>
-                <td>{data.url}</td>
-                <td>{data.description}</td>
-                <td>{data.status ? "Online" : "Offline"}</td>
-                <td>{data.lastResponse ? data.lastResponse.toDate().toDateString() : ""}</td>
-              </tr>
-
-            ) : null
-            }
-
+            {elements.length > 0
+              ? elements.map((data, index) => (
+                  <tr onClick={() => handleRedirect(data.mac_add)}>
+                    <td>{index + 1}</td>
+                    <td>{data.mac_add}</td>
+                    <td>{data.name}</td>
+                    <td>{data.url}</td>
+                    <td>{data.description}</td>
+                    <td>{data.status ? "Online" : "Offline"}</td>
+                    <td>
+                      {data.lastResponse
+                        ? data.lastResponse.toDate().toDateString()
+                        : ""}
+                    </td>
+                  </tr>
+                ))
+              : null}
           </tbody>
         </Table>
       </div>
