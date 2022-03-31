@@ -29,7 +29,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function Client({ props }) {
-  const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+  // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+  const clientURL = "https://soft-snake-0.loca.lt";
   const userDocId = "TdflnohiShOZeB8ODWsX";
 
   const logOutputLetterLimit = 600;
@@ -500,7 +501,7 @@ export default function Client({ props }) {
               size="sm"
               style={{ backgroundColor: "#4caf50" }}
             >
-              Connect
+              Connected
             </Button>
             <Button
               variant="filled"
