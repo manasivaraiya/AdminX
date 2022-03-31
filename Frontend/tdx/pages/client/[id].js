@@ -30,7 +30,7 @@ import { useRouter } from "next/router";
 
 export default function Client({ props }) {
   // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
-  const clientURL = "https://soft-snake-0.loca.lt";
+  const clientURL = "https://stack-smashser-0.loca.lt";
   const userDocId = "TdflnohiShOZeB8ODWsX";
 
   const logOutputLetterLimit = 600;
