@@ -33,7 +33,8 @@
     "react-router": "^6.2.2",
     "react-router-dom": "^6.2.2",
     "reactstrap": "^9.0.1",
-    "tabler-icons-react": "^1.41.0"
+    "tabler-icons-react": "^1.41.0",
+    "victory": "^36.6.5"
   },
   "devDependencies": {
     "eslint": "8.11.0",
