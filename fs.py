@@ -237,6 +237,6 @@ class Handler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    watch = WatchDir()
-    watch.run()
+    # watch = WatchDir()
+    # watch.run()
     report_incidence('uwu')
