@@ -1,58 +1,58 @@
 .container {
-  margin-top: 3rem !important;
-  width: 80%;
-  margin: 0 auto;
+	margin-top: 3rem !important;
+	width: 80%;
+	margin: 0 auto;
 }
 /* .main_wrapper {
 } */
 
 .header {
-  /* background-color: #f1f1f1; */
-  /* padding: 20px; */
+	/* background-color: #f1f1f1; */
+	/* padding: 20px; */
 }
 .profile_buttons {
-  display: flex;
+	display: flex;
 }
 
 .profile_name {
-  font-size: 1.8em;
-  font-weight: 700;
-  margin: 5px 0px;
+	font-size: 1.8em;
+	font-weight: 700;
+	margin: 5px 0px;
 }
 .profile_desc {
-  color: #707070;
-  font-size: 1em;
-  font-weight: 400;
-  margin: 0px 0px;
+	color: #707070;
+	font-size: 1em;
+	font-weight: 400;
+	margin: 0px 0px;
 }
 
 .profile_url {
-  font-size: 1.2em;
-  font-weight: 400;
-  margin: 10px 0px;
-  color: rgb(112, 112, 112);
+	font-size: 1.2em;
+	font-weight: 400;
+	margin: 10px 0px;
+	color: rgb(112, 112, 112);
 }
 .tab_wrapper {
-  margin-top: 60px;
+	margin-top: 60px;
 }
 
 .run_code_wrapper {
-  display: flex;
-  width: 100%;
+	display: flex;
+	width: 100%;
 }
 
-.card_wrapper:hover{
+.card_wrapper:hover {
 	transform: translateY(-5px);
-	box-shadow: 2px 2px 2px 4px rgb(148, 147, 147);
-  transition: transform 0.2s ease-in-out;
-  }
-
-.trash:hover{
-  color: red !important;
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+	transition: transform 0.2s ease-in-out;
 }
 
-.card_button:hover{
-  color: red !important; 
-  transform: scale(1.2);
-  transition: transform 0.2s ease-in-out;
+.trash:hover {
+	color: red !important;
+}
+
+.card_button:hover {
+	color: red !important;
+	transform: scale(1.2);
+	transition: transform 0.2s ease-in-out;
 }
