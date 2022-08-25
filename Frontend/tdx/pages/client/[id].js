@@ -104,6 +104,22 @@ export default function Client({ props }) {
     }
   }
 
+  const saveApplications = async (data) =>{
+    try{
+      const list = {
+        installed_apps : data
+      };
+      
+      firestore
+          .collection("Users")
+          .doc(userDocId) // Later
+          .update(list);
+    } catch (e) {
+      console.error("failed", e);
+      setCommandOutput("Error");
+    }
+  }
+
   const runCommand = async () => {
     setCommandOutput("Loading...");
     const data = {
@@ -229,6 +245,8 @@ export default function Client({ props }) {
       const res = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
+        console.log(output);
+        // await saveApplications(output);
         setApps(output);
         getVulnerabilities(output);
         getSystemReport();
