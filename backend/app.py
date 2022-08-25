@@ -1,3 +1,4 @@
+from base64 import decode
 import subprocess
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -125,15 +126,17 @@ def register_pc():
     except Exception as e:
         print(e)
 
+
 @app.before_first_request
 def init_scheduler():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=register_pc, trigger="interval", seconds=10)
+    scheduler.add_job(func=register_pc, trigger="interval", seconds=300)
     scheduler.start()
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
+
 if __name__ == "__main__":
     register_pc()
     init_scheduler()
-    app.run(host= "0.0.0.0", port=8080, debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=8080, debug=True, use_reloader=False)
