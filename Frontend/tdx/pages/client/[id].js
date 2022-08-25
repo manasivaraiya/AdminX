@@ -49,10 +49,11 @@ export default function Client({ props }) {
 
   const handleUninstall = async (name) => {
     // console.log(name);
-    const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+    // const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
     // console.log(exec);
-    const res = await axios.post(clientURL, {
-      command: exec,
+    const res = await axios.post("/api/uninstall_app", {
+      application: name,
+      // platform: 
     });
 
     console.log(res)
@@ -237,47 +238,47 @@ export default function Client({ props }) {
   const rows =
     apps.length > 0
       ? apps.map((element, index) => (
-          <tr key={index}>
-            <td>{index + 1}</td>
-            <td>{element.Name}</td>
-            <td>{element.Version}</td>
-            <td>
-              <Trash
-                style={{ cursor: "pointer" }}
-                size={20}
-                strokeWidth={2}
-                color={"#ff0000"}
-                onClick={() => handleUninstall(element.Name)}
-              />
-            </td>
-            <td>
-              {element &&
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>{element.Name}</td>
+          <td>{element.Version}</td>
+          <td>
+            <Trash
+              style={{ cursor: "pointer" }}
+              size={20}
+              strokeWidth={2}
+              color={"#ff0000"}
+              onClick={() => handleUninstall(element.Name)}
+            />
+          </td>
+          <td>
+            {element &&
               element.vulnerabilities &&
               element.vulnerabilities.length > 0
-                ? element.vulnerabilities.map((vulnerability, index) => (
-                    // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
-                    <Badge
-                      style={{
-                        backgroundColor:
-                          CRITICALITY[
-                            vulnerability.impact.baseMetricV2.severity
-                          ],
-                        cursor: "pointer",
-                      }}
-                      size="md"
-                      mr="md"
-                      mb="sm"
-                      variant="filled"
-                      radius="lg"
-                      onClick={() => handleVulnInfo(vulnerability)}
-                    >
-                      {vulnerability.cve.CVE_data_meta.ID}
-                    </Badge>
-                  ))
-                : "No known Issues"}
-            </td>
-          </tr>
-        ))
+              ? element.vulnerabilities.map((vulnerability, index) => (
+                // <span style={{ marginRight: "10px", color: CRITICALITY[vulnerability.impact.baseMetricV2.severity] }}>{vulnerability.cve.CVE_data_meta.ID}</span>
+                <Badge
+                  style={{
+                    backgroundColor:
+                      CRITICALITY[
+                      vulnerability.impact.baseMetricV2.severity
+                      ],
+                    cursor: "pointer",
+                  }}
+                  size="md"
+                  mr="md"
+                  mb="sm"
+                  variant="filled"
+                  radius="lg"
+                  onClick={() => handleVulnInfo(vulnerability)}
+                >
+                  {vulnerability.cve.CVE_data_meta.ID}
+                </Badge>
+              ))
+              : "No known Issues"}
+          </td>
+        </tr>
+      ))
       : [];
 
   async function getLogs() {
@@ -323,7 +324,7 @@ export default function Client({ props }) {
         transitionTimingFunction="ease"
         opened={opened}
         onClose={() => setOpened(false)}
-        // title="Addition Information"
+      // title="Addition Information"
       >
         {/* Modal content
          */}
@@ -575,20 +576,20 @@ export default function Client({ props }) {
                 <tbody>
                   {logs.length > 0
                     ? logs.map((log) => (
-                        <tr key={log.timestamp}>
-                          <td style={{ fontSize: "12px" }}>{log.datetime}</td>
-                          <td style={{ fontSize: "12px" }}>{log.command}</td>
-                          <td>
-                            <p style={{ fontSize: "12px" }}>
-                              {log.output.length > logOutputLetterLimit
-                                ? log.output.slice(0, logOutputLetterLimit) +
-                                  "..."
-                                : log.output}
-                            </p>
-                          </td>
-                          <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
-                        </tr>
-                      ))
+                      <tr key={log.timestamp}>
+                        <td style={{ fontSize: "12px" }}>{log.datetime}</td>
+                        <td style={{ fontSize: "12px" }}>{log.command}</td>
+                        <td>
+                          <p style={{ fontSize: "12px" }}>
+                            {log.output.length > logOutputLetterLimit
+                              ? log.output.slice(0, logOutputLetterLimit) +
+                              "..."
+                              : log.output}
+                          </p>
+                        </td>
+                        <td style={{ fontSize: "12px" }}>{log.timestamp}</td>
+                      </tr>
+                    ))
                     : null}
                 </tbody>
               </Table>
