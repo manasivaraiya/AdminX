@@ -1,75 +1,81 @@
 .container {
-  padding: 0 2rem;
-  height: 100vh;
-  /* background-image: url("https://media.istockphoto.com/photos/abstract-chaotic-background-picture-id637952284?k=20&m=637952284&s=612x612&w=0&h=SH0UUQG1r42JVazTLg-vcQrK8Ij_eEHl6PBk-4ClW4A="); */
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+	padding: 0 2rem;
+	height: 100vh;
+	/* background-image: url("https://media.istockphoto.com/photos/abstract-chaotic-background-picture-id637952284?k=20&m=637952284&s=612x612&w=0&h=SH0UUQG1r42JVazTLg-vcQrK8Ij_eEHl6PBk-4ClW4A="); */
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
 
 .main {
-  min-height: 60vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	min-height: 60vh;
+	padding: 4rem 0;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
 
 .title a {
-  color: #0070f3;
-  text-decoration: none;
-
+	color: #0070f3;
+	text-decoration: none;
 }
 
 .title a:hover,
 .title a:focus,
 .title a:active {
-  text-decoration: underline;
+	text-decoration: underline;
 }
 
 .title {
-  line-height: 1.15;
-  font-size: 6rem;
-  width: 22;
-  animation: 
-  typing 3.5s steps(40, end),
-  blink-caret .75s step-end infinite;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 3px solid;
-  font-family: monospace;
-  color: black;
+	line-height: 1.15;
+	font-size: 6rem;
+	width: 22;
+	animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: 3px solid;
+	font-family: monospace;
+	color: black;
 }
 
 .title,
 .description {
-  text-align: center;
+	text-align: center;
 }
 
 .description {
-  margin: 4rem 0;
-  line-height: 1.5;
-  font-size: 1.5rem;
+	margin: 4rem 0;
+	line-height: 1.5;
+	font-size: 1.5rem;
 }
 
 .code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+	background: #fafafa;
+	border-radius: 5px;
+	padding: 0.75rem;
+	font-size: 1.1rem;
+	font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+		Bitstream Vera Sans Mono, Courier New, monospace;
 }
 
 @keyframes typing {
-  from { width: 0 }
-  to { width: 60% }
+	from {
+		width: 0;
+	}
+	to {
+		width: 60%;
+	}
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #0070f3; }
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: #0070f3;
+	}
 }
