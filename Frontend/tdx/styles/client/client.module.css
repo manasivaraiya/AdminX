@@ -40,3 +40,19 @@
   display: flex;
   width: 100%;
 }
+
+.card_wrapper:hover{
+	transform: translateY(-5px);
+	box-shadow: 2px 2px 2px 4px rgb(148, 147, 147);
+  transition: transform 0.2s ease-in-out;
+  }
+
+.trash:hover{
+  color: red !important;
+}
+
+.card_button:hover{
+  color: red !important; 
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+}

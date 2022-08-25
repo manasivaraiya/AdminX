@@ -7,6 +7,7 @@ import { firestore } from "../../utils/firebase";
 import Link from "next/link";
 
 export default function authorized_apps() {
+
   const [apps, setApps] = useState([]);
 
   useEffect(onMounted, []);
@@ -32,6 +33,7 @@ export default function authorized_apps() {
     } catch (e) {
       console.error(e);
     }
+    
   }
 
   return (
@@ -50,10 +52,11 @@ export default function authorized_apps() {
             // justifyContent: "flex-start",
           }}
         >
+
           {apps.length > 0 ? (
             apps.map((app) => (
               <div
-                class="card-wrapper"
+                className={styles.card_wrapper}
                 key={app.id}
                 style={{
                   display: "flex",
@@ -62,7 +65,9 @@ export default function authorized_apps() {
                   padding: "1em",
                   border: "2px solid #eeeeee",
                   minWidth: "500px",
+                  
                 }}
+                
               >
                 <div className="card-info">
                   <h1
@@ -92,15 +97,16 @@ export default function authorized_apps() {
                     <b>Hash</b>: {app.hash}
                   </p>
                 </div>
+                
                 <div
-                  className="card-button"
+                  className={styles.card_button}
                   style={{
                     display: "flex",
                     justifyContent: "end",
                     alignItems: "center",
                   }}
                 >
-                  <Trash
+                  <Trash className={styles.trash}
                     color="red"
                     variant="outline"
                     onClick={() => removeApp(app.id)}
@@ -113,7 +119,6 @@ export default function authorized_apps() {
             <p>No authorized apps found</p>
           )}
         </div>
-
         <div
           style={{
             marginTop: "1em",
@@ -131,5 +136,6 @@ export default function authorized_apps() {
         </div>
       </div>
     </div>
+
   );
 }

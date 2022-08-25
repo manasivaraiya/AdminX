@@ -1,6 +1,19 @@
 import subprocess
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import requests
+import json
+import socket
+import uuid
+import time
+import threading
+import time
+
+import time
+import atexit
+
+from apscheduler.schedulers.background import BackgroundScheduler
+
 
 app = Flask(__name__)
 CORS(app)
@@ -57,6 +70,7 @@ def user_data():
         "err": err.decode("utf-8"),
     }
 
+
 @app.route("/hardware", methods=["GET"])
 def user_hw_data():
     process = subprocess.Popen(
@@ -72,6 +86,7 @@ def user_hw_data():
         "out": out.decode("utf-8"),
         "err": err.decode("utf-8"),
     }
+
 
 @app.route("/ip", methods=["GET"])
 def user_ip_data():
@@ -89,5 +104,26 @@ def user_ip_data():
         "err": err.decode("utf-8"),
     }
 
+
+def register_pc():
+    hostname = socket.gethostname()
+    ipv4 = socket.gethostbyname(hostname)
+    uuuid = hex(uuid.getnode())
+    ts = int(time.time() * 1000)
+    data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
+    print(data)
+    result = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+    print(result.status_code)
+
+@app.before_first_request
+def init_scheduler():
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(func=register_pc, trigger="interval", seconds=10)
+    scheduler.start()
+    # Shut down the scheduler when exiting the app
+    atexit.register(lambda: scheduler.shutdown())
+
 if __name__ == "__main__":
-    app.run(port=8080, debug=True)
+    register_pc()
+    init_scheduler()
+    app.run(port=8080, debug=True, use_reloader=False)
