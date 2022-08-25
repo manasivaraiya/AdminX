@@ -1,4 +1,6 @@
 import styles from "../../styles/client/client.module.css";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import {
   Apps,
   Terminal,
@@ -76,6 +78,25 @@ const Client = ({ props }) => {
   //   // setCommand(exec);
   //   // runCommand();
   // };
+
+  const submit = (elementName) => {
+
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to do this?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => handleUninstall(elementName)
+          // onClick={() => handleUninstall(element.Name)}
+        },
+        {
+          label: 'No',
+          onClick: () => window.history.go(0)
+        }
+      ]
+    });
+  }
 
   const handleUninstall = async (name) => {
     // console.log(name);
@@ -281,7 +302,8 @@ const Client = ({ props }) => {
               size={20}
               strokeWidth={2}
               color={"#ff0000"}
-              onClick={() => handleUninstall(element.Name)}
+              // onClick={() => handleUninstall(element.Name)}
+              onClick = {()=>submit(element.Name)}
             />
           </td>
           <td>
