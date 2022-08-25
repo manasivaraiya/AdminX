@@ -49,7 +49,18 @@ export default function dashboard() {
 			></link>
 
 			<ResponsiveAppBar />
-
+			<h1
+				style={{
+					textAlign: "center",
+					fontFamily: "Arial, Helvetica, sans-serif",
+					wordSpacing: "2px",
+					fontWeight: "700",
+					color: "#1B203E",
+					marginTop: "50px",
+				}}
+			>
+				All clients
+			</h1>
 			<div className="container" style={{ margin: "50px auto", width: "80%" }}>
 				<Link href="/client/new">
 					<Button

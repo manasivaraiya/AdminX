@@ -1,5 +1,7 @@
 import { Grid, Card, Text, Space, ThemeIcon, Group } from "@mantine/core";
 import { AlertCircle, PlugConnected, ReportMoney } from "tabler-icons-react";
+import MyLineChart from "./MyLineChart";
+import MyPieChart from "./MyPieChart";
 
 function AdminBody() {
   return (
@@ -7,6 +9,8 @@ function AdminBody() {
       <Space h="md" />
       <h1>Dashboard</h1>
       <Space h="md" />
+
+      {/* Three Cards */}
       <Grid>
         <Grid.Col span={4}>
           <Card>
@@ -30,7 +34,7 @@ function AdminBody() {
             <Group position="apart">
               <div>
                 <Text color="gray" size="xs">
-                  Threats averted
+                  Threats Averted
                 </Text>
                 <Text weight={700} size="xl">
                   420
@@ -58,6 +62,17 @@ function AdminBody() {
               </ThemeIcon>
             </Group>
           </Card>
+        </Grid.Col>
+      </Grid>
+
+      {/* Charts */}
+      <Space h="md" />
+      <Grid>
+        <Grid.Col span={5}>
+          <MyPieChart />
+        </Grid.Col>
+        <Grid.Col span={7}>
+          <MyLineChart />
         </Grid.Col>
       </Grid>
     </>

@@ -35,7 +35,8 @@
     "react-toastify": "^7.0.1",
     "reactjs-popup": "^2.0.5",
     "reactstrap": "^9.0.1",
-    "tabler-icons-react": "^1.41.0"
+    "tabler-icons-react": "^1.41.0",
+    "victory": "^36.6.5"
   },
   "devDependencies": {
     "eslint": "8.11.0",
