@@ -23,25 +23,32 @@ import {
 } from "@mantine/core";
 import { AlertCircle } from "tabler-icons-react";
 import { useEffect, useState } from "react";
+import Script from 'next/script'
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
 import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-export default function Client({ props }) {
-  // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+const Client = ({ props }) => {
+
   const router = useRouter();
-  const { id } = router.query;
-  const clientURL = "http://" + "192.168.198.169" + ":8080";
-
-  console.log(props);
+  const [clientURL, setClientURL] = useState("");
+  const [userDocId, setUserDocId] = useState("");
 
 
-  const userDocId = "0xfc9d95383726";
+  useEffect(() => {
+    if (!router.isReady) { return };
+    setClientURL("http://" + router.query.uuid);
+    setUserDocId(router.query.id);
 
-  console.log(userDocId, router.query);
+  }, [router.isReady]);
+
+
+  // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
+  // const clientURL = "https:/ack-smashers-0.loca.lt";
+  // const userDocId = "TdflnohiSh/stOZeB8ODWsX";
 
   const logOutputLetterLimit = 600;
 
@@ -133,6 +140,7 @@ export default function Client({ props }) {
     // console.log("data is", data);
 
     try {
+      if (clientURL === "" || userDocId === "") return;
       const res = await axios.post(clientURL, data);
       // console.log({ res, status: res.status });
       if (res && res.status == 200) {
@@ -217,6 +225,7 @@ export default function Client({ props }) {
   async function getSystemReport() {
     // console.log("getsystemreport called");
     try {
+      if (clientURL === "") return;
       const res = await axios.get(clientURL + "/data");
       const res2 = await axios.get(clientURL + "/hardware");
       if (res.status == 200 && res2.status == 200) {
@@ -247,7 +256,9 @@ export default function Client({ props }) {
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     };
     try {
-      const res = await axios.post(clientURL, data);
+      if (clientURL === "") return;
+      const res
+        = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         setApps(output);
@@ -327,6 +338,7 @@ export default function Client({ props }) {
 
   async function getLogs() {
     try {
+      if (userDocId === "") return;
       const docSnapshots = await firestore
         .collection("Users")
         .doc(userDocId)
@@ -352,12 +364,12 @@ export default function Client({ props }) {
   return (
     <div className={styles.main_wrapper}>
       <Head>
-        <script
+        <Script
           src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
           integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-        ></script>
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></Script>
       </Head>
       <ResponsiveAppBar />
 
@@ -675,3 +687,6 @@ export default function Client({ props }) {
     </div>
   );
 }
+
+
+export default Client;
