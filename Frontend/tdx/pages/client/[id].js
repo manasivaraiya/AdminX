@@ -30,8 +30,16 @@ import { useRouter } from "next/router";
 
 export default function Client({ props }) {
   // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
-  const clientURL = "https://stack-smashers-0.loca.lt";
-  const userDocId = "TdflnohiShOZeB8ODWsX";
+  const router = useRouter();
+  const { id } = router.query;
+  const clientURL = "http://" + "192.168.198.169" + ":8080";
+
+  console.log(props);
+
+
+  const userDocId = "0xfc9d95383726";
+
+  console.log(userDocId, router.query);
 
   const logOutputLetterLimit = 600;
 
@@ -47,13 +55,27 @@ export default function Client({ props }) {
 
   const [systemReport, setSystemReport] = useState("");
 
+  // const handleUninstall = async (name) => {
+  //   console.log(name);
+  //   const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+  //   console.log(exec);
+  //   const res = await axios.post("/api/uninstall_app", {
+  //     application: name,
+  //     // platform: 
+  //   });
+
+  //   console.log(res)
+
+  //   // setCommand(exec);
+  //   // runCommand();
+  // };
+
   const handleUninstall = async (name) => {
     // console.log(name);
-    // const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+    const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
     // console.log(exec);
-    const res = await axios.post("/api/uninstall_app", {
-      application: name,
-      // platform: 
+    const res = await axios.post(clientURL, {
+      command: exec,
     });
 
     console.log(res)
@@ -62,10 +84,10 @@ export default function Client({ props }) {
     // runCommand();
   };
 
-  const name = "Raj Tiwari";
-  const description = "Raj's Home PC";
-  const url = "192.168.0.2";
-  const last_seen = "3 hrs ago";
+  const name = "OMEN-win";
+  const description = "Jayesh's Home PC";
+  const url = "192.168.198.169";
+  const last_seen = "online";
   const status = "active";
 
   function NewlineText(props) {
@@ -261,7 +283,7 @@ export default function Client({ props }) {
                   style={{
                     backgroundColor:
                       CRITICALITY[
-                      vulnerability.impact.baseMetricV2.severity
+                      vulnerability.impact.baseMetricV3.cvssV3.baseSeverity
                       ],
                     cursor: "pointer",
                   }}
@@ -391,7 +413,7 @@ export default function Client({ props }) {
                       fontSize: "18px",
                     }}
                   >
-                    {selectedVuln.impact.baseMetricV2.severity}
+                    {selectedVuln.impact.baseMetricV3.cvssV3.baseSeverity}
                   </span>
                 </p>
                 <p
@@ -504,13 +526,13 @@ export default function Client({ props }) {
             >
               Connected
             </Button>
-            <Button
+            {/* <Button
               variant="filled"
               size="sm"
               style={{ backgroundColor: "#f44336" }}
             >
               Delete Client
-            </Button>
+            </Button> */}
           </div>
           {/* <h3>Last Seen: {last_seen}</h3>
                 <h3>Status: {status}</h3> */}
