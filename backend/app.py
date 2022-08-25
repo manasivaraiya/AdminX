@@ -112,8 +112,10 @@ def register_pc():
     ts = int(time.time() * 1000)
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
     print(data)
-    result = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
-    print(result.status_code)
+    try:
+        requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+    except Exception as e:
+        print(e)
 
 @app.before_first_request
 def init_scheduler():
@@ -126,4 +128,4 @@ def init_scheduler():
 if __name__ == "__main__":
     register_pc()
     init_scheduler()
-    app.run(port=8080, debug=True, use_reloader=False)
+    app.run(host= "0.0.0.0", port=8080, debug=True, use_reloader=False)
