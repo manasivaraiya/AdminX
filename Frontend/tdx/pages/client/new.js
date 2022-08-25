@@ -92,7 +92,7 @@ export default function Demo() {
 						type="submit"
 						style={{
 							marginTop: "1em",
-							backgroundColor: "#28315C",
+							backgroundColor: "#1B203E",
 						}}
 					>
 						Submit

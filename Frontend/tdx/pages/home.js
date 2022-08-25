@@ -7,7 +7,8 @@ import { useEffect, useState } from "react";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import gif from "../utils/connections.png";
+import gif from "../utils/lpt.png";
+import logo from "../utils/logo.png";
 import styles from "../styles/Home.module.css";
 export default function dashboard() {
 	const [elements, setElements] = useState([]);
@@ -46,10 +47,39 @@ export default function dashboard() {
 
 			<ResponsiveAppBar />
 
-			<main className={styles.alignImage}>
-				<Image src={gif} height={350} width={350} />
-			</main>
-			{/* <div class="container">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<Image src={gif} height={550} width={800} />
+					</div>
+					<div class="col-md-4">
+						<div style={{ paddingTop: "100px" }}>
+							<Image src={logo} height={200} width={600} />
+						</div>
+						<h5
+							style={{
+								fontFamily: "Arial, Helvetica, sans-serif",
+								wordSpacing: "2px",
+								color: "1B203E",
+							}}
+						>
+							Remote monitoring and management is the process of supervising and
+							controlling IT systems by means of locally installed agents that
+							can be accessed by a management service provider.
+						</h5>
+						<Button
+							style={{
+								backgroundColor: "#1B203E",
+								borderRadius: "20%",
+								marginTop: "20px",
+							}}
+						>
+							<i class="fa fa-arrow-down" aria-hidden="true"></i>
+						</Button>
+					</div>
+				</div>
+			</div>
+			<div class="container">
 				<div class="row">
 					<div class="col-md-4">
 						<a style={{ textDecoration: "none", color: "black" }} href="/home">
@@ -88,16 +118,15 @@ export default function dashboard() {
 						</a>
 					</div>
 				</div>
-			</div> */}
-
-			<div className="container" style={{ margin: "50px auto", width: "80%" }}>
+			</div>
+			{/* <div className="container" style={{ margin: "50px auto", width: "80%" }}>
 				<Link href="/client/new">
 					<Button
 						variant="filled"
 						mr="md"
 						size="sm"
 						style={{
-							backgroundColor: "#28315C",
+							backgroundColor: "#1B203E",
 							position: "fixed",
 							bottom: "50px",
 							right: "50px",
@@ -149,7 +178,7 @@ export default function dashboard() {
 							: null}
 					</tbody>
 				</Table>
-			</div>
+			</div> */}
 		</div>
 	);
 }
