@@ -23,6 +23,10 @@ const pages = [
 		name: "Authorized Apps",
 		href: "/authorized_apps",
 	},
+	{
+		name: "Reports",
+		href: "/reports",
+	},
 ];
 const settings = ["Account", "Dashboard", "Logout"];
 

@@ -1,15 +1,13 @@
 import { Table, Button } from "@mantine/core";
 import { Component } from "react/cjs/react.production.min";
 import ResponsiveAppBar from "../components/Navbar";
-import { firestore } from "../utils/firebase";
-import firebase from "../utils/firebase";
+import Navbar from "../components/LandingNav";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import Grid from "@material-ui/core/Grid";
-import connection from "../utils/connection.png";
+import gif from "../utils/connection.png";
 import styles from "../styles/Home.module.css";
 export default function dashboard() {
 	const [elements, setElements] = useState([]);
@@ -49,29 +47,45 @@ export default function dashboard() {
 			<ResponsiveAppBar />
 
 			<main className={styles.alignImage}>
-				<Image
-					src={connection}
-					alt="Picture of the author"
-					width={300}
-					height={300}
-				/>
+				<Image src={gif} height={350} width={350} />
 			</main>
 			{/* <div class="container">
 				<div class="row">
 					<div class="col-md-4">
-						<div className={styles.card}>
-							<h3>All Clients</h3>
-						</div>
+						<a style={{ textDecoration: "none", color: "black" }} href="/home">
+							<div className={styles.card}>
+								<h3>All Clients</h3>
+								<p>
+									All the available clients on the network with our client
+									installed
+								</p>
+							</div>
+						</a>
 					</div>
 					<div class="col-md-4">
-						<div className={styles.card}>
-							<h3>Authorized Apps</h3>
-						</div>
+						<a
+							href="/authorized_apps"
+							style={{ textDecoration: "none", color: "black" }}
+						>
+							<div className={styles.card}>
+								<h3>Authorized Apps</h3>
+								<p>
+									All the available clients on the network with our client
+									installed
+								</p>
+							</div>
+						</a>
 					</div>
 					<div class="col-md-4 pd-2">
-						<div className={styles.card}>
-							<h3>Reports</h3>
-						</div>
+						<a
+							href="/reports"
+							style={{ textDecoration: "none", color: "black" }}
+						>
+							<div className={styles.card}>
+								<h3>Reports</h3>
+								<p>Statistical view of all the data of the users available</p>
+							</div>
+						</a>
 					</div>
 				</div>
 			</div> */}
