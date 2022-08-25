@@ -45,7 +45,7 @@ export default async function handler(req, res) {
                 epoch: req.body.epoch
             };
 
-            await firestore.collection("Users").doc(document.id).set(data);
+            await firestore.collection("Users").doc(document.id).update(data);
             res.status(200).json({ message: "Entry updated successfully" })
 
         } catch (e) {
@@ -64,7 +64,14 @@ export default async function handler(req, res) {
               id: req.body.uuid,
               ipv4: req.body.ipv4,
               status: "Online",
-              epoch: req.body.epoch
+              epoch: req.body.epoch,
+              reported_incidents: 0,
+              installed_apps: [
+                {
+                    name: "test",
+                    version: "0.1"
+                }
+              ]
             };
       
             await firestore.collection("Users").doc(req.body.uuid).set(data);
