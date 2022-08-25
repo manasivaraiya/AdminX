@@ -25,8 +25,13 @@ export default function dashboard() {
 		getallUsers();
 	}, []);
 
-	const handleRedirect = (id) => {
-		Router.push(`/client/${id}`);
+	const handleRedirect = (id, uuid) => {
+		Router.push(
+			{
+				pathname: `/client/${id}`,
+				query: { uuid: uuid }
+			}
+		);
 	};
 
 	return (
@@ -131,21 +136,21 @@ export default function dashboard() {
 					<tbody id="clients">
 						{elements.length > 0
 							? elements.map((data, index) => (
-									<tr>
-										<td>{index + 1}</td>
-										<td>{data.hostname}</td>
+								<tr>
+									<td>{index + 1}</td>
+									<td>{data.hostname}</td>
 
-										<td>{data.id}</td>
-										<td>{data.ipv4}</td>
-										<td style={{ color: data.status ? "green" : "red" }}>
-											{data.status ? "Online" : "Offline"}
-										</td>
-										<td>{Date(data.epoch)}</td>
-										<td onClick={() => handleRedirect(data.ipv4)}>
-											<i class="fa fa-external-link" aria-hidden="true"></i>
-										</td>
-									</tr>
-							  ))
+									<td>{data.id}</td>
+									<td>{data.ipv4}</td>
+									<td style={{ color: data.status ? "green" : "red" }}>
+										{data.status ? "Online" : "Offline"}
+									</td>
+									<td>{Date(data.epoch)}</td>
+									<td onClick={() => handleRedirect(data.ipv4, data.id)}>
+										<i class="fa fa-external-link" aria-hidden="true"></i>
+									</td>
+								</tr>
+							))
 							: null}
 					</tbody>
 				</Table>
