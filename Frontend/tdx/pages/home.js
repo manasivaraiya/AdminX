@@ -106,7 +106,8 @@ export default function dashboard() {
 			</h1>
 			<div class="container" id="bottom" style={{ margin: "80px" }}>
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-2 "></div>
+					<div class="col-md-4 ">
 						<a
 							style={{ textDecoration: "none", color: "black" }}
 							href="/allclients"
@@ -120,7 +121,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div className="col-md-6">
+					<div className="col-md-4 ">
 						<a
 							href="/authorized_apps"
 							style={{ textDecoration: "none", color: "black" }}
@@ -134,9 +135,11 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
+					<div class="col-md-2 "></div>
 				</div>
 				<div class="row">
-					<div className="col-md-6 ">
+					<div class="col-md-2 "></div>
+					<div className="col-md-4 ">
 						<a
 							href="/reports"
 							style={{ textDecoration: "none", color: "black" }}
@@ -147,7 +150,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div className="col-md-6 ">
+					<div className="col-md-4 ">
 						<a
 							href="/reports"
 							style={{ textDecoration: "none", color: "black" }}
@@ -158,6 +161,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
+					<div class="col-md-2 "></div>
 				</div>
 			</div>
 			{/* <section className={styles.timeline}>
