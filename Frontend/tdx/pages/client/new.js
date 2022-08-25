@@ -51,7 +51,7 @@ export default function Demo() {
     <div className='main_wrapper'>
       <ResponsiveAppBar />
       <div style={{ paddingBottom: "3em", marginTop: "60px !important", width: "60%", margin: "auto" }}>
-        <h1>Add a new User</h1>
+        <h1>Add a New User</h1>
         <form style={{ marginTop: "20px" }} onSubmit={onFormSubmit}>
           <TextInput
             label="Name"
@@ -87,6 +87,7 @@ export default function Demo() {
             type="submit"
             style={{
               marginTop: "1em",
+              backgroundColor: "#28315C"
             }}
           >
             Submit
