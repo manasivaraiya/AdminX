@@ -5,6 +5,8 @@ import ResponsiveAppBar from "../../components/Navbar";
 import styles from "../../styles/client/client.module.css";
 import { firestore } from "../../utils/firebase";
 import Link from "next/link";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export default function authorized_apps() {
 
@@ -36,6 +38,25 @@ export default function authorized_apps() {
     
   }
 
+  const submit = (appId) => {
+
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to do this?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => removeApp(appId)
+          // onClick={() => handleUninstall(element.Name)}
+        },
+        {
+          label: 'No',
+          onClick: () => window.history.go(0)
+        }
+      ]
+    });
+  }
+  
   return (
     <div style={styles.main_wrapper}>
       <ResponsiveAppBar />
@@ -109,7 +130,8 @@ export default function authorized_apps() {
                   <Trash className={styles.trash}
                     color="red"
                     variant="outline"
-                    onClick={() => removeApp(app.id)}
+                    // onClick={() => removeApp(app.id)}
+                    onClick = {()=>submit(app.id)}
                     size={30}
                   />
                 </div>
