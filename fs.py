@@ -11,7 +11,8 @@ import subprocess
 from threading import Thread, local
 import os
 import requests, json
-
+import uuid
+import time
 OPTIONS = [
     "VLC Media Player",
     "Discord",
@@ -27,9 +28,16 @@ OPTIONS = [
 
 authorized_apps_url = "https://tdx-nis130.vercel.app/api/authorized_apps"
 
+def report_incidence(file):
+    uuuid = hex(uuid.getnode())
+    ts = int(time.time() * 1000)
+    data = {"uuid": uuuid, "epoch": ts, "file": file}
+    print(uuuid)
+    requests.post(url="http://192.168.198.55:3000/api/incidents", data=data)
+
 
 class WatchDir:
-    watchDirectory = "/Users/User/Downloads/"
+    watchDirectory = "C:\\Users\\Jayesh\\Downloads"
 
     def __init__(self):
         self.observer = Observer()
@@ -128,6 +136,7 @@ class GUIWithTK:
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                 )
+                report_incidence(self.file)
                 out, err = process.communicate()
                 print(out.decode("utf-8"))
                 print(err.decode("utf-8"))
@@ -169,6 +178,7 @@ class GUIWithTK:
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE,
                         )
+                        report_incidence(self.file)
                 out, err = process.communicate()
                 print(err.decode("utf-8"))
                 self.delete_frame()
@@ -227,5 +237,6 @@ class Handler(FileSystemEventHandler):
 
 
 if __name__ == "__main__":
-    watch = WatchDir()
-    watch.run()
+    # watch = WatchDir()
+    # watch.run()
+    report_incidence('uwu')

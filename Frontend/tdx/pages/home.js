@@ -4,7 +4,7 @@ import ResponsiveAppBar from "../components/Navbar";
 import Navbar from "../components/LandingNav";
 import { getUsers } from "../utils/users";
 import { useEffect, useState } from "react";
-import DevicesTable from "../components/DevicesTable"
+import DevicesTable from "../components/DevicesTable";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,12 +29,10 @@ export default function dashboard() {
 		const res = await axios.get("/api/get_clients");
 		setDevices(res.data.devices);
 		console.log(res.data.devices);
-	}
+	};
 
 	useEffect(() => {
 		getallUsers();
-
-
 	}, []);
 
 	const handleRedirect = (id, uuid) => {
@@ -106,9 +104,10 @@ export default function dashboard() {
 			>
 				SERVICES
 			</h1>
-			<div class="container" id="bottom">
+			<div class="container" id="bottom" style={{ margin: "80px" }}>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-2 "></div>
+					<div class="col-md-4 ">
 						<a
 							style={{ textDecoration: "none", color: "black" }}
 							href="/allclients"
@@ -122,7 +121,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div className="col-md-4">
+					<div className="col-md-4 ">
 						<a
 							href="/authorized_apps"
 							style={{ textDecoration: "none", color: "black" }}
@@ -136,7 +135,11 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div className="col-md-4 pd-2">
+					<div class="col-md-2 "></div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 "></div>
+					<div className="col-md-4 ">
 						<a
 							href="/reports"
 							style={{ textDecoration: "none", color: "black" }}
@@ -147,6 +150,18 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
+					<div className="col-md-4 ">
+						<a
+							href="/reports"
+							style={{ textDecoration: "none", color: "black" }}
+						>
+							<div className={styles.card}>
+								<h3>Reports</h3>
+								<p>Statistical view of all the data of the users available</p>
+							</div>
+						</a>
+					</div>
+					<div class="col-md-2 "></div>
 				</div>
 			</div>
 			{/* <section className={styles.timeline}>
@@ -185,7 +200,6 @@ export default function dashboard() {
 		</div>
 	);
 }
-
 
 // SimpleDialog.propTypes = {
 // 	onClose: PropTypes.func.isRequired,

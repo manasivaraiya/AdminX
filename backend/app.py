@@ -1,3 +1,4 @@
+from base64 import decode
 import subprocess
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -13,7 +14,7 @@ import time
 import atexit
 
 from apscheduler.schedulers.background import BackgroundScheduler
-
+import asyncio
 
 app = Flask(__name__)
 CORS(app)
@@ -104,28 +105,48 @@ def user_ip_data():
         "err": err.decode("utf-8"),
     }
 
-
 def register_pc():
+    ipv4 = [
+        l
+        for l in (
+            [
+                ip
+                for ip in socket.gethostbyname_ex(socket.gethostname())[2]
+                if not ip.startswith("127.")
+            ][:1],
+            [
+                [
+                    (s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close())
+                    for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]
+                ][0][1]
+            ],
+        )
+        if l
+    ][0][0]
+
     hostname = socket.gethostname()
-    ipv4 = socket.gethostbyname(hostname)
+    ipv4 = ipv4
     uuuid = hex(uuid.getnode())
     ts = int(time.time() * 1000)
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
     print(data)
     try:
-        requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+        post = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+        print(post.status_code)
     except Exception as e:
         print(e)
+
 
 @app.before_first_request
 def init_scheduler():
     scheduler = BackgroundScheduler()
-    scheduler.add_job(func=register_pc, trigger="interval", seconds=10)
+    scheduler.add_job(func=register_pc, trigger="interval", seconds=300)
     scheduler.start()
     # Shut down the scheduler when exiting the app
     atexit.register(lambda: scheduler.shutdown())
 
+
 if __name__ == "__main__":
     register_pc()
     init_scheduler()
-    app.run(host= "0.0.0.0", port=8080, debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=8080, debug=True, use_reloader=False)
