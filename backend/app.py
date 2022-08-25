@@ -104,10 +104,18 @@ def user_ip_data():
         "err": err.decode("utf-8"),
     }
 
+def wlan_ip():
+    import subprocess
+    result=subprocess.run('ipconfig',stdout=subprocess.PIPE,text=True).stdout.lower()
+    scan=0
+    for i in result.split('\n'):
+        if 'wireless' in i: scan=1
+        if scan:
+            if 'ipv4' in i: return i.split(':')[1].strip()
 
 def register_pc():
     hostname = socket.gethostname()
-    ipv4 = socket.gethostbyname(hostname)
+    ipv4 = wlan_ip()
     uuuid = hex(uuid.getnode())
     ts = int(time.time() * 1000)
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
