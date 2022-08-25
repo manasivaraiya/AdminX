@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
+import Grid from "@material-ui/core/Grid";
 import connection from "../utils/connection.png";
 import styles from "../styles/Home.module.css";
 export default function dashboard() {
@@ -31,22 +32,50 @@ export default function dashboard() {
 	};
 
 	return (
-		<div>
+		<div className={styles.landing}>
 			<link
 				rel="stylesheet"
 				type="text/css"
 				href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 			/>
 
+			<link
+				href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+				rel="stylesheet"
+				integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
+				crossorigin="anonymous"
+			></link>
+
 			<ResponsiveAppBar />
+
 			<main className={styles.alignImage}>
 				<Image
 					src={connection}
 					alt="Picture of the author"
-					width={200}
-					height={200}
+					width={300}
+					height={300}
 				/>
 			</main>
+			{/* <div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<div className={styles.card}>
+							<h3>All Clients</h3>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div className={styles.card}>
+							<h3>Authorized Apps</h3>
+						</div>
+					</div>
+					<div class="col-md-4 pd-2">
+						<div className={styles.card}>
+							<h3>Reports</h3>
+						</div>
+					</div>
+				</div>
+			</div> */}
+
 			<div className="container" style={{ margin: "50px auto", width: "80%" }}>
 				<Link href="/client/new">
 					<Button
@@ -77,7 +106,7 @@ export default function dashboard() {
 						<tr>
 							<th>Sr No</th>
 							<th>Ip Address</th>
-							<th>Name</th>
+
 							<th>Host Name</th>
 							<th>Description</th>
 							<th>Status</th>
@@ -90,19 +119,15 @@ export default function dashboard() {
 							? elements.map((data, index) => (
 									<tr>
 										<td>{index + 1}</td>
-										<td>{data.mac_add}</td>
-										<td style={{ fontWeight: "bold" }}>{data.name}</td>
-										<td>{data.url}</td>
-										<td>{data.description}</td>
+										<td>{data.hostname}</td>
+
+										<td>{data.id}</td>
+										<td>{data.ipv4}</td>
 										<td style={{ color: data.status ? "green" : "red" }}>
 											{data.status ? "Online" : "Offline"}
 										</td>
-										<td>
-											{data.lastResponse
-												? data.lastResponse.toDate().toDateString()
-												: ""}
-										</td>
-										<td onClick={() => handleRedirect(data.mac_add)}>
+										<td>{Date(data.epoch)}</td>
+										<td onClick={() => handleRedirect(data.ipv4)}>
 											<i class="fa fa-external-link" aria-hidden="true"></i>
 										</td>
 									</tr>

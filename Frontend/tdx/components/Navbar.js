@@ -12,7 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Link from "next/link";
-
+import logo from "../utils/logo.png";
+import Image from "next/image";
 const pages = [
 	{
 		name: "All Clients",
@@ -54,6 +55,7 @@ const ResponsiveAppBar = () => {
 						component="div"
 						sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
 					>
+						{/* <Image src={logo} height={30} width={100} /> */}
 						Stack Smashers
 					</Typography>
 
@@ -98,9 +100,7 @@ const ResponsiveAppBar = () => {
 						noWrap
 						component="div"
 						sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-					>
-						
-					</Typography>
+					></Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
 						{pages.map((page) => (
 							<Link href={page.href} key={page.href}>

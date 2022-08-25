@@ -7,6 +7,17 @@
 	background-repeat: no-repeat;
 }
 
+.columnCards {
+	float: left;
+	width: 33.33%;
+}
+
+.landing {
+	background-image: url("../utils/wave.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
 .main {
 	min-height: 60vh;
 	padding: 4rem 0;
@@ -67,6 +78,26 @@
 	font-size: 1.1rem;
 	font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
 		Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.card {
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+	transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+		0.3s box-shadow,
+		0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+	margin-top: 50px;
+	padding: 44px 80px 48px 36px;
+	cursor: pointer;
+	background-image: url("https://www.downloadclipart.net/large/31813-dark-blue-arrow-clipart.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 80px;
+}
+.card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 @keyframes typing {
