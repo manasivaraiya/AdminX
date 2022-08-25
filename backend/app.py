@@ -112,8 +112,11 @@ def register_pc():
     ts = int(time.time() * 1000)
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
     print(data)
-    result = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
-    print(result.status_code)
+    try:
+        result = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+        print(result.status_code)
+    except Exception as e:
+        print(e)
 
 @app.before_first_request
 def init_scheduler():
