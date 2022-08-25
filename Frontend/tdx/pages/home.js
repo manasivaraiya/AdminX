@@ -138,7 +138,38 @@ export default function dashboard() {
 					</div>
 				</div>
 			</div>
-
+			{/* <section className={styles.timeline}>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+			</section> */}
 			<br></br>
 		</div>
 	);
