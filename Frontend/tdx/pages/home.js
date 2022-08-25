@@ -8,61 +8,9 @@ import DevicesTable from "../components/DevicesTable"
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import gif from "../utils/connections.png";
+import gif from "../utils/lpt.png";
+import logo from "../utils/logo.png";
 import styles from "../styles/Home.module.css";
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import PropTypes from 'prop-types';
-
-
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-
-
-
-import axios from "axios";
-
-const style = {
-	minWidth: "900px !important",
-	bgcolor: 'background.paper',
-	border: '2px solid #000',
-	boxShadow: 24,
-	p: 4,
-	overflow: 'scroll',
-};
-
-
-
-
-function SimpleDialog(props) {
-	const { onClose, selectedValue, open } = props;
-
-	const handleClose = () => {
-		onClose(selectedValue);
-	};
-	return (
-		<Dialog className={style} onClose={handleClose} open={open}
-			maxWidth="xl"
-		>
-			<div style={{ margin: "20px" }}>
-				<DialogTitle style={{
-					padding: "0",
-					paddingTop: "20px",
-					marginBottom: "5px"
-
-				}}><b >All connected PCs in the network</b></DialogTitle>
-
-				<hr style={{ paddingBottom: "10px" }} />
-				<DevicesTable
-					elements={props.elements}
-					rows={props.devices} />
-
-			</div>
-
-		</Dialog>
-	);
-}
 export default function dashboard() {
 	const [elements, setElements] = useState([]);
 	// const { user, logout } = useUser();
@@ -90,30 +38,10 @@ export default function dashboard() {
 	}, []);
 
 	const handleRedirect = (id, uuid) => {
-		Router.push(
-			{
-				pathname: `/client/${id}`,
-				query: { uuid: uuid }
-			}
-		);
-	};
-
-
-	const [open, setOpen] = useState(false);
-	// const handleOpen = async () => {
-	// 	// await scanAllDevices();
-	// 	setOpen(true)
-	// };
-	// const handleClose = () => setOpen(false);
-
-	const handleClickOpen = async () => {
-		await scanAllDevices();
-		setOpen(true);
-	};
-
-	const handleClose = () => {
-		setOpen(false);
-		// setSelectedValue(value);
+		Router.push({
+			pathname: `/client/${id}`,
+			query: { uuid: uuid },
+		});
 	};
 
 	return (
@@ -131,28 +59,64 @@ export default function dashboard() {
 				crossorigin="anonymous"
 			></link>
 
-			<ResponsiveAppBar />
-			<>
-				<SimpleDialog
-					className={style}
-					devices={devices}
-					elements={elements}
-					open={open}
-					onClose={handleClose}
-					style={{ minWidth: "1000px !important" }}
-				/>
-			</>
-			<main className={styles.alignImage}>
-				<Image src={gif} height={350} width={350} />
-			</main>
-			{/* <div className="container">
-				<div className="row">
-					<div className="col-md-4">
-						<a style={{ textDecoration: "none", color: "black" }} href="/home">
+			<Navbar />
+
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8">
+						<Image src={gif} height={550} width={800} />
+					</div>
+					<div class="col-md-4">
+						<div style={{ paddingTop: "100px" }}>
+							<Image src={logo} height={200} width={600} />
+						</div>
+						<h5
+							style={{
+								fontFamily: "Arial, Helvetica, sans-serif",
+								wordSpacing: "2px",
+								color: "1B203E",
+							}}
+						>
+							Remote monitoring and management is the process of supervising and
+							controlling IT systems by means of locally installed agents that
+							can be accessed by a management service provider.
+						</h5>
+						<Button
+							style={{
+								backgroundColor: "#1B203E",
+								borderRadius: "20%",
+								marginTop: "20px",
+							}}
+						>
+							<a href="#bottom">
+								<i class="fa fa-arrow-down" aria-hidden="true"></i>
+							</a>
+						</Button>
+					</div>
+				</div>
+			</div>
+			<h1
+				style={{
+					textAlign: "center",
+					fontFamily: "Arial, Helvetica, sans-serif",
+					wordSpacing: "2px",
+					fontWeight: "700",
+					color: "#1B203E",
+				}}
+			>
+				SERVICES
+			</h1>
+			<div class="container" id="bottom">
+				<div class="row">
+					<div class="col-md-4">
+						<a
+							style={{ textDecoration: "none", color: "black" }}
+							href="/allclients"
+						>
 							<div className={styles.card}>
 								<h3>All Clients</h3>
 								<p>
-									All the available clients on the network with our client
+									All the available clients on the network with our agent
 									installed
 								</p>
 							</div>
@@ -166,8 +130,8 @@ export default function dashboard() {
 							<div className={styles.card}>
 								<h3>Authorized Apps</h3>
 								<p>
-									All the available clients on the network with our client
-									installed
+									The authorized apps present on the client's machine and it's
+									details
 								</p>
 							</div>
 						</a>
@@ -184,66 +148,41 @@ export default function dashboard() {
 						</a>
 					</div>
 				</div>
-			</div> */}
-
-			<div className="container" style={{ margin: "50px auto", width: "80%" }}>
-				<Button
-					variant="filled"
-					mr="md"
-					style={{
-						backgroundColor: "#28315C",
-						position: "fixed",
-						bottom: "40px",
-						right: "40px",
-						borderRadius: "50%",
-						height: "50px",
-						width: "50px",
-					}}
-					onClick={handleClickOpen}
-				>
-					<i className="fa fa-search-plus fa-md" aria-hidden="true" ></i>
-				</Button>
-
-				<Table
-					striped
-					highlightOnHover
-					verticalSpacing="md"
-					style={{ fontFamily: "Arial" }}
-				>
-					<thead>
-						<tr>
-							<th>Sr No</th>
-							<th>Host Name</th>
-							<th>Unique Id</th>
-							<th>IPv4</th>
-							<th>Status</th>
-							<th>Last Response</th>
-							<th>Open</th>
-						</tr>
-					</thead>
-					<tbody id="clients">
-						{elements.length > 0
-							? elements.map((data, index) => (
-								<tr>
-									<td>{index + 1}</td>
-									<td>{data.hostname}</td>
-
-									<td>{data.id}</td>
-									<td>{data.ipv4}</td>
-									<td style={{ color: data.status ? "green" : "red" }}>
-										{data.status ? "Online" : "Offline"}
-									</td>
-									<td>{Date(data.epoch)}</td>
-									<td onClick={() => handleRedirect(data.ipv4, data.id)}>
-										<i class="fa fa-external-link" aria-hidden="true"></i>
-									</td>
-								</tr>
-							))
-							: null}
-					</tbody>
-				</Table>
 			</div>
-		</div >
+			{/* <section className={styles.timeline}>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+				<article>
+					<div className={styles.inner}>
+						<h2 className={styles.h2}>The Title</h2>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+							quis rutrum nunc, eget dictum massa. Nam faucibus felis nec augue
+							adipiscing, eget commodo libero mattis.
+						</p>
+					</div>
+				</article>
+			</section> */}
+			<br></br>
+		</div>
 	);
 }
 
