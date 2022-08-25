@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import Router from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import gif from "../utils/connection.png";
+import gif from "../utils/connections.png";
 import styles from "../styles/Home.module.css";
 export default function dashboard() {
 	const [elements, setElements] = useState([]);
