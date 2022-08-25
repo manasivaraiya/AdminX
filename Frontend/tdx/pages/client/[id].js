@@ -1,6 +1,9 @@
 import styles from "../../styles/client/client.module.css";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Apps,
   Terminal,
@@ -89,7 +92,6 @@ const Client = ({ props }) => {
         {
           label: 'Yes',
           onClick: () => handleUninstall(elementName)
-          // onClick={() => handleUninstall(element.Name)}
         },
         {
           label: 'No',
@@ -99,6 +101,10 @@ const Client = ({ props }) => {
     });
   }
 
+  const succStatus = () => toast.success("Success");
+  const failStatus = () => toast.error("Failure");
+  
+
   const handleUninstall = async (name) => {
     // console.log(name);
     const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
@@ -107,7 +113,14 @@ const Client = ({ props }) => {
       command: exec,
     });
 
-    console.log(res)
+    // console.log(res)
+    if((res.data.err).length > 0){
+      // window.alert('ERROR')
+     failStatus()
+    }
+    else{
+      succStatus()
+    }
 
     // setCommand(exec);
     // runCommand();
@@ -373,7 +386,7 @@ const Client = ({ props }) => {
         ></Script>
       </Head>
       <ResponsiveAppBar />
-
+      <ToastContainer />
       <Modal
         size="lg"
         transition="fade"
