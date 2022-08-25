@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     for(var i=0; i<docs.length; i++){
         for(var j=0;j<docs[i].installed_apps.length; j++){
             if( appName.toLowerCase() == docs[i].installed_apps[j].name.toLowerCase()){
-                output.push(docs[i].installed_apps[j]);
+                output.push(docs[i].ipv4);
             }
         }
     }
