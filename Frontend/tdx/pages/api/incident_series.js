@@ -5,10 +5,11 @@ import NextCors from 'nextjs-cors';
 
 export default async function handler(req, res) {
 
-    // Required parameters
-    // - uuid
-    // - epoch
-    // - app_name
+
+    // get time series incidents
+    // required param - uuid
+
+    console.log((req.body));
 
     const docSnapshots = await firestore.collection("Users").get();
     const docs = docSnapshots.docs.map((doc) => doc.data());
@@ -24,26 +25,13 @@ export default async function handler(req, res) {
      });
 
     console.log ("doc: ", document)
-    console.log (req)
     if (document) {
 
-        // Update details
-        try {
-            console.log ("Update")
-            
-            var ul = document.incidents;
-            var obj = {
-                epoch: Date.now(),
-                name: req.body.file
-            }
-            ul.push(obj)
-            const data2 = {
-                reported_incidents: document.reported_incidents + 1,
-                incidents: ul
-            };
+        // get details
 
-            await firestore.collection("Users").doc(document.id).update(data2);
-            res.status(200).json({ message: "Incident successfully reported" })
+        try {
+        
+        res.status(200).json({ response: document.incidents })
 
         } catch (e) {
                 console.error(e);
@@ -51,7 +39,8 @@ export default async function handler(req, res) {
         }
 
     } else {
-        res.status(404).json({message: "Resource (User) doesn't exist on database"});
+        res.status(404).json({message: "Resource not found!"});
     }
+
 }
 

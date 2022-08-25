@@ -1,7 +1,3 @@
-
-
-
-
 import { firestore } from "../../utils/firebase";
 import NextCors from 'nextjs-cors';
 
@@ -66,11 +62,20 @@ export default async function handler(req, res) {
               status: "Online",
               epoch: req.body.epoch,
               reported_incidents: 0,
+              incidents: [
+                {
+                    name: "test",
+                    epoch: 9392,
+                }
+              ],
               installed_apps: [
                 {
                     name: "test",
                     version: "0.1"
                 }
+              ],
+              uninstall_list: [
+                'test'
               ]
             };
       
