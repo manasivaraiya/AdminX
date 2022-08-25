@@ -38,7 +38,6 @@ class WatchDir:
         event_handler = Handler()
         self.observer.schedule(event_handler, self.watchDirectory, recursive=True)
         self.observer.start()
-        gobj = GUIWithTK()
         print("observing")
         try:
             while True:
@@ -66,11 +65,11 @@ class GUIWithTK:
         
         
         
-        img=Image.open("./assets/warning_logo.png")
-        resized_image=img.resize((120,120))
-        final_image = ImageTk.PhotoImage(resized_image)
-        panel = Label(self.root, image = final_image,bg="#C0C0C0")
-        panel.place(relx=.18, rely=.15,anchor= CENTER)
+        # img=Image.open("./assets/warning_logo.png")
+        # resized_image=img.resize((120,120))
+        # final_image = ImageTk.PhotoImage(resized_image)
+        # panel = Label(self.root, image = final_image,bg="#C0C0C0")
+        # panel.place(relx=.18, rely=.15,anchor= CENTER)
         
         
         program = StringVar(self.root, value="Select program")
@@ -96,8 +95,8 @@ class GUIWithTK:
         # label.grid(row=0, column=0, padx=(100, 10))``
         # label.config(bg='black',fg='white')
         # label.grid(padx=100, pady=100, sticky="N")
-        # self.root.attributes("-fullscreen", True, "-topmost", True,'-alpha',1)
-        self.root.attributes("-fullscreen", True, "-fullscreen",True,'-alpha',1)
+        self.root.attributes("-fullscreen", True, "-topmost", True,'-alpha',1)
+        # self.root.attributes("-fullscreen", True, "-fullscreen",True,'-alpha',1)
         
         
         self.root.configure(bg="white")
@@ -201,7 +200,7 @@ class Handler(FileSystemEventHandler):
             return print("directory event")
         elif event.event_type == "created":
             file = event.src_path
-            if "part" not in file:
+            if ("part" not in file) and ("tmp" not in file):
                 temp = gobj.wait_till_file_is_created(file)
                 if temp is not None:
                     gobj.block_with_tkinter(file)
@@ -209,9 +208,9 @@ class Handler(FileSystemEventHandler):
         elif event.event_type == "modified":
             file = event.src_path
             print(file)
-            if "part" not in file:
+            if ("part" not in file) and ("tmp" not in file):
                 gobj.wait_till_file_is_created(file)
-                if "part" not in file:
+                if ("part" not in file) and ("tmp" not in file):
                     gobj.block_with_tkinter(file)
                 print(
                     "Watchdog received modified downloading event - % s."
