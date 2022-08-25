@@ -37,7 +37,8 @@
     "reactjs-popup": "^2.0.5",
     "reactstrap": "^9.0.1",
     "tabler-icons-react": "^1.41.0",
-    "underscore": "^1.13.4"
+    "underscore": "^1.13.4",
+    "victory": "^36.6.5"
   },
   "devDependencies": {
     "eslint": "8.11.0",
