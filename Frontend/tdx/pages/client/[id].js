@@ -40,8 +40,9 @@ const Client = ({ props }) => {
 
   useEffect(() => {
     if (!router.isReady) { return };
-    setClientURL("http://" + router.query.uuid);
-    setUserDocId(router.query.id);
+    setClientURL("http://" + router.query.id + ":8080");
+    console.log(clientURL);
+    setUserDocId(router.query.uuid);
 
   }, [router.isReady]);
 
@@ -158,7 +159,7 @@ const Client = ({ props }) => {
           .collection("Logs")
           .add({
             datetime: date.toString(),
-            timestamp: +date,
+            timestamp: Date.now(),
             command,
             output: op,
           });
