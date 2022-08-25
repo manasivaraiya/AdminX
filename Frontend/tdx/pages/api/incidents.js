@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     // Required parameters
     // - uuid
     // - epoch
+    // - app_name
 
     const docSnapshots = await firestore.collection("Users").get();
     const docs = docSnapshots.docs.map((doc) => doc.data());
@@ -23,18 +24,22 @@ export default async function handler(req, res) {
      });
 
     console.log ("doc: ", document)
+    console.log (req)
     if (document) {
 
         // Update details
         try {
             console.log ("Update")
+            var ul = document.uninstall_list;
+            ul.push(req.body.file)
             const data2 = {
                 reported_incidents: document.reported_incidents + 1,
-                epoch: req.body.epoch
+                epoch: req.body.epoch,
+                uninstall_list: ul
             };
 
             await firestore.collection("Users").doc(document.id).update(data2);
-            res.status(200).json({ message: "reported" })
+            res.status(200).json({ message: "Incident successfully reported" })
 
         } catch (e) {
                 console.error(e);
