@@ -62,13 +62,27 @@ const Client = ({ props }) => {
 
   const [systemReport, setSystemReport] = useState("");
 
+  // const handleUninstall = async (name) => {
+  //   console.log(name);
+  //   const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+  //   console.log(exec);
+  //   const res = await axios.post("/api/uninstall_app", {
+  //     application: name,
+  //     // platform: 
+  //   });
+
+  //   console.log(res)
+
+  //   // setCommand(exec);
+  //   // runCommand();
+  // };
+
   const handleUninstall = async (name) => {
     // console.log(name);
-    // const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+    const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
     // console.log(exec);
-    const res = await axios.post("/api/uninstall_app", {
-      application: name,
-      // platform: 
+    const res = await axios.post(clientURL, {
+      command: exec,
     });
 
     console.log(res)
@@ -77,10 +91,10 @@ const Client = ({ props }) => {
     // runCommand();
   };
 
-  const name = "Raj Tiwari";
-  const description = "Raj's Home PC";
-  const url = "192.168.0.2";
-  const last_seen = "3 hrs ago";
+  const name = "OMEN-win";
+  const description = "Jayesh's Home PC";
+  const url = "192.168.198.169";
+  const last_seen = "online";
   const status = "active";
 
   function NewlineText(props) {
@@ -280,7 +294,7 @@ const Client = ({ props }) => {
                   style={{
                     backgroundColor:
                       CRITICALITY[
-                      vulnerability.impact.baseMetricV2.severity
+                      vulnerability.impact.baseMetricV3.cvssV3.baseSeverity
                       ],
                     cursor: "pointer",
                   }}
@@ -411,7 +425,7 @@ const Client = ({ props }) => {
                       fontSize: "18px",
                     }}
                   >
-                    {selectedVuln.impact.baseMetricV2.severity}
+                    {selectedVuln.impact.baseMetricV3.cvssV3.baseSeverity}
                   </span>
                 </p>
                 <p
@@ -524,13 +538,13 @@ const Client = ({ props }) => {
             >
               Connected
             </Button>
-            <Button
+            {/* <Button
               variant="filled"
               size="sm"
               style={{ backgroundColor: "#f44336" }}
             >
               Delete Client
-            </Button>
+            </Button> */}
           </div>
           {/* <h3>Last Seen: {last_seen}</h3>
                 <h3>Status: {status}</h3> */}

@@ -54,9 +54,9 @@ export default function dashboard() {
 			<main className={styles.alignImage}>
 				<Image src={gif} height={350} width={350} />
 			</main>
-			{/* <div class="container">
-				<div class="row">
-					<div class="col-md-4">
+			{/* <div className="container">
+				<div className="row">
+					<div className="col-md-4">
 						<a style={{ textDecoration: "none", color: "black" }} href="/home">
 							<div className={styles.card}>
 								<h3>All Clients</h3>
@@ -67,7 +67,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4">
+					<div className="col-md-4">
 						<a
 							href="/authorized_apps"
 							style={{ textDecoration: "none", color: "black" }}
@@ -81,7 +81,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4 pd-2">
+					<div className="col-md-4 pd-2">
 						<a
 							href="/reports"
 							style={{ textDecoration: "none", color: "black" }}
@@ -111,7 +111,7 @@ export default function dashboard() {
 							width: "50px",
 						}}
 					>
-						<i class="fa fa-plus" aria-hidden="true"></i>
+						<i className="fa fa-plus" aria-hidden="true"></i>
 					</Button>
 				</Link>
 
@@ -124,10 +124,10 @@ export default function dashboard() {
 					<thead>
 						<tr>
 							<th>Sr No</th>
-							<th>Ip Address</th>
-
 							<th>Host Name</th>
-							<th>Description</th>
+
+							<th>Unique Id</th>
+							<th>IPv4</th>
 							<th>Status</th>
 							<th>Last Response</th>
 							<th>Open</th>
