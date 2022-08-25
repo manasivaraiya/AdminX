@@ -15,7 +15,7 @@ import Link from "next/link";
 
 const Navbar = () => {
 	return (
-		<AppBar position="static" style={{ backgroundColor: "#1B203E" }}>
+		<AppBar position="static" style={{ backgroundColor: "transparent" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography

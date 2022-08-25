@@ -48,7 +48,7 @@ export default function dashboard() {
 				crossorigin="anonymous"
 			></link>
 
-			<ResponsiveAppBar />
+			<Navbar />
 
 			<div class="container">
 				<div class="row">
@@ -77,19 +77,35 @@ export default function dashboard() {
 								marginTop: "20px",
 							}}
 						>
-							<i class="fa fa-arrow-down" aria-hidden="true"></i>
+							<a href="#bottom">
+								<i class="fa fa-arrow-down" aria-hidden="true"></i>
+							</a>
 						</Button>
 					</div>
 				</div>
 			</div>
-			<div class="container">
+			<h1
+				style={{
+					textAlign: "center",
+					fontFamily: "Arial, Helvetica, sans-serif",
+					wordSpacing: "2px",
+					fontWeight: "700",
+					color: "#1B203E",
+				}}
+			>
+				SERVICES
+			</h1>
+			<div class="container" id="bottom">
 				<div class="row">
 					<div class="col-md-4">
-						<a style={{ textDecoration: "none", color: "black" }} href="/home">
+						<a
+							style={{ textDecoration: "none", color: "black" }}
+							href="/allclients"
+						>
 							<div className={styles.card}>
 								<h3>All Clients</h3>
 								<p>
-									All the available clients on the network with our client
+									All the available clients on the network with our agent
 									installed
 								</p>
 							</div>
@@ -103,8 +119,8 @@ export default function dashboard() {
 							<div className={styles.card}>
 								<h3>Authorized Apps</h3>
 								<p>
-									All the available clients on the network with our client
-									installed
+									The authorized apps present on the client's machine and it's
+									details
 								</p>
 							</div>
 						</a>
@@ -122,66 +138,8 @@ export default function dashboard() {
 					</div>
 				</div>
 			</div>
-			{/* <div className="container" style={{ margin: "50px auto", width: "80%" }}>
-				<Link href="/client/new">
-					<Button
-						variant="filled"
-						mr="md"
-						size="sm"
-						style={{
-							backgroundColor: "#1B203E",
-							position: "fixed",
-							bottom: "50px",
-							right: "50px",
-							borderRadius: "50%",
-							height: "50px",
-							width: "50px",
-						}}
-					>
-						<i className="fa fa-plus" aria-hidden="true"></i>
-					</Button>
-				</Link>
 
-				<Table
-					striped
-					highlightOnHover
-					verticalSpacing="md"
-					style={{ fontFamily: "Arial" }}
-				>
-					<thead>
-						<tr>
-							<th>Sr No</th>
-							<th>Host Name</th>
-
-							<th>Unique Id</th>
-							<th>IPv4</th>
-							<th>Status</th>
-							<th>Last Response</th>
-							<th>Open</th>
-						</tr>
-					</thead>
-					<tbody id="clients">
-						{elements.length > 0
-							? elements.map((data, index) => (
-								<tr>
-									<td>{index + 1}</td>
-									<td>{data.hostname}</td>
-
-									<td>{data.id}</td>
-									<td>{data.ipv4}</td>
-									<td style={{ color: data.status ? "green" : "red" }}>
-										{data.status ? "Online" : "Offline"}
-									</td>
-									<td>{Date(data.epoch)}</td>
-									<td onClick={() => handleRedirect(data.ipv4, data.id)}>
-										<i class="fa fa-external-link" aria-hidden="true"></i>
-									</td>
-								</tr>
-							))
-							: null}
-					</tbody>
-				</Table>
-			</div> */}
+			<br></br>
 		</div>
 	);
 }

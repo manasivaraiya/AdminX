@@ -17,7 +17,7 @@ import Image from "next/image";
 const pages = [
 	{
 		name: "All Clients",
-		href: "/home",
+		href: "/allclients",
 	},
 	{
 		name: "Authorized Apps",
@@ -50,7 +50,7 @@ const ResponsiveAppBar = () => {
 	};
 
 	return (
-		<AppBar position="static" style={{ backgroundColor: "transparent" }}>
+		<AppBar position="static" style={{ backgroundColor: "#1B203E" }}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
@@ -60,7 +60,7 @@ const ResponsiveAppBar = () => {
 						sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
 					>
 						{/* <Image src={logo} height={30} width={100} /> */}
-						AdminX
+						Stack Smashers
 					</Typography>
 
 					<Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
