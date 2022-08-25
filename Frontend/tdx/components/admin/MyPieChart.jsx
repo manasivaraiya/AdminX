@@ -4,9 +4,9 @@ function MyPieChart() {
   return (
     <VictoryPie
       data={[
-        { x: "Cats", y: 35 },
-        { x: "Dogs", y: 40 },
-        { x: "Birds", y: 55 },
+        { x: "CodeCell", y: 80 },
+        { x: "CSI", y: 15 },
+        { x: "ISTE", y: 5 },
       ]}
       colorScale="blue"
     />
