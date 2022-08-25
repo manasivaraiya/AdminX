@@ -54,7 +54,7 @@ const FirebaseAuth = () => {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Stack Smashers</title>
+				<title>AdminX</title>
 				<meta name="description" content="#1B203E" />
 				<Navbar />
 			</Head>

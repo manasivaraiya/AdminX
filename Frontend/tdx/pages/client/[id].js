@@ -21,17 +21,32 @@ import {
 } from "@mantine/core";
 import { AlertCircle } from "tabler-icons-react";
 import { useEffect, useState } from "react";
+import Script from 'next/script'
 import ResponsiveAppBar from "../../components/Navbar";
 import axios from "axios";
 import { firestore } from "../../utils/firebase";
 // import testJSON from "../../test.json";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router'
 
-export default function Client({ props }) {
+const Client = ({ props }) => {
+
+  const router = useRouter();
+  const [clientURL, setClientURL] = useState("");
+  const [userDocId, setUserDocId] = useState("");
+
+
+  useEffect(() => {
+    if (!router.isReady) { return };
+    setClientURL("http://" + router.query.uuid);
+    setUserDocId(router.query.id);
+
+  }, [router.isReady]);
+
+
   // const clientURL = "https://bc-e9-2f-8c-1d-c8.loca.lt";
-  const clientURL = "https://stack-smashers-0.loca.lt";
-  const userDocId = "TdflnohiShOZeB8ODWsX";
+  // const clientURL = "https:/ack-smashers-0.loca.lt";
+  // const userDocId = "TdflnohiSh/stOZeB8ODWsX";
 
   const logOutputLetterLimit = 600;
 
@@ -47,13 +62,27 @@ export default function Client({ props }) {
 
   const [systemReport, setSystemReport] = useState("");
 
+  // const handleUninstall = async (name) => {
+  //   console.log(name);
+  //   const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+  //   console.log(exec);
+  //   const res = await axios.post("/api/uninstall_app", {
+  //     application: name,
+  //     // platform: 
+  //   });
+
+  //   console.log(res)
+
+  //   // setCommand(exec);
+  //   // runCommand();
+  // };
+
   const handleUninstall = async (name) => {
     // console.log(name);
-    // const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
+    const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
     // console.log(exec);
-    const res = await axios.post("/api/uninstall_app", {
-      application: name,
-      // platform: 
+    const res = await axios.post(clientURL, {
+      command: exec,
     });
 
     console.log(res)
@@ -62,10 +91,10 @@ export default function Client({ props }) {
     // runCommand();
   };
 
-  const name = "Raj Tiwari";
-  const description = "Raj's Home PC";
-  const url = "192.168.0.2";
-  const last_seen = "3 hrs ago";
+  const name = "OMEN-win";
+  const description = "Jayesh's Home PC";
+  const url = "192.168.198.169";
+  const last_seen = "online";
   const status = "active";
 
   function NewlineText(props) {
@@ -90,6 +119,7 @@ export default function Client({ props }) {
     // console.log("data is", data);
 
     try {
+      if (clientURL === "" || userDocId === "") return;
       const res = await axios.post(clientURL, data);
       // console.log({ res, status: res.status });
       if (res && res.status == 200) {
@@ -174,6 +204,7 @@ export default function Client({ props }) {
   async function getSystemReport() {
     // console.log("getsystemreport called");
     try {
+      if (clientURL === "") return;
       const res = await axios.get(clientURL + "/data");
       const res2 = await axios.get(clientURL + "/hardware");
       if (res.status == 200 && res2.status == 200) {
@@ -204,7 +235,9 @@ export default function Client({ props }) {
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     };
     try {
-      const res = await axios.post(clientURL, data);
+      if (clientURL === "") return;
+      const res
+        = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         setApps(output);
@@ -261,7 +294,7 @@ export default function Client({ props }) {
                   style={{
                     backgroundColor:
                       CRITICALITY[
-                      vulnerability.impact.baseMetricV2.severity
+                      vulnerability.impact.baseMetricV3.cvssV3.baseSeverity
                       ],
                     cursor: "pointer",
                   }}
@@ -283,6 +316,7 @@ export default function Client({ props }) {
 
   async function getLogs() {
     try {
+      if (userDocId === "") return;
       const docSnapshots = await firestore
         .collection("Users")
         .doc(userDocId)
@@ -308,12 +342,12 @@ export default function Client({ props }) {
   return (
     <div className={styles.main_wrapper}>
       <Head>
-        <script
+        <Script
           src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
           integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
-        ></script>
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></Script>
       </Head>
       <ResponsiveAppBar />
 
@@ -391,7 +425,7 @@ export default function Client({ props }) {
                       fontSize: "18px",
                     }}
                   >
-                    {selectedVuln.impact.baseMetricV2.severity}
+                    {selectedVuln.impact.baseMetricV3.cvssV3.baseSeverity}
                   </span>
                 </p>
                 <p
@@ -504,13 +538,13 @@ export default function Client({ props }) {
             >
               Connected
             </Button>
-            <Button
+            {/* <Button
               variant="filled"
               size="sm"
               style={{ backgroundColor: "#f44336" }}
             >
               Delete Client
-            </Button>
+            </Button> */}
           </div>
           {/* <h3>Last Seen: {last_seen}</h3>
                 <h3>Status: {status}</h3> */}
@@ -631,3 +665,6 @@ export default function Client({ props }) {
     </div>
   );
 }
+
+
+export default Client;

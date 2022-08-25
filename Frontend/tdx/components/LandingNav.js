@@ -24,7 +24,7 @@ const Navbar = () => {
 						component="div"
 						sx={{ mr: 1, display: { xs: "none", md: "flex" } }}
 					>
-						Stack Smashers
+						AdminX
 					</Typography>
 				</Toolbar>
 			</Container>

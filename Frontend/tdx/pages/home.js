@@ -26,8 +26,11 @@ export default function dashboard() {
 		getallUsers();
 	}, []);
 
-	const handleRedirect = (id) => {
-		Router.push(`/client/${id}`);
+	const handleRedirect = (id, uuid) => {
+		Router.push({
+			pathname: `/client/${id}`,
+			query: { uuid: uuid },
+		});
 	};
 
 	return (
@@ -92,7 +95,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4">
+					<div className="col-md-4">
 						<a
 							href="/authorized_apps"
 							style={{ textDecoration: "none", color: "black" }}
@@ -106,7 +109,7 @@ export default function dashboard() {
 							</div>
 						</a>
 					</div>
-					<div class="col-md-4 pd-2">
+					<div className="col-md-4 pd-2">
 						<a
 							href="/reports"
 							style={{ textDecoration: "none", color: "black" }}
@@ -135,7 +138,7 @@ export default function dashboard() {
 							width: "50px",
 						}}
 					>
-						<i class="fa fa-plus" aria-hidden="true"></i>
+						<i className="fa fa-plus" aria-hidden="true"></i>
 					</Button>
 				</Link>
 
@@ -148,10 +151,10 @@ export default function dashboard() {
 					<thead>
 						<tr>
 							<th>Sr No</th>
-							<th>Ip Address</th>
-
 							<th>Host Name</th>
-							<th>Description</th>
+
+							<th>Unique Id</th>
+							<th>IPv4</th>
 							<th>Status</th>
 							<th>Last Response</th>
 							<th>Open</th>
@@ -160,21 +163,21 @@ export default function dashboard() {
 					<tbody id="clients">
 						{elements.length > 0
 							? elements.map((data, index) => (
-									<tr>
-										<td>{index + 1}</td>
-										<td>{data.hostname}</td>
+								<tr>
+									<td>{index + 1}</td>
+									<td>{data.hostname}</td>
 
-										<td>{data.id}</td>
-										<td>{data.ipv4}</td>
-										<td style={{ color: data.status ? "green" : "red" }}>
-											{data.status ? "Online" : "Offline"}
-										</td>
-										<td>{Date(data.epoch)}</td>
-										<td onClick={() => handleRedirect(data.ipv4)}>
-											<i class="fa fa-external-link" aria-hidden="true"></i>
-										</td>
-									</tr>
-							  ))
+									<td>{data.id}</td>
+									<td>{data.ipv4}</td>
+									<td style={{ color: data.status ? "green" : "red" }}>
+										{data.status ? "Online" : "Offline"}
+									</td>
+									<td>{Date(data.epoch)}</td>
+									<td onClick={() => handleRedirect(data.ipv4, data.id)}>
+										<i class="fa fa-external-link" aria-hidden="true"></i>
+									</td>
+								</tr>
+							))
 							: null}
 					</tbody>
 				</Table>
