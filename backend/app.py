@@ -14,7 +14,7 @@ import time
 import atexit
 
 from apscheduler.schedulers.background import BackgroundScheduler
-import asyncio
+
 
 app = Flask(__name__)
 CORS(app)
@@ -105,27 +105,25 @@ def user_ip_data():
         "err": err.decode("utf-8"),
     }
 
-def register_pc():
-    ipv4 = [
-        l
-        for l in (
-            [
-                ip
-                for ip in socket.gethostbyname_ex(socket.gethostname())[2]
-                if not ip.startswith("127.")
-            ][:1],
-            [
-                [
-                    (s.connect(("8.8.8.8", 53)), s.getsockname()[0], s.close())
-                    for s in [socket.socket(socket.AF_INET, socket.SOCK_DGRAM)]
-                ][0][1]
-            ],
-        )
-        if l
-    ][0][0]
 
+def wlan_ip():
+    import subprocess
+
+    result = subprocess.run(
+        "ipconfig", stdout=subprocess.PIPE, text=True
+    ).stdout.lower()
+    scan = 0
+    for i in result.split("\n"):
+        if "wireless" in i:
+            scan = 1
+        if scan:
+            if "ipv4" in i:
+                return i.split(":")[1].strip()
+
+
+def register_pc():
     hostname = socket.gethostname()
-    ipv4 = ipv4
+    ipv4 = wlan_ip()
     uuuid = hex(uuid.getnode())
     ts = int(time.time() * 1000)
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
