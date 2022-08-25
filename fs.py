@@ -5,6 +5,8 @@ from click import command
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from tkinter import *
+from PIL import ImageTk, Image
+
 import subprocess
 from threading import Thread, local
 import os
@@ -30,7 +32,8 @@ OPTIONS = [
     "Whatsapp",
     "arch-linux",
     "audacity",
-    "Other",
+    # "Other ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
+    "Other"
 ]
 
 # class KivyGUIApp(App):
@@ -151,17 +154,19 @@ class GUIWithTK:
     # Set the directory on watch
     # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
     # watchDirectory = "C:\\Users\\Jayesh\\Downloads\\"
-    watchDirectory = "/Users/neelansh/Downloads/"
+    watchDirectory = "D:\Downloads"
 
     def __init__(self):
         self.observer = Observer()
-        self.root = Tk()
+        self.root = Toplevel()
         self.file = ""
 
     def run(self):
         event_handler = Handler()
         self.observer.schedule(event_handler, self.watchDirectory, recursive=True)
         self.observer.start()
+        gobj = GUIWithTK()
+        gobj.block_with_tkinter("temp")
         print("observing")
         try:
             while True:
@@ -173,22 +178,56 @@ class GUIWithTK:
 
     def block_with_tkinter(self, file):
         self.file = file
-        program = StringVar(self.root, value="Select a program")
+        
+        
+        w = Canvas(self.root, width=2000, height=300)
+        w.create_rectangle(0, 0, 2000, 300, fill="#C0C0C0", outline = '#C0C0C0')
+        w.create_rectangle(0,0, 2000, 300, fill="#C0C0C0", outline = '#C0C0C0') 
+        w.pack()
+        
+        
+        
+        img=Image.open("./assets/warning_logo.png")
+        resized_image=img.resize((120,120))
+        final_image = ImageTk.PhotoImage(resized_image)
+        panel = Label(self.root, image = final_image,bg="#C0C0C0")
+        panel.place(relx=.18, rely=.15,anchor= CENTER)
+        
+        
+        program = StringVar(self.root, value="Select program")
         self.root.geometry("650x250")
+        # self.root.wm_attributes("-transparentcolor", 'grey')
+        
+        warning_text = Label(
+            self.root,
+            text="Action blocked by your organization!",
+            font=("Roboto bold", 50,"underline"),
+            bg="#C0C0C0",
+            fg="red"
+        )
+        warning_text.place(relx=.5, rely=.15,anchor= CENTER)
+        
         label = Label(
             self.root,
-            text="Please select what kind of file you just downloaded!",
-            font=("Roboto bold", 20),
+            text="Please select the program that you are trying to install",
+            font=("Roboto bold", 30),
+            bg="white",
         )
-        label.config(bg='black',fg='white')
-        label.grid(padx=10, pady=10, sticky="N")
-        self.root.attributes("-fullscreen", True, "-topmost", True,'-alpha',0.75)
-        self.root.configure(bg="black")
-        w = OptionMenu(self.root, program, *OPTIONS, command=self.change)
-        w.config(width=20,bg='black',fg='white')
-        w.grid(column=1, row=10)
-        contents = Frame(self.root)
-        contents.grid(row=1, column=1)
+        label.place(relx=.5, rely=.5,anchor= CENTER)
+        # label.grid(row=0, column=0, padx=(100, 10))``
+        # label.config(bg='black',fg='white')
+        # label.grid(padx=100, pady=100, sticky="N")
+        # self.root.attributes("-fullscreen", True, "-topmost", True,'-alpha',1)
+        self.root.attributes("-fullscreen", True, "-fullscreen",True,'-alpha',1)
+        
+        
+        self.root.configure(bg="white")
+        option_menu = OptionMenu(self.root, program, *OPTIONS, command=self.change)
+        option_menu.config(width=15,fg='black',font=("Roboto bold", 15))
+        option_menu.place(relx=0.5, rely=0.6,anchor= CENTER)
+        # contents = Frame(self.root)
+        # contents.config(width=50)
+        # contents.grid(row=1, column=1)
         self.root.mainloop()
 
     def change(self,*args):
@@ -264,6 +303,7 @@ class GUIWithTK:
             print("ohnoo")
 
 class Handler(FileSystemEventHandler):
+    
     @staticmethod
     def on_any_event(event):
         gobj = GUIWithTK()
