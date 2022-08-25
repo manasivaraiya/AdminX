@@ -1,4 +1,9 @@
 import styles from "../../styles/client/client.module.css";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
   Apps,
   Terminal,
@@ -38,8 +43,9 @@ const Client = ({ props }) => {
 
   useEffect(() => {
     if (!router.isReady) { return };
-    setClientURL("http://" + router.query.uuid);
-    setUserDocId(router.query.id);
+    setClientURL("http://" + router.query.id + ":8080");
+    console.log(clientURL);
+    setUserDocId(router.query.uuid);
 
   }, [router.isReady]);
 
@@ -77,6 +83,28 @@ const Client = ({ props }) => {
   //   // runCommand();
   // };
 
+  const submit = (elementName) => {
+
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure you want to do this?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => handleUninstall(elementName)
+        },
+        {
+          label: 'No',
+          onClick: () => window.history.go(0)
+        }
+      ]
+    });
+  }
+
+  const succStatus = () => toast.success("Success");
+  const failStatus = () => toast.error("Failure");
+  
+
   const handleUninstall = async (name) => {
     // console.log(name);
     const exec = `Get-Package -Provider Programs -IncludeWindowsInstaller -Name "${name}" |  % { & ($_.Meta.Attributes["UninstallString"] -replace '"') /S}`;
@@ -85,7 +113,14 @@ const Client = ({ props }) => {
       command: exec,
     });
 
-    console.log(res)
+    // console.log(res)
+    if((res.data.err).length > 0){
+      // window.alert('ERROR')
+     failStatus()
+    }
+    else{
+      succStatus()
+    }
 
     // setCommand(exec);
     // runCommand();
@@ -108,6 +143,22 @@ const Client = ({ props }) => {
       ));
     } else {
       return "";
+    }
+  }
+
+  const saveApplications = async (data) =>{
+    try{
+      const list = {
+        installed_apps : data
+      };
+      
+      firestore
+          .collection("Users")
+          .doc(userDocId) // Later
+          .update(list);
+    } catch (e) {
+      console.error("failed", e);
+      setCommandOutput("Error");
     }
   }
 
@@ -137,7 +188,7 @@ const Client = ({ props }) => {
           .collection("Logs")
           .add({
             datetime: date.toString(),
-            timestamp: +date,
+            timestamp: Date.now(),
             command,
             output: op,
           });
@@ -240,6 +291,8 @@ const Client = ({ props }) => {
         = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
+        console.log(output);
+        // await saveApplications(output);
         setApps(output);
         getVulnerabilities(output);
         getSystemReport();
@@ -281,7 +334,8 @@ const Client = ({ props }) => {
               size={20}
               strokeWidth={2}
               color={"#ff0000"}
-              onClick={() => handleUninstall(element.Name)}
+              // onClick={() => handleUninstall(element.Name)}
+              onClick = {()=>submit(element.Name)}
             />
           </td>
           <td>
@@ -350,7 +404,7 @@ const Client = ({ props }) => {
         ></Script>
       </Head>
       <ResponsiveAppBar />
-
+      <ToastContainer />
       <Modal
         size="lg"
         transition="fade"

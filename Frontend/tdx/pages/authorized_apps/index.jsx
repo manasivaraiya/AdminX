@@ -5,9 +5,11 @@ import ResponsiveAppBar from "../../components/Navbar";
 import styles from "../../styles/client/client.module.css";
 import { firestore } from "../../utils/firebase";
 import Link from "next/link";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import Divider from "@mui/material/Divider";
 
 export default function authorized_apps() {
-
   const [apps, setApps] = useState([]);
 
   useEffect(onMounted, []);
@@ -33,7 +35,6 @@ export default function authorized_apps() {
     } catch (e) {
       console.error(e);
     }
-    
   }
 
   return (
@@ -52,7 +53,128 @@ export default function authorized_apps() {
             // justifyContent: "flex-start",
           }}
         >
+          {apps.length > 0 ? (
+            apps.map((app) => (
+              <div
+                className={styles.card_wrapper}
+                key={app.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  margin: "1em",
+                  marginLeft: "0px",
+                  padding: "1em",
+                  border: "2px solid #eeeeee",
+                  minWidth: "500px",
+                }}
+              >
+                <div className={styles.cardInfo}>
+                  <h1
+                    style={{
+                      fontSize: "1.5rem",
+                      marginBottom: "5px",
+                    }}
+                  >
+                    {app.name}
+                  </h1>
+                  <Divider />
+                  <div className={styles.addition_info}>
+                    <p
+                      style={{
+                        color: "#555555",
+                        fontSize: "0.8rem",
+                        marginTop: "5px",
+                      }}
+                    >
+                      <b>Version</b>: {app.version}
+                    </p>
+                    <p
+                      style={{
+                        color: "#808080",
+                        fontSize: "0.8rem",
+                        marginTop: "5px",
+                      }}
+                    >
+                      <b>Hash</b>: {app.hash}
+                    </p>
+                  </div>
+                </div>
 
+                <div
+                  className={styles.card_button}
+                  style={{
+                    display: "flex",
+                    justifyContent: "end",
+                    alignItems: "center",
+                  }}
+                >
+                  <Trash
+                    className={styles.trash}
+                    color="red"
+                    variant="outline"
+                    onClick={() => removeApp(app.id)}
+                    size={30}
+                  />
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No authorized apps found</p>
+          )}
+        </div>
+        <div
+          style={{
+            marginTop: "1em",
+          }}
+        >
+          <Link href="/authorized_apps/add">
+            <Button
+              style={{
+                marginTop: "1em",
+                backgroundColor: "#1B203E",
+              }}
+            >
+              <Plus /> New application
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+  const submit = (appId) => {
+    confirmAlert({
+      title: "Confirm to submit",
+      message: "Are you sure you want to do this?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: () => removeApp(appId),
+          // onClick={() => handleUninstall(element.Name)}
+        },
+        {
+          label: "No",
+          onClick: () => window.history.go(0),
+        },
+      ],
+    });
+  };
+
+  return (
+    <div style={styles.main_wrapper}>
+      <ResponsiveAppBar />
+      <div className={styles.container} style={{ paddingBottom: "3em" }}>
+        <h1>Authorized Apps</h1>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            // display: "flex",
+            // gridAutoFlow: "row",
+            // flexWrap: "wrap",
+            // justifyContent: "flex-start",
+          }}
+        >
           {apps.length > 0 ? (
             apps.map((app) => (
               <div
@@ -65,9 +187,7 @@ export default function authorized_apps() {
                   padding: "1em",
                   border: "2px solid #eeeeee",
                   minWidth: "500px",
-                  
                 }}
-                
               >
                 <div className="card-info">
                   <h1
@@ -97,7 +217,7 @@ export default function authorized_apps() {
                     <b>Hash</b>: {app.hash}
                   </p>
                 </div>
-                
+
                 <div
                   className={styles.card_button}
                   style={{
@@ -106,10 +226,12 @@ export default function authorized_apps() {
                     alignItems: "center",
                   }}
                 >
-                  <Trash className={styles.trash}
+                  <Trash
+                    className={styles.trash}
                     color="red"
                     variant="outline"
-                    onClick={() => removeApp(app.id)}
+                    // onClick={() => removeApp(app.id)}
+                    onClick={() => submit(app.id)}
                     size={30}
                   />
                 </div>
@@ -126,16 +248,16 @@ export default function authorized_apps() {
         >
           <Link href="/authorized_apps/add">
             <Button
-            style={{
-              marginTop: "1em",
-              backgroundColor: "#28315C",
-            }}>
+              style={{
+                marginTop: "1em",
+                backgroundColor: "#28315C",
+              }}
+            >
               <Plus /> New application
             </Button>
           </Link>
         </div>
       </div>
     </div>
-
   );
 }
