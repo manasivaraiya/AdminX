@@ -68,6 +68,7 @@ export default function add_authorized_app() {
             type="submit"
             style={{
               marginTop: "1em",
+              backgroundColor: "#28315C",
             }}
           >
             Submit

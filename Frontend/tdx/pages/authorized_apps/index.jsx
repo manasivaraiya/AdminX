@@ -61,7 +61,7 @@ export default function authorized_apps() {
                   margin: "1em",
                   padding: "1em",
                   border: "2px solid #eeeeee",
-                  minWidth: "550px",
+                  minWidth: "500px",
                 }}
               >
                 <div className="card-info">
@@ -120,7 +120,11 @@ export default function authorized_apps() {
           }}
         >
           <Link href="/authorized_apps/add">
-            <Button>
+            <Button
+            style={{
+              marginTop: "1em",
+              backgroundColor: "#28315C",
+            }}>
               <Plus /> New application
             </Button>
           </Link>
