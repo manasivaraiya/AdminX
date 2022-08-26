@@ -648,7 +648,7 @@ const Client = ({ props }) => {
               Delete Client
             </Button> */}
           </div>
-          {/* <h3>Last Seen: {last_seen}</h3>
+          {/* <h3>Last Seen: {last_seen}</h3> 
                 <h3>Status: {status}</h3> */}
         </div>
         <div className={styles.tab_wrapper}>

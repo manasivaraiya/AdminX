@@ -16,13 +16,15 @@ export default async function handler(req, res) {
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-     });
+    });
 
-    // console.log(docs[0].id); 
+    console.log(docs[0].id);
     var output = [];
-    for(var i=0; i<docs.length; i++){
-        for(var j=0;j<docs[i].installed_apps.length; j++){
-            if( appName.toLowerCase() == docs[i].installed_apps[j].name.toLowerCase()){
+    for (var i = 0; i < docs.length; i++) {
+        console.log(docs[i].installed_apps[j])
+        for (var j = 0; j < docs[i].installed_apps.length; j++) {
+            console.log(docs[i].installed_apps[j])
+            if (docs[i].installed_apps[j].Name && appName.toLowerCase() == docs[i].installed_apps[j].Name.toLowerCase()) {
                 output.push(docs[i].ipv4);
             }
         }
