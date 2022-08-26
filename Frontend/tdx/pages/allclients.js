@@ -89,11 +89,11 @@ const AllClients = () => {
 
 	}, []);
 
-	const handleRedirect = (id, uuid) => {
+	const handleRedirect = (id, uuid, hostname) => {
 		Router.push(
 			{
 				pathname: `/client/${id}`,
-				query: { uuid: uuid }
+				query: { uuid: uuid, hostname: hostname }
 			}
 		);
 	};
@@ -245,7 +245,7 @@ const AllClients = () => {
 										{data.status ? "Online" : "Offline"}
 									</td>
 									<td>{Date(data.epoch)}</td>
-									<td onClick={() => handleRedirect(data.ipv4, data.id)}>
+									<td onClick={() => handleRedirect(data.ipv4, data.id, data.hostname)}>
 										<i class="fa fa-external-link" aria-hidden="true"></i>
 									</td>
 								</tr>

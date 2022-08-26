@@ -39,6 +39,8 @@ const Client = ({ props }) => {
   const router = useRouter();
   const [clientURL, setClientURL] = useState("");
   const [userDocId, setUserDocId] = useState("");
+  const [userhostname, setUserhostname] = useState("");
+
   const [ip, setip] = useState("");
 
 
@@ -57,6 +59,7 @@ const Client = ({ props }) => {
 
     setClientURL("http://" + router.query.id + ":8080");
     setUserDocId(router.query.uuid);
+    setUserhostname(router.query.hostname);
     setip(router.query.id);
 
 
@@ -141,7 +144,7 @@ const Client = ({ props }) => {
     // runCommand();
   };
 
-  const name = "OMEN-win";
+  const name = userhostname;
   const description = "Home PC";
   const url = ip;
   const last_seen = "online";
