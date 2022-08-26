@@ -32,7 +32,7 @@ export default async function handler(req, res) {
         // Options
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
         origin: '*',
-        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204`
      });
      // command to delete : 'Get-Package -Provider Programs -IncludeWindowsInstaller -Name "VLC media player" |  % { & ($_.Meta.Attributes["UninstallString"] -replace \'"\') /S}'
     // console.log(docs[0].id); 

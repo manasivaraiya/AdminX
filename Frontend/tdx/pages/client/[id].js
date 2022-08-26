@@ -273,7 +273,7 @@ const Client = ({ props }) => {
   };
 
   async function getSystemReport() {
-    // console.log("getsystemreport called");
+    console.log("getsystemreport called");
     try {
       if (clientURL === "") return;
       const res = await axios.get(clientURL + "/data");
@@ -283,10 +283,44 @@ const Client = ({ props }) => {
         const output2 = JSON.parse(res2.data.out);
         // const output = testJSON.output;
         // const output2 = testJSON.output2;
-        // console.log({ output, output2 });
+        console.log({ output, output2 });
+        const network_data = [];
+        for(var i=0; i<output.length; i++){
+          network_data.push({
+            ComputerName : output[i].ComputerName,
+            Interface : output[i].InterfaceAlias,
+            InterfaceDescription : output[i].InterfaceDescription
+          });
+        }
+        const network_details = [];
+        for(var i =0; i<output2.CsNetworkAdapters.length; i++){
+          network_details.push({
+            IPAddress : output2.CsNetworkAdapters[i].IPAddresses,
+            Interface : output2.CsNetworkAdapters[i].ConnectionID
+          });
+        }
+        const processors_details = [];
+        for(var i=0;i<output2.CsProcessors.length; i++){
+          processors_details.push({
+            Name : output2.CsProcessors[i].Name,
+            NumberOfCores : output2.CsProcessors[i].NumberOfCores,
+            Status : output2.CsProcessors[i].Status
+          });
+        }
         const data = {
-          network_data: output,
-          system_data: output2,
+          network_data: network_data,
+          system_data: {
+            ProductName : output2.WindowsProductName,
+            Owner : output2.WindowsRegisteredOwner,
+            SystemRootDir : output2.WindowsSystemRoot,
+            BiosName : output2.BiosName,
+            BiosStatus : output2.BiosStatus,
+            NetworkDetails : network_details,
+            Processors : processors_details,
+            Architecture : output2.OsArchitecture,
+            Language : output2.OsLanguage,
+            TimeZone : output2.TimeZone
+          },
         };
 
         let finalOutput = "";
@@ -316,17 +350,15 @@ const Client = ({ props }) => {
         return;
 
       };
-      // console.log("hereeeeeeeeeeeeeeeeeeeeee", res.data.out);
 
-      const res
-        = await axios.post(clientURL, data);
+      const res = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         // console.log(output);
         await saveApplications(output);
         setApps(output);
         getVulnerabilities(output);
-        getSystemReport();
+        await getSystemReport();
       }
     } catch (e) {
       console.error("Axios request failed", e);
