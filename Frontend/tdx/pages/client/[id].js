@@ -614,19 +614,32 @@ const Client = ({ props }) => {
           )}
       </Modal>
       <div className={styles.container} style={{ paddingBottom: "3em" }}>
-        <div className={styles.header}>
-          <h1 className={styles.profile_name}>{name}</h1>
-          <h3 className={styles.profile_desc}>{description}</h3>
+        <div className={styles.card}>
+          <h1 className={styles.profile_name}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              style={{ height: "20px", width: "20px", marginRight: "10px" }}
+            >
+              <path d="M224 256c70.7 0 128-57.31 128-128s-57.3-128-128-128C153.3 0 96 57.31 96 128S153.3 256 224 256zM274.7 304H173.3C77.61 304 0 381.6 0 477.3c0 19.14 15.52 34.67 34.66 34.67h378.7C432.5 512 448 496.5 448 477.3C448 381.6 370.4 304 274.7 304z" />
+            </svg>
+            {name}
+          </h1>
+          <h3 className={styles.profile_desc}>
+            <svg
+              style={{ height: "20px", width: "20px", marginRight: "10px" }}
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 512"
+            >
+              <path d="M128 96h384v256h64v-272c0-26.38-21.62-48-48-48h-416c-26.38 0-48 21.62-48 48V352h64V96zM624 383.1h-608c-8.75 0-16 7.25-16 16v16c0 35.25 28.75 64 64 64h512c35.25 0 64-28.75 64-64v-16C640 391.2 632.8 383.1 624 383.1z" />
+            </svg>
+            {description}
+          </h3>
           <h4 className={styles.profile_url}>{url}</h4>
           <div className={styles.profile_buttons}>
-            <Button
-              variant="filled"
-              mr="md"
-              size="sm"
-              style={{ backgroundColor: "#4caf50" }}
-            >
-              Connected
-            </Button>
+            <h5 style={{ color: "#4caf50", fontWeight: "bold" }}>
+              <span className={styles.dot}></span> Connected
+            </h5>
             {/* <Button
               variant="filled"
               size="sm"
@@ -638,7 +651,6 @@ const Client = ({ props }) => {
           {/* <h3>Last Seen: {last_seen}</h3>
                 <h3>Status: {status}</h3> */}
         </div>
-
         <div className={styles.tab_wrapper}>
           <Tabs color="violet" tabPadding="md">
             <Tabs.Tab label="Run Command" icon={<Terminal size={20} />}>
