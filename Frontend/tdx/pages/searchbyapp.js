@@ -22,6 +22,7 @@ import axios from 'axios';
 const searchbyapp = () => {
 
     const [application, setApplication] = useState("");
+    const [rows, setRows] = useState([]);
 
 
     function onKeyCapture(e) {
@@ -38,35 +39,37 @@ const searchbyapp = () => {
         const res = await axios.get("/api/app/users/" + application);
         console.log(res);
 
-        if (res.status == 200) {
-            
+        if (res.data) {
+            return res.data;
         }
-
-
-
-
-
-
-
+        else {
+            console.log("nothing")
+        }
     };
+
+
+
 
     return (
         <div>
             <ResponsiveAppBar />
             <div className="wrapper">
                 <Input
-                    // style={{ minWidth: "500px" }}
+                    style={{ maxWidth: "800px", padding: "20px 20px", margin: "20px 20px" }}
                     icon={<Search size={20} />}
                     placeholder="Name of the application"
                     onChange={(e) => setApplication(e.target.value)}
                     onKeyDownCapture={onKeyCapture}
                 />
                 <Button
-                    style={{ backgroundColor: "#673ab7", margin: "0px 20px" }}
-                    onClick={searchUsers}
+                    style={{ backgroundColor: "#673ab7", margin: "0px 20px", float: "20px 20px" }}
+                    onClick={() => { setRows(searchUsers) }}
                 >
                     Run
                 </Button>
+
+
+
             </div>
         </div>
     )
