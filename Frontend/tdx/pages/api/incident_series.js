@@ -26,7 +26,7 @@ export default async function handler(req, res) {
                 resp[Math.floor((now - incident.epoch) / 86400000)]++;
             }
         })
-        
+
     });
 
     await NextCors(req, res, {
@@ -34,15 +34,15 @@ export default async function handler(req, res) {
         methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-     });
+    });
 
-     try {
-        
-    res.status(200).json({ response: resp })
+    try {
+
+        res.status(200).json({ response: resp })
 
     } catch (e) {
-            console.error(e);
-            res.status(500).json({message: "Server error", Error: e});
+        console.error(e);
+        res.status(500).json({ message: "Server error", Error: e });
     }
 
 }

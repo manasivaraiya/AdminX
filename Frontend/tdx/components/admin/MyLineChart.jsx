@@ -29,25 +29,54 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Incidents Reported",
+      text: "Number of Incidents Reported (last 7 days)",
     },
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+// const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = [
+  "26-08-2022",
+  "25-08-2022",
+  "24-08-2022",
+  "23-08-2022",
+  "22-08-2022",
+  "21-08-2022",
+  "20-08-2022",
+];
 
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [1, 2, 3, 4, 5, 6, 7],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: "rgba(255, 99, 132, 0.5)",
-    },
-  ],
-};
-export default function App() {
+function getCurrentDate(diff, separator = "") {
+  let newDate = new Date();
+  let date = newDate.getDate() - diff;
+  let month = newDate.getMonth() + 1;
+  let year = newDate.getFullYear();
+
+  return `${date}${separator}${
+    month < 10 ? `0${month}` : `${month}`
+  }${separator}${year}`;
+}
+const lastSevenDates = [];
+for (let index = 0; index < 7; index++) {
+  lastSevenDates.push(getCurrentDate(index, "-"));
+}
+export default function App({ pastIncidents }) {
+  // console.log(0, getCurrentDate("-"));
+  // console.log("last are ", lastSevenDates);
+  // console.log("last are ", lastSevenDates);
+
+  // console.log(labels);
+  // console.log(pastIncidents);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Applications",
+        data: pastIncidents,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
   return <Line options={options} data={data} />;
 }
 

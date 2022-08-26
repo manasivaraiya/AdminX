@@ -27,6 +27,10 @@ const pages = [
 		name: "Reports",
 		href: "/reports",
 	},
+	{
+		name: "Dashboard",
+		href: "/admin",
+	},
 ];
 const settings = ["Account", "Dashboard", "Logout"];
 

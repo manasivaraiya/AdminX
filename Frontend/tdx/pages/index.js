@@ -13,6 +13,7 @@ import "firebaseui/dist/firebaseui.css";
 
 import "firebase/compat/firestore";
 import "firebase/compat/database";
+import ResponsiveAppBar from "../components/Navbar";
 
 const config = {
 	apiKey: "AIzaSyCcJCe1acm01EIceSP_xlZv5OUZd-BQfRw",
@@ -56,7 +57,7 @@ const FirebaseAuth = () => {
 			<Head>
 				<title>AdminX</title>
 				<meta name="description" content="#1B203E" />
-				<Navbar />
+				{/* <ResponsiveAppBar /> */}
 			</Head>
 			<main className={styles.main}>
 				<Image
