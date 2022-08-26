@@ -151,8 +151,8 @@ export default function Home() {
 							style={{ textDecoration: "none", color: "black" }}
 						>
 							<div className={styles.card}>
-								<h3>Reports</h3>
-								<p>Statistical view of all the data of the users available</p>
+								<h3>Mass Uninstall</h3>
+								<p>Search for an application on all the users PC and uninstall</p>
 							</div>
 						</a>
 					</div>
