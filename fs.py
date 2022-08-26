@@ -39,7 +39,7 @@ def report_incidence(file):
 
 
 class WatchDir:
-    watchDirectory = "D:/Downloads"
+    watchDirectory = "C:\\Users\\Jayesh\\Downloads"
 
     def __init__(self):
         self.observer = Observer()
