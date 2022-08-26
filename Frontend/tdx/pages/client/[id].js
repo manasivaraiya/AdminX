@@ -350,7 +350,6 @@ const Client = ({ props }) => {
         return;
 
       };
-      console.log("hereeeeeeeeeeeeeeeeeeeeee", res.data.out);
 
       const res = await axios.post(clientURL, data);
       if (res && res.status == 200) {
