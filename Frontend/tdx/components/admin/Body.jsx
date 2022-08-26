@@ -1,5 +1,5 @@
 import { Grid, Card, Text, Space, ThemeIcon, Group } from "@mantine/core";
-import { AlertCircle, PlugConnected, ReportMoney } from "tabler-icons-react";
+import { Archive, AppsOff, ReportAnalytics } from "tabler-icons-react";
 import MyLineChart from "./MyLineChart";
 import MyPieChart from "./MyPieChart";
 import { useEffect, useState } from "react";
@@ -49,7 +49,7 @@ function AdminBody() {
                 </Text>
               </div>
               <ThemeIcon size="xl">
-                <ReportMoney />
+                <ReportAnalytics />
               </ThemeIcon>
             </Group>
           </Card>
@@ -66,7 +66,7 @@ function AdminBody() {
                 </Text>
               </div>
               <ThemeIcon size="xl" color="red">
-                <AlertCircle />
+                <Archive />
               </ThemeIcon>
             </Group>
           </Card>
@@ -76,14 +76,14 @@ function AdminBody() {
             <Group position="apart">
               <div>
                 <Text color="gray" size="xs">
-                  Yes to think
+                  Vulnerable Applications
                 </Text>
                 <Text weight={700} size="xl">
                   12
                 </Text>
               </div>
-              <ThemeIcon size="xl" color="green">
-                <PlugConnected />
+              <ThemeIcon size="xl" color="orange">
+                <AppsOff />
               </ThemeIcon>
             </Group>
           </Card>
