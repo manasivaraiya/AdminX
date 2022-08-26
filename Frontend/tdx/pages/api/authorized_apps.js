@@ -4,7 +4,7 @@ import NextCors from 'nextjs-cors';
 
 
 export default async function handler(req, res) {
-    console.log("here");
+    console.log("--------------------Authorized Apps called--------------------");
     console.log((req.body));
     const req_app = req.body.name;
     // const req_app = "VLC Media Player";
@@ -20,9 +20,11 @@ export default async function handler(req, res) {
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
      });
     if (data) {
+        console.log ("returned data: ", data);
         res.status(200).json({ data })
     }
     else {
+        console.log ("Error");
         res.status(404).json({ message: "Not found" })
     }
 }
