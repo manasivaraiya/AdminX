@@ -2,12 +2,30 @@ import { Grid, Card, Text, Space, ThemeIcon, Group } from "@mantine/core";
 import { AlertCircle, PlugConnected, ReportMoney } from "tabler-icons-react";
 import MyLineChart from "./MyLineChart";
 import MyPieChart from "./MyPieChart";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function AdminBody() {
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+  const [activeUsers, setActiveUsers] = useState([]);
+
+  const getTotalAtive = async () => {
+    const res = axios.get("/api/number_of_agents");
+    console.log(res);
+    if (res.data) {
+      return res.data;
+    } else {
+      return {};
+    }
+  };
+  useEffect(() => {
+    getTotalAtive();
+  }, []);
+
   return (
-    <>
+    <div style={{ padding: "0rem 40px" }}>
       <Space h="md" />
-      <h1>Dashboard</h1>
+      <h1>Organization Overview</h1>
       <Space h="md" />
 
       {/* Three Cards */}
@@ -17,10 +35,10 @@ function AdminBody() {
             <Group position="apart">
               <div>
                 <Text color="gray" size="xs">
-                  Money Saved
+                  Total Incidents
                 </Text>
                 <Text weight={700} size="xl">
-                  $2,400
+                  140
                 </Text>
               </div>
               <ThemeIcon size="xl">
@@ -34,10 +52,10 @@ function AdminBody() {
             <Group position="apart">
               <div>
                 <Text color="gray" size="xs">
-                  Threats Averted
+                  Total Apps Uninstalled by Admin
                 </Text>
                 <Text weight={700} size="xl">
-                  420
+                  15
                 </Text>
               </div>
               <ThemeIcon size="xl" color="red">
@@ -51,7 +69,7 @@ function AdminBody() {
             <Group position="apart">
               <div>
                 <Text color="gray" size="xs">
-                  Active Connections
+                  Yes to think
                 </Text>
                 <Text weight={700} size="xl">
                   12
@@ -67,15 +85,19 @@ function AdminBody() {
 
       {/* Charts */}
       <Space h="md" />
-      <Grid>
+      <Grid gutter={12}>
         <Grid.Col span={5}>
-          <MyPieChart />
+          <Card>
+            <MyPieChart />
+          </Card>
         </Grid.Col>
         <Grid.Col span={7}>
-          <MyLineChart />
+          <Card>
+            <MyLineChart />
+          </Card>
         </Grid.Col>
       </Grid>
-    </>
+    </div>
   );
 }
 

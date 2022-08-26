@@ -40,12 +40,24 @@ const Client = ({ props }) => {
   const [clientURL, setClientURL] = useState("");
   const [userDocId, setUserDocId] = useState("");
 
-
+  function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+  }
   useEffect(() => {
-    if (!router.isReady) { return };
+    if (!router.isReady) {
+      // console.log("exit")
+      return
+    };
+    // console.log("entry")
+    console.log(router.query);
+
+    // console.log(clientURL);
+
     setClientURL("http://" + router.query.id + ":8080");
-    console.log(clientURL);
     setUserDocId(router.query.uuid);
+
+
+
 
   }, [router.isReady]);
 
@@ -103,7 +115,7 @@ const Client = ({ props }) => {
 
   const succStatus = () => toast.success("Success");
   const failStatus = () => toast.error("Failure");
-  
+
 
   const handleUninstall = async (name) => {
     // console.log(name);
@@ -114,11 +126,11 @@ const Client = ({ props }) => {
     });
 
     // console.log(res)
-    if((res.data.err).length > 0){
+    if ((res.data.err).length > 0) {
       // window.alert('ERROR')
-     failStatus()
+      failStatus()
     }
-    else{
+    else {
       succStatus()
     }
 
@@ -146,16 +158,16 @@ const Client = ({ props }) => {
     }
   }
 
-  const saveApplications = async (data) =>{
-    try{
+  const saveApplications = async (data) => {
+    try {
       const list = {
-        installed_apps : data
+        installed_apps: data
       };
-      
+
       firestore
-          .collection("Users")
-          .doc(userDocId) // Later
-          .update(list);
+        .collection("Users")
+        .doc(userDocId) // Later
+        .update(list);
     } catch (e) {
       console.error("failed", e);
       setCommandOutput("Error");
@@ -171,8 +183,10 @@ const Client = ({ props }) => {
 
     try {
       if (clientURL === "" || userDocId === "") return;
+      // console.log("wil wiat")
       const res = await axios.post(clientURL, data);
       // console.log({ res, status: res.status });
+      console.log("doneeeeeee")
       if (res && res.status == 200) {
         // const output = JSON.parse(res.data);
         // console.log(res.data);
@@ -280,13 +294,24 @@ const Client = ({ props }) => {
   }
 
   async function onMounted() {
+    if (userDocId === "" || clientURL === "") return;
+    console.log("insided mounted")
     getLogs();
+
+    console.log(clientURL);
+    console.log(userDocId)
     const data = {
       command:
         "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     };
     try {
-      if (clientURL === "") return;
+      if (clientURL === "") {
+        console.log("returning while getting apps")
+        return;
+
+      };
+      // console.log("hereeeeeeeeeeeeeeeeeeeeee", res.data.out);
+
       const res
         = await axios.post(clientURL, data);
       if (res && res.status == 200) {
@@ -302,7 +327,7 @@ const Client = ({ props }) => {
     }
   }
 
-  useEffect(onMounted, []);
+  useEffect(onMounted, [clientURL, userDocId]);
 
   const CRITICALITY = {
     LOW: "#2196f3",
@@ -335,7 +360,7 @@ const Client = ({ props }) => {
               strokeWidth={2}
               color={"#ff0000"}
               // onClick={() => handleUninstall(element.Name)}
-              onClick = {()=>submit(element.Name)}
+              onClick={() => submit(element.Name)}
             />
           </td>
           <td>
@@ -370,7 +395,10 @@ const Client = ({ props }) => {
 
   async function getLogs() {
     try {
-      if (userDocId === "") return;
+      if (userDocId === "") {
+        // console.log("exiting logs")
+        return;
+      };
       const docSnapshots = await firestore
         .collection("Users")
         .doc(userDocId)
@@ -378,6 +406,7 @@ const Client = ({ props }) => {
         .get();
       const docs = docSnapshots.docs.map((doc) => doc.data());
       docs.sort((a, b) => a.timestamp > b.timestamp);
+      // console.log("done with logs", docs)
       setLogs(docs);
     } catch (e) {
       console.error("Error while fetching logs", e);

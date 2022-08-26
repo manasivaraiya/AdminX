@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import gif from "../utils/connection.png";
 import styles from "../styles/Home.module.css";
-export default function dashboard() {
+export default function Reports() {
 	const [elements, setElements] = useState([]);
 	// const { user, logout } = useUser();
 

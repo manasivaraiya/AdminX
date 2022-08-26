@@ -11,29 +11,24 @@ import Link from "next/link";
 import gif from "../utils/lpt.png";
 import logo from "../utils/logo.png";
 import styles from "../styles/Home.module.css";
-export default function dashboard() {
-	const [elements, setElements] = useState([]);
-	// const { user, logout } = useUser();
-	const [devices, setDevices] = useState([]);
+export default function Home() {
 
 	const getallUsers = async () => {
 		const data = await getUsers();
 		console.log(typeof data);
 		console.log("data is", data);
-		setElements(data);
 		// console.log(typeof (elements));
 		// data.forEach((user) => console.log(user));
 	};
 
 	const scanAllDevices = async () => {
 		const res = await axios.get("/api/get_clients");
-		setDevices(res.data.devices);
 		console.log(res.data.devices);
 	};
 
-	useEffect(() => {
-		getallUsers();
-	}, []);
+	// useEffect(() => {
+	// 	getallUsers();
+	// }, []);
 
 	const handleRedirect = (id, uuid) => {
 		Router.push({

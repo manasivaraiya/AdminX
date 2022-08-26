@@ -6,11 +6,11 @@ function AdminHome() {
   return (
     <AppShell
       padding="md"
-      navbar={
-        <Navbar width={{ base: 300 }} height={500} p="xs">
-            <h1>Hmm</h1>
-        </Navbar>
-      }
+      // navbar={
+      //   <Navbar width={{ base: 200 }} height={500} p="xs">
+      //     <h1>Hmm</h1>
+      //   </Navbar>
+      // }
       header={
         <CustomNavbar />
         // <Header height={60} p="xs">
@@ -27,7 +27,7 @@ function AdminHome() {
         },
       })}
     >
-        <AdminBody />
+      <AdminBody />
     </AppShell>
   );
 }

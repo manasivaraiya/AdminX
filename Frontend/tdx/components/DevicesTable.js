@@ -46,7 +46,7 @@ export default function DevicesTable({ rows, elements }) {
             <Table stickyHeader sx={{ minWidth: 600 }} aria-label="customized table">
                 <TableHead >
                     <TableRow >
-                        <StyledTableCell style={{ backgroundColor: '#1B203E', color: 'white' }}>Sr no</StyledTableCell>
+                        <StyledTableCell style={{ backgroundColor: '#1B203E', color: 'white' }} align="right">Sr no</StyledTableCell>
                         <StyledTableCell style={{ backgroundColor: '#1B203E', color: 'white' }} align="right">IP Address</StyledTableCell>
                         <StyledTableCell style={{ backgroundColor: '#1B203E', color: 'white' }} align="right">MAC Address</StyledTableCell>
                         <StyledTableCell style={{ backgroundColor: '#1B203E', color: 'white' }} align="right">Agent Installed</StyledTableCell>

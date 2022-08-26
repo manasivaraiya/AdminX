@@ -63,7 +63,7 @@ function SimpleDialog(props) {
 		</Dialog>
 	);
 }
-export default function dashboard() {
+const AllClients = () => {
 	const [elements, setElements] = useState([]);
 	// const { user, logout } = useUser();
 	const [devices, setDevices] = useState([]);
@@ -264,3 +264,5 @@ SimpleDialog.propTypes = {
 	open: PropTypes.bool.isRequired,
 	selectedValue: PropTypes.string.isRequired,
 };
+
+export default AllClients;
