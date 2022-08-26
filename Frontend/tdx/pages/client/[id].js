@@ -405,7 +405,7 @@ const Client = ({ props }) => {
         .collection("Logs")
         .get();
       const docs = docSnapshots.docs.map((doc) => doc.data());
-      docs.sort((a, b) => a.timestamp > b.timestamp);
+      docs.sort((a, b) => a.timestamp<  b.timestamp);
       // console.log("done with logs", docs)
       setLogs(docs);
     } catch (e) {
