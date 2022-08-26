@@ -8,13 +8,20 @@ import axios from "axios";
 function AdminBody() {
   const [registeredUsers, setRegisteredUsers] = useState([]);
   const [activeUsers, setActiveUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getTotalAtive = async () => {
-    const res = axios.get("/api/number_of_agents");
+    setLoading(true);
+    const res = await axios.get("/api/number_of_agents");
     console.log(res);
     if (res.data) {
+      console.log("indiseeeeeee");
+      setActiveUsers(res.data.registered_devices);
+      setRegisteredUsers(res.data.total_devices);
+      setLoading(false);
       return res.data;
     } else {
+      setLoading(false);
       return {};
     }
   };
@@ -88,7 +95,13 @@ function AdminBody() {
       <Grid gutter={12}>
         <Grid.Col span={5}>
           <Card>
-            <MyPieChart />
+            {!loading && registeredUsers && activeUsers && (
+              <MyPieChart
+                loading={loading}
+                registeredUsers={registeredUsers}
+                activeUsers={activeUsers}
+              />
+            )}
           </Card>
         </Grid.Col>
         <Grid.Col span={7}>
