@@ -39,6 +39,8 @@ const Client = ({ props }) => {
   const router = useRouter();
   const [clientURL, setClientURL] = useState("");
   const [userDocId, setUserDocId] = useState("");
+  const [ip, setip] = useState("");
+
 
   function delay(time) {
     return new Promise(resolve => setTimeout(resolve, time));
@@ -55,6 +57,7 @@ const Client = ({ props }) => {
 
     setClientURL("http://" + router.query.id + ":8080");
     setUserDocId(router.query.uuid);
+    setip(router.query.id);
 
 
 
@@ -139,8 +142,8 @@ const Client = ({ props }) => {
   };
 
   const name = "OMEN-win";
-  const description = "Jayesh's Home PC";
-  const url = "192.168.198.169";
+  const description = "Home PC";
+  const url = ip;
   const last_seen = "online";
   const status = "active";
 
@@ -316,7 +319,7 @@ const Client = ({ props }) => {
         = await axios.post(clientURL, data);
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
-        console.log(output);
+        // console.log(output);
         await saveApplications(output);
         setApps(output);
         getVulnerabilities(output);
@@ -405,7 +408,7 @@ const Client = ({ props }) => {
         .collection("Logs")
         .get();
       const docs = docSnapshots.docs.map((doc) => doc.data());
-      docs.sort((a, b) => a.timestamp<  b.timestamp);
+      docs.sort((a, b) => a.timestamp < b.timestamp);
       // console.log("done with logs", docs)
       setLogs(docs);
     } catch (e) {

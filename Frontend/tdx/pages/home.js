@@ -136,7 +136,7 @@ export default function Home() {
 					<div class="col-md-2 "></div>
 					<div className="col-md-4 ">
 						<a
-							href="/reports"
+							href="/admin"
 							style={{ textDecoration: "none", color: "black" }}
 						>
 							<div className={styles.card}>
