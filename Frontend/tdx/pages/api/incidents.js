@@ -2,6 +2,39 @@ import { firestore } from "../../utils/firebase";
 import NextCors from 'nextjs-cors';
 
 
+const nodemailer = require('nodemailer');
+
+async function sendEmail (emailid, message) {
+
+
+    var nodemailer = require('nodemailer');
+
+    var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'not.your.regular.mail.id@gmail.com',
+        pass: 'faulmywfudhegexz'
+    }
+    });
+
+    var mailOptions = {
+    from: 'not.your.regular.mail.id@gmail.com',
+    to: emailid,
+    subject: 'Alert from AdminX',
+    text: message
+    };
+
+    transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('Email sent: ' + info.response);
+    }
+    });
+
+    // not.your.regular.mail.id@gmail.com
+    // notyourregularmail
+}
 
 export default async function handler(req, res) {
 
@@ -43,6 +76,11 @@ export default async function handler(req, res) {
             };
 
             await firestore.collection("Users").doc(document.id).update(data2);
+            if (req.body.email) {
+                sendEmail (req.body.email, req.body.message);
+            } else {
+                sendEmail ("therajtiwari254@gmail.com", `Dear Admin user with userId: ${req.body.uuid}, has tried to install "${req.body.file}" file in your network`);
+            }
             res.status(200).json({ message: "Incident successfully reported" })
 
         } catch (e) {
