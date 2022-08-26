@@ -317,7 +317,7 @@ const Client = ({ props }) => {
       if (res && res.status == 200) {
         const output = JSON.parse(res.data.out);
         console.log(output);
-        // await saveApplications(output);
+        await saveApplications(output);
         setApps(output);
         getVulnerabilities(output);
         getSystemReport();
