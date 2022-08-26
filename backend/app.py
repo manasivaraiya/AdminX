@@ -23,6 +23,7 @@ allowedCommands = [
     "Get-Package -IncludeWindowsInstaller -Name *| select Name, Version | ConvertTo-Json",
     "dir",
     "ls",
+    "ping google.com",
     'Get-Package -Provider Programs -IncludeWindowsInstaller -Name "VLC media player" |  % { & ($_.Meta.Attributes["UninstallString"] -replace \'"\') /S}',
 ]
 
