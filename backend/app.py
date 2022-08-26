@@ -130,7 +130,7 @@ def register_pc():
     data = {"hostname": hostname, "ipv4": ipv4, "uuid": uuuid, "epoch": ts}
     print(data)
     try:
-        post = requests.post(url="http://192.168.198.55:3000/api/status", data=data)
+        post = requests.post(url="http://192.168.192.118:3000/api/status", data=data)
         print(post.status_code)
     except Exception as e:
         print(e)
